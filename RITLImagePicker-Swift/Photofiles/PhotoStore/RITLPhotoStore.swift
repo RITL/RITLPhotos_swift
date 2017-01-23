@@ -112,7 +112,23 @@ class RITLPhotoStore : NSObject
     
                 defaultAllGroups.append(contentsOf:topLevelArray as! [PHAssetCollection])
                 
-                groups(defaultAllGroups,result)
+                //进行主线程回调
+                if Thread.isMainThread {
+                    
+                    groups(defaultAllGroups,result); return
+                }
+                
+                DispatchQueue.global().async {
+                    
+                    //主线程刷新UI
+                    DispatchQueue.main.async {
+                        
+                        groups(defaultAllGroups,result)
+                        
+                    }
+                    
+                }
+                
             })
             
         }
@@ -142,16 +158,16 @@ class RITLPhotoStore : NSObject
     /// - Parameter _: 获取到的回调closer
     private func ritl_fetchBasePhotosGroup(complete:@escaping ((PHFetchResult<PHAssetCollection>?) -> Void))
     {
-        //获取智能分组
-        let smartGroups = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.smartAlbum, subtype: PHAssetCollectionSubtype.albumRegular, options: nil)
         
         ritl_checkAuthorizationState(allow: { () in
+            
+            //获取智能分组
+            let smartGroups = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.smartAlbum, subtype: PHAssetCollectionSubtype.albumRegular, options: nil)
             
             // 准许
             complete(smartGroups)
             
         }, denied: {() in}) //不允许，不进行操作
-        
     }
     
     
