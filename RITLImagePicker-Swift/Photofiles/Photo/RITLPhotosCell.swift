@@ -209,7 +209,7 @@ class RITLPhotosCell: UICollectionViewCell
             make.bottom.equalTo(strongSelf!.ritl_messageView)
             make.height.equalTo(20)
         }
-        
     }
+    
 }
 

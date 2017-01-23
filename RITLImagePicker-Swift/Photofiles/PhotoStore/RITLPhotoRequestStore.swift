@@ -61,7 +61,7 @@ class RITLPhotoRequestStore: NSObject
     }
     
     
-    
+
     
     /// 获取资源中图片的数据对象
     ///

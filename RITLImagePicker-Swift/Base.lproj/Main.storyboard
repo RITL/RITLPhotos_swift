@@ -39,7 +39,11 @@
                         <color key="backgroundColor" red="0.96445935964584351" green="1" blue="0.7160038948059082" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Sg4-Ix-3nw">
-                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="Etx-TG-RFE"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="Etx-TG-RFE">
+                            <connections>
+                                <action selector="__refreshCollectionView:" destination="XPw-0u-1Vm" id="YM7-18-Qcz"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Photo" id="g2i-QN-yeY">
                             <connections>
                                 <action selector="__presentPhotoViewController:" destination="XPw-0u-1Vm" id="Kej-40-dpp"/>
@@ -49,7 +53,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tun-vh-32W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="102" y="54"/>
+            <point key="canvasLocation" x="68" y="54"/>
         </scene>
     </scenes>
 </document>

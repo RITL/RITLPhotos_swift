@@ -32,20 +32,23 @@ class RITLMainViewController: UIViewController
 
     
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-
-       
         view.addSubview(collectionView)
-        
-        
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func __refreshCollectionView(_ sender: Any) {
+        
+        self.images.removeAll()
+        self.collectionView.reloadData()
+    }
     
     /// 弹出图片控制器
     ///

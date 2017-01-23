@@ -41,6 +41,7 @@ class RITLPhotoCacheManager: NSObject {
     /// - Parameter count: 初始化的长度
     func ritl_memset(assetIsPictureSignal count:Int)
     {
+        assetIsPictureSignal.removeAll()
         assetIsPictureSignal = [Bool](repeating:false,count:count)
     }
     
@@ -50,7 +51,8 @@ class RITLPhotoCacheManager: NSObject {
     /// - Parameter count: 初始化长度
     func ritl_memset(assetIsSelectedSignal count:Int)
     {
-        assetIsSelectedSignal = [Bool](repeatElement(false, count: count))
+        assetIsSelectedSignal.removeAll()
+        assetIsSelectedSignal = [Bool](repeating:false, count: count)
     }
     
 

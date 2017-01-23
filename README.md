@@ -8,6 +8,7 @@ Photos.framework是iOS8后苹果推出的一套替代AssetsLibrary.framework获�
 <div align="center"><img src="http://7xruse.com1.z0.glb.clouddn.com/RITLPhotos.gif" height=500></img></div>
 <br>
 用法比较简单:
+
 ```
 let viewController : RITLPhotoNavigationViewController = RITLPhotoNavigationViewController()
 

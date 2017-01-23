@@ -51,11 +51,11 @@ class RITLPhotoGroupViewController: UITableViewController {
     
     fileprivate func bindViewModel()
     {
-        viewModel.dismissClosure = { [weak self] in
-            
-            let strongSelf = self
+        viewModel.dismissClosure = {[weak self] in
 
-            strongSelf!.dismiss(animated: true, completion: nil)
+            let strongSelf = self
+            
+            strongSelf?.dismiss(animated: true, completion: nil)
 
         }
         
@@ -78,17 +78,19 @@ class RITLPhotoGroupViewController: UITableViewController {
             //跳转viewController
             let viewController = RITLPhotosViewController()
 
+            //viewController的viewModel
             let viewModel = viewController.viewModel
                 
             //设置标题
             viewModel.navigationTitle = (collection as! PHAssetCollection).localizedTitle!
             viewModel.assetCollection = (collection as! PHAssetCollection)
                 
-            strongSelf!.navigationController?.pushViewController(viewController, animated: animate)
+            strongSelf?.navigationController?.pushViewController(viewController, animated: animate)
             
         }
         
     }
+    
     
     fileprivate func ritl_tableView(_ tableView:UITableView, didSelectRowAt indexPath:IndexPath, animated:Bool)
     {
@@ -106,18 +108,17 @@ class RITLPhotoGroupViewController: UITableViewController {
 
 extension RITLPhotoGroupViewController
 {
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         
         return viewModel.numberOfSections()
     }
     
     
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return viewModel.tableView(section)
     }
-    
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -128,28 +129,29 @@ extension RITLPhotoGroupViewController
             
             cell.ritl_titleLabel?.text = (realTime as! String)
             cell.ritl_imageView?.image = (image as! UIImage)
-            
         }
 
         return cell as UITableViewCell
-        
     }
+    
 }
 
 
 extension RITLPhotoGroupViewController
 {
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         //消除痕迹
         tableView.deselectRow(at: indexPath, animated: false)
         
         ritl_tableView(tableView, didSelectRowAt: indexPath, animated: true)
-        
     }
+    
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return CGFloat(viewModel.tableViewModel(heightForCellRowAt: indexPath))
     }
+    
 }

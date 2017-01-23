@@ -28,6 +28,12 @@ class RITLPhotoGroupViewModel: RITLBaseViewModel
     /// 点击相册触发的闭包
     var selectedCompletion : PhotoGroupSelectedClosure?
     
+    /// 请求图片对象的store
+    fileprivate let photoStore = RITLPhotoStore()
+    
+    /// 存放所有组的数据源
+    fileprivate var groups = [PHAssetCollection]()
+    
     /// 控制器模态弹回，触发dismissGroupBlock
     func dismiss()
     {
@@ -103,19 +109,9 @@ class RITLPhotoGroupViewModel: RITLBaseViewModel
     ///   - animated: 是否进行动画跳转
     func groupViewModel(ritl_didSelectRowAt indexPath:IndexPath, animated:Bool)
     {
-        self.selectedCompletion?(assetCollection(indexPathAt: indexPath) as id,indexPath as id,animated)
+        self.selectedCompletion!(assetCollection(indexPathAt: indexPath) as id,indexPath as id,animated)
     }
-    
-    
-    // MARK: private
-    fileprivate let photoStore = RITLPhotoStore()
-    fileprivate var groups = [PHAssetCollection]()
-    
-//    deinit
-//    {
-//        print("\(self.self)deinit")
-//    }
-//    
+
 }
 
 

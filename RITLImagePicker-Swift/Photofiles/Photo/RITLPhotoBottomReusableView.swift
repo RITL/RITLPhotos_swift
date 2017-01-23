@@ -15,11 +15,11 @@ class RITLPhotoBottomReusableView: UICollectionReusableView
     var ritl_numberOfAsset = 0 {
         
         willSet{
-           
+        
             self.ritl_assetLabel.text = "共有\(newValue)张照片"
-            
         }
     }
+    
     
     /// 在标签上的自定义文字
     var ritl_customText = "" {
@@ -28,8 +28,8 @@ class RITLPhotoBottomReusableView: UICollectionReusableView
             
             self.ritl_assetLabel.text = newValue
         }
-        
     }
+    
     
     /// 显示title的标签
     var ritl_assetLabel : UILabel = {
@@ -41,9 +41,7 @@ class RITLPhotoBottomReusableView: UICollectionReusableView
         assetLabel.textColor = .colorValue(with: 0x6F7179)
         
         return assetLabel
-        
     }()
-    
     
     
     override init(frame: CGRect) {
@@ -51,7 +49,6 @@ class RITLPhotoBottomReusableView: UICollectionReusableView
         super.init(frame: frame)
         layoutOwnSubviews()
     }
-    
     
     
      required init?(coder aDecoder: NSCoder) {

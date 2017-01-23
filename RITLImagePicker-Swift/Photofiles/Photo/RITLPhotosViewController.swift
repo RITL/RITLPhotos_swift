@@ -22,31 +22,130 @@ class RITLPhotosViewController: UIViewController
     var viewModel = RITLPhotosViewModel()
     
     
-    /// 更新选中的图片数
-    ///
-    /// - Parameter numberOfAssets: 选中的图片数
-    func update(_ numberOfAssets:UInt)
-    {
-        let hidden = numberOfAssets == 0
+    /// 显示的集合视图
+    fileprivate lazy var collectionView : UICollectionView = {
         
-        numberOfLabel.isHidden = hidden
+        var collectionView :UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - 44),collectionViewLayout:UICollectionViewFlowLayout())
         
-        if !hidden {
-            
-            numberOfLabel.text = "\(numberOfAssets)"
-            numberOfLabel.transform = CGAffineTransform(scaleX: 0.1,y: 0.1)
-            
-            UIView.animate(withDuration: 0.3, animations: { 
-                
-                self.numberOfLabel.transform = .identity
-            })
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        if #available(iOS 10, *)
+        {
+            collectionView.prefetchDataSource = self
         }
-    }
+        
+        collectionView.backgroundColor = .white
+        
+        //register
+        collectionView.register(RITLPhotosCell.self, forCellWithReuseIdentifier: ritl_photos_cellIdentifier)
+        collectionView.register(RITLPhotoBottomReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: ritl_photos_resuableViewIdentifier)
+        
+        
+        return collectionView
+        
+    }()
+    
+    
+    /// 底部的tabBar
+    fileprivate lazy var bottomBar : UITabBar = {
+        
+        return UITabBar(frame:CGRect(x: 0, y: self.view.bounds.height - 44, width: self.view.bounds.width, height:44))
+        
+    }()
+    
+    
+    /// 预览按钮
+    fileprivate lazy var bowerButton : UIButton = {
+        
+        var button = UIButton(frame: CGRect(x: 5, y: 5, width: 60, height: 30))
+        button.center = CGPoint(x: button.center.x, y: self.bottomBar.bounds.height / 2)
+        
+        button.setTitle("预览", for: .normal)
+        button.setTitle("预览", for: .disabled)
+        
+        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(UIColor.black.withAlphaComponent(0.25), for: .disabled)
+        
+        button.titleLabel?.font = .systemFont(ofSize: 15)
+        button.titleLabel?.textAlignment = .center
+        
+        button.showsTouchWhenHighlighted = true
+        
+        //默认不可点击
+        button.isEnabled = false
+        
+        //响应
+        button.action(at: .touchUpInside, handle: { [weak self](sender) in
+            
+            let strongSelf = self
+            
+            strongSelf?.viewModel.pushBrowerControllerByBrowerButtonTap()
+            
+        })
+        
+        return button
+    }()
+    
+    
+    /// 发送按钮
+    fileprivate lazy var sendButton : UIButton = {
+        
+        var button : UIButton = UIButton(frame: CGRect(x: self.bottomBar.bounds.width - 50 - 5, y: 0, width: 50, height: 40))
+        
+        button.center = CGPoint(x: button.center.x, y: self.bottomBar.bounds.height / 2)
+        
+        button.setTitle("发送", for: .normal)
+        button.setTitle("发送", for: .disabled)
+        
+        button.setTitleColor(.colorValue(with: 0x2dd58a), for: .normal)
+        button.setTitleColor(UIColor.colorValue(with: 0x2DD58A)?.withAlphaComponent(0.25), for: .disabled)
+        
+        button.titleLabel?.font = .systemFont(ofSize: 15)
+        button.titleLabel?.textAlignment = .center
+        
+        button.showsTouchWhenHighlighted = true
+        
+        //默认不可用
+        button.isEnabled = false
+        
+        //发送
+        button.action(at: .touchUpInside, handle: {[weak self] (sender) in
+            
+            let strongSelf = self
+            
+            strongSelf!.viewModel.photoDidSelectedComplete()
+        })
+        
+        return button
+        
+    }()
+    
+    
+    /// 显示数目的标签
+    fileprivate lazy var numberOfLabel : UILabel = {
+        
+        var label : UILabel = UILabel(frame: CGRect(x: self.sendButton.frame.origin.x - 20, y: 0, width: 20, height: 20))
+        label.center = CGPoint(x: label.center.x, y: self.sendButton.center.y)
+        
+        label.backgroundColor = .colorValue(with: 0x2dd58a)
+        label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 14)
+        label.text = ""
+        label.isHidden = true
+        label.textColor = .white
+        label.layer.cornerRadius = label.bounds.width / 2.0
+        label.clipsToBounds = true
+        
+        return label
+    }()
+
     
     // MARK: private
     
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -84,8 +183,6 @@ class RITLPhotosViewController: UIViewController
     }
     
 
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -97,7 +194,28 @@ class RITLPhotosViewController: UIViewController
         print("\(self.self)deinit")
     }
     
-
+    
+    /// 更新选中的图片数
+    ///
+    /// - Parameter numberOfAssets: 选中的图片数
+    func update(_ numberOfAssets:UInt)
+    {
+        let hidden = numberOfAssets == 0
+        
+        numberOfLabel.isHidden = hidden
+        
+        if !hidden {
+            
+            numberOfLabel.text = "\(numberOfAssets)"
+            numberOfLabel.transform = CGAffineTransform(scaleX: 0.1,y: 0.1)
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                
+                self.numberOfLabel.transform = .identity
+            })
+        }
+    }
+    
 
     /// 绑定viewModel的响应
     fileprivate func bindViewModel()
@@ -151,7 +269,7 @@ class RITLPhotosViewController: UIViewController
                 
                 //检测发送按钮的可用性
                 strongSelf?.viewModel.ritl_checkSendStatusChanged()
-        
+                
             }
             
             //进入下一个浏览控制器
@@ -160,139 +278,15 @@ class RITLPhotosViewController: UIViewController
     }
     
     
-    /// 显示的集合视图
-    fileprivate lazy var collectionView : UICollectionView = {
-        
-        var collectionView :UICollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height - 44),collectionViewLayout:UICollectionViewFlowLayout())
-        
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        if #available(iOS 10, *)
-        {
-            collectionView.prefetchDataSource = self
-        }
-        
-        collectionView.backgroundColor = .white
-        
-        //register
-        collectionView.register(RITLPhotosCell.self, forCellWithReuseIdentifier: ritl_photos_cellIdentifier)
-        collectionView.register(RITLPhotoBottomReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: ritl_photos_resuableViewIdentifier)
-        
-        
-        return collectionView
-    
-    }()
-    
-    
-    
-    /// 底部的tabBar
-    fileprivate lazy var bottomBar : UITabBar = {
-        
-        return UITabBar(frame:CGRect(x: 0, y: self.view.bounds.height - 44, width: self.view.bounds.width, height:44))
-        
-    }()
-    
-    
-    
-    /// 预览按钮
-    fileprivate lazy var bowerButton : UIButton = {
-        
-        var button = UIButton(frame: CGRect(x: 5, y: 5, width: 60, height: 30))
-        button.center = CGPoint(x: button.center.x, y: self.bottomBar.bounds.height / 2)
-        
-        button.setTitle("预览", for: .normal)
-        button.setTitle("预览", for: .disabled)
-        
-        button.setTitleColor(.black, for: .normal)
-        button.setTitleColor(UIColor.black.withAlphaComponent(0.25), for: .disabled)
-        
-        button.titleLabel?.font = .systemFont(ofSize: 15)
-        button.titleLabel?.textAlignment = .center
-        
-        button.showsTouchWhenHighlighted = true
-        
-        //默认不可点击
-        button.isEnabled = false
-        
-        //响应
-        button.action(at: .touchUpInside, handle: { [weak self](sender) in
-            
-            let strongSelf = self
-            
-            strongSelf?.viewModel.pushBrowerControllerByBrowerButtonTap()
-            
-        })
-        
-        return button
-    }()
-    
-    
-    
-    /// 发送按钮
-    fileprivate lazy var sendButton : UIButton = {
-        
-        var button : UIButton = UIButton(frame: CGRect(x: self.bottomBar.bounds.width - 50 - 5, y: 0, width: 50, height: 40))
-        
-        button.center = CGPoint(x: button.center.x, y: self.bottomBar.bounds.height / 2)
-        
-        button.setTitle("发送", for: .normal)
-        button.setTitle("发送", for: .disabled)
-        
-        button.setTitleColor(.colorValue(with: 0x2dd58a), for: .normal)
-        button.setTitleColor(UIColor.colorValue(with: 0x2DD58A)?.withAlphaComponent(0.25), for: .disabled)
-        
-        button.titleLabel?.font = .systemFont(ofSize: 15)
-        button.titleLabel?.textAlignment = .center
-        
-        button.showsTouchWhenHighlighted = true
-        
-        //默认不可用
-        button.isEnabled = false
-        
-        //发送
-        button.action(at: .touchUpInside, handle: {[weak self] (sender) in
-        
-            let strongSelf = self
-
-            strongSelf!.viewModel.photoDidSelectedComplete()
-        })
-        
-        return button
-        
-    }()
-    
-    
-    
-    /// 显示数目的标签
-    fileprivate lazy var numberOfLabel : UILabel = {
-       
-        var label : UILabel = UILabel(frame: CGRect(x: self.sendButton.frame.origin.x - 20, y: 0, width: 20, height: 20))
-        label.center = CGPoint(x: label.center.x, y: self.sendButton.center.y)
-        
-        label.backgroundColor = .colorValue(with: 0x2dd58a)
-        label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 14)
-        label.text = ""
-        label.isHidden = true
-        label.textColor = .white
-        label.layer.cornerRadius = label.bounds.width / 2.0
-        label.clipsToBounds = true
-        
-        return label
-    }()
-    
-    
-    
     @objc fileprivate func dimiss()
     {
         self .dismiss(animated: true) { }
     }
 }
 
+
 extension RITLPhotosViewController : UICollectionViewDelegateFlowLayout
 {
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -342,8 +336,8 @@ extension RITLPhotosViewController : UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         (cell as! RITLPhotosCell).selected(viewModel.viewModel(imageDidSelectedAt: indexPath))
-        
     }
+    
 }
 
 
@@ -385,8 +379,8 @@ extension RITLPhotosViewController : UICollectionViewDataSource
                 
                 sender.selected((self?.viewModel.viewModel(imageDidSelectedAt: indexPath))!)
             }
-
         }
+        
         
         //响应3D Touch
         if #available(iOS 9.0, *) {
@@ -426,7 +420,6 @@ extension RITLPhotosViewController : UICollectionViewDataSourcePrefetching
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         
         viewModel.collectonViewModel(prefetchItemsAt: indexPaths)
-    
     }
     
     
