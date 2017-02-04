@@ -191,7 +191,8 @@ class RITLPhotoHandleManager: NSObject
         PHCachingImageManager.default().requestImageData(for: asset, options: options) { (data, dataUTI, orientation, info) in
             
             //进行数据转换
-            let size = ritl_dataSize((data?.count)!)
+//            let size = ritl_dataSize((data?.count)!)
+            let size = ((data?.count)?.ritl_dataSize)!
             
             //新增值
             assicciateData.updateValue(size, forKey: NSStringFromCGSize(newSize))

@@ -98,8 +98,10 @@ class RITLPhotosViewController: UIViewController
         button.setTitle("发送", for: .normal)
         button.setTitle("发送", for: .disabled)
         
-        button.setTitleColor(.colorValue(with: 0x2dd58a), for: .normal)
-        button.setTitleColor(UIColor.colorValue(with: 0x2DD58A)?.withAlphaComponent(0.25), for: .disabled)
+//        button.setTitleColor(.colorValue(with: 0x2dd58a), for: .normal)
+//        button.setTitleColor(UIColor.colorValue(with: 0x2DD58A)?.withAlphaComponent(0.25), for: .disabled)
+        button.setTitleColor(0x2dd58a.ritl_color, for: .normal)
+        button.setTitleColor(0x2DD58A.ritl_color.withAlphaComponent(0.25), for: .disabled)
         
         button.titleLabel?.font = .systemFont(ofSize: 15)
         button.titleLabel?.textAlignment = .center
@@ -128,7 +130,8 @@ class RITLPhotosViewController: UIViewController
         var label : UILabel = UILabel(frame: CGRect(x: self.sendButton.frame.origin.x - 20, y: 0, width: 20, height: 20))
         label.center = CGPoint(x: label.center.x, y: self.sendButton.center.y)
         
-        label.backgroundColor = .colorValue(with: 0x2dd58a)
+//        label.backgroundColor = .colorValue(with: 0x2dd58a)
+        label.backgroundColor = 0x2dd58a.ritl_color
         label.textAlignment = .center
         label.font = .boldSystemFont(ofSize: 14)
         label.text = ""
@@ -366,7 +369,8 @@ extension RITLPhotosViewController : UICollectionViewDataSource
             if !isImage {
                 
                 cell?.ritl_messageView.isHidden = isImage
-                cell?.ritl_messageLabel.text = ritl_timeFormat(timeDuation)
+//                cell?.ritl_messageLabel.text = ritl_timeFormat(timeDuation)
+                cell?.ritl_messageLabel.text = timeDuation.ritl_time
             }
         }
         

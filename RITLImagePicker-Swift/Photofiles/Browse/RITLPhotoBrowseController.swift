@@ -49,7 +49,8 @@ class RITLPhotoBrowseController: UIViewController
     /// - Parameter isHight: 是否为高清状态
     func update(sizeForHightQuarity isHight:Bool)
     {
-        let signColor = isHight ? UIColor.colorValue(with: 0x2dd58a) :  UIColor.darkGray
+//        let signColor = isHight ? UIColor.colorValue(with: 0x2dd58a) :  UIColor.darkGray
+        let signColor = isHight ? 0x2dd58a.ritl_color :  UIColor.darkGray
         let textColor = isHight ? UIColor.white : UIColor.darkGray
         
         // 设置UI
@@ -101,7 +102,8 @@ class RITLPhotoBrowseController: UIViewController
         let topBar : UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 64))
         
         topBar.barStyle = .black
-        topBar.setBackgroundImage(ritl_image(in: UIColor.black.withAlphaComponent(0.6)), for: UIBarMetrics.default)
+//        topBar.setBackgroundImage(ritl_image(in: UIColor.black.withAlphaComponent(0.6)), for: UIBarMetrics.default)
+        topBar.setBackgroundImage(UIColor.black.withAlphaComponent(0.6).ritl_image, for: UIBarMetrics.default)
         
         return topBar
     }()
@@ -154,7 +156,8 @@ class RITLPhotoBrowseController: UIViewController
         let bottomBar :UITabBar = UITabBar(frame: CGRect(x: 0, y: self.view.bounds.height - 44, width: self.view.bounds.width, height: 44))
         
         bottomBar.barStyle = .black
-        bottomBar.backgroundImage = ritl_image(in: UIColor.black.withAlphaComponent(0.6))
+//        bottomBar.backgroundImage = ritl_image(in: UIColor.black.withAlphaComponent(0.6))
+        bottomBar.backgroundImage = UIColor.black.withAlphaComponent(0.6).ritl_image
         
         return bottomBar
     }()
@@ -189,7 +192,8 @@ class RITLPhotoBrowseController: UIViewController
         label.textAlignment = .center
         label.font = .boldSystemFont(ofSize: 14)
         label.text = "8"
-        label.backgroundColor = .colorValue(with: 0x2dd58a)
+//        label.backgroundColor = .colorValue(with: 0x2dd58a)
+        label.backgroundColor = 0x2dd58a.ritl_color
         label.textColor = .white
         label.layer.cornerRadius = label.bounds.size.height / 2
         label.clipsToBounds = true

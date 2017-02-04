@@ -18,7 +18,8 @@ class RITLMainViewController: UIViewController
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        collectionView.backgroundColor = UIColor.colorValue(with: 0xF6FFB7)
+//        collectionView.backgroundColor = UIColor.colorValue(with: 0xF6FFB7)
+        collectionView.backgroundColor = 0xF6FFB7.ritl_color
         
         collectionView.register(RITLPhotosCell.self, forCellWithReuseIdentifier: "Cell")
         

@@ -38,7 +38,8 @@ class RITLPhotoBottomReusableView: UICollectionReusableView
         
         assetLabel.font = .systemFont(ofSize: 14)
         assetLabel.textAlignment = .center
-        assetLabel.textColor = .colorValue(with: 0x6F7179)
+//        assetLabel.textColor = .colorValue(with: 0x6F7179)
+        assetLabel.textColor = 0x6F7179.ritl_color
         
         return assetLabel
     }()
