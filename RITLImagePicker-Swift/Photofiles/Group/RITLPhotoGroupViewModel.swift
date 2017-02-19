@@ -40,6 +40,11 @@ class RITLPhotoGroupViewModel: RITLBaseViewModel
         dismissClosure?()
     }
     
+    deinit {
+        
+        RITLPhotoCacheManager.sharedInstance.reset()
+    }
+    
     
     /// 请求获取默认的相册组，完成触发fetchGroupsCompletion
     func fetchDefaultGroups()

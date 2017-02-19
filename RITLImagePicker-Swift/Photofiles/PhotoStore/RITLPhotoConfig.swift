@@ -14,8 +14,9 @@ class RITLPhotoConfig: NSObject
     
     /// 配置选项，默认为如下
     static var groupNames : [String] = [
-        
+    
         NSLocalizedString(ConfigurationCameraRoll, comment: ""),
+        NSLocalizedString(ConfigurationAllPhotos, comment: ""),
         NSLocalizedString(ConfigurationSlo_mo, comment: ""),
         NSLocalizedString(ConfigurationScreenshots, comment: ""),
         NSLocalizedString(ConfigurationVideos, comment: ""),
@@ -25,6 +26,17 @@ class RITLPhotoConfig: NSObject
         
     ]
     
+//    /// 默认不需要展示的选项
+//    static var ignoreGroupNames : [String] = [
+//    
+//        NSLocalizedString(ConfigurationHidden, comment: ""),
+//        NSLocalizedString(ConfigurationTime_lapse, comment: ""),
+//        NSLocalizedString(ConfigurationRecentlyDeleted, comment: ""),
+//        NSLocalizedString(ConfigurationBursts, comment: ""),
+//        NSLocalizedString(ConfigurationFavorite, comment: ""),
+//    
+//    ]
+//    
     
     /// 获得的配置选项
     var groups : [String]{

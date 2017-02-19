@@ -223,7 +223,7 @@ class RITLPhotoStore : NSObject
             
             guard let collectionTitle = collection.localizedTitle else { continue }
             
-            if collectionTitle.isEqual(NSLocalizedString(ConfigurationCameraRoll, comment: ""))
+            if collectionTitle.isEqual(NSLocalizedString(ConfigurationAllPhotos, comment: "")) || collectionTitle.isEqual(NSLocalizedString(ConfigurationCameraRoll,comment:""))
             {
                 collections.remove(at: i)
                 collections.insert(collection, at: 0)

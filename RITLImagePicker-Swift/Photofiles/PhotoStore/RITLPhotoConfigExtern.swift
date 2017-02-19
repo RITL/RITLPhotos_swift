@@ -9,8 +9,11 @@
 import Foundation
 
 
+
 /// 相机胶卷
 let ConfigurationCameraRoll : String = "Camera Roll"
+/// iOS10.2后将Camera Roll变为了All Photos
+let ConfigurationAllPhotos : String = "All Photos"
 /// 隐藏
 let ConfigurationHidden : String = "Hidden"
 /// 慢动作

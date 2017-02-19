@@ -73,7 +73,7 @@ extension Int {
         
         guard self < 0 else {
             
-            return UIColor.black
+            return UIColor.white
         }
         
         let red = (CGFloat)((self & 0xFF0000) >> 16) / 255.0

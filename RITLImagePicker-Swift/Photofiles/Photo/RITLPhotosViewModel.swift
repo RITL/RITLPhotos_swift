@@ -187,7 +187,8 @@ class RITLPhotosViewModel: RITLBaseViewModel
     
     deinit {
         
-        cacheManager.freeAllSignal()
+//        cacheManager.freeAllSignal()
+        cacheManager.free()
         print("\(self.self)deinit")
     }
     

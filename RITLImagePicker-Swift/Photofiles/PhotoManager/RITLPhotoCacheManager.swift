@@ -75,8 +75,23 @@ class RITLPhotoCacheManager: NSObject {
     }
     
     
+    func free(){
+     
+        numberOfSelectedPhoto = 0
+        isHightQuarity = false
+        assetIsSelectedSignal = [Bool]()
+        assetIsPictureSignal = [Bool]()
+    }
+    
+    
+    func reset(){
+        
+        maxNumeberOfSelectedPhoto = 9
+    }
+    
     
     /// 还原所有的资源
+    @available(iOS,deprecated: 8.0,message: "Use free() and reset() instead")
     func freeAllSignal ()
     {
         numberOfSelectedPhoto = 0
