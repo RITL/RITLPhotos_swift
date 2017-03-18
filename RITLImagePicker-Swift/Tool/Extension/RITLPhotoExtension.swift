@@ -71,7 +71,7 @@ extension Int {
     /// 16进制数值获得颜色
     public var ritl_color : UIColor {
         
-        guard self < 0 else {
+        guard self > 0 else {
             
             return UIColor.white
         }
