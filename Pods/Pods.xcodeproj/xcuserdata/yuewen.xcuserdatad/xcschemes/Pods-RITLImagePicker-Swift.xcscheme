@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DBCF86511DED12B40054A410"
-               BuildableName = "RITLImagePicker-Swift.app"
-               BlueprintName = "RITLImagePicker-Swift"
-               ReferencedContainer = "container:RITLImagePicker-Swift.xcodeproj">
+               BlueprintIdentifier = "EC545396DF1E6772515AAE2FAC8C2AF5"
+               BuildableName = "libPods-RITLImagePicker-Swift.a"
+               BlueprintName = "Pods-RITLImagePicker-Swift"
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DBCF86511DED12B40054A410"
-            BuildableName = "RITLImagePicker-Swift.app"
-            BlueprintName = "RITLImagePicker-Swift"
-            ReferencedContainer = "container:RITLImagePicker-Swift.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -51,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DBCF86511DED12B40054A410"
-            BuildableName = "RITLImagePicker-Swift.app"
-            BlueprintName = "RITLImagePicker-Swift"
-            ReferencedContainer = "container:RITLImagePicker-Swift.xcodeproj">
+            BlueprintIdentifier = "EC545396DF1E6772515AAE2FAC8C2AF5"
+            BuildableName = "libPods-RITLImagePicker-Swift.a"
+            BlueprintName = "Pods-RITLImagePicker-Swift"
+            ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -70,16 +60,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DBCF86511DED12B40054A410"
-            BuildableName = "RITLImagePicker-Swift.app"
-            BlueprintName = "RITLImagePicker-Swift"
-            ReferencedContainer = "container:RITLImagePicker-Swift.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

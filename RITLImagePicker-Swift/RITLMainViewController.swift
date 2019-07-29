@@ -16,12 +16,12 @@ class RITLMainViewController: UIViewController
         let collectionView : UICollectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
         
         collectionView.delegate = self
-        collectionView.dataSource = self
+//        collectionView.dataSource = self
         
 //        collectionView.backgroundColor = UIColor.colorValue(with: 0xF6FFB7)
-        collectionView.backgroundColor = 0xF6FFB7.ritl_color
+//        collectionView.backgroundColor = 0xF6FFB7.ritl_color
         
-        collectionView.register(RITLPhotosCell.self, forCellWithReuseIdentifier: "Cell")
+//        collectionView.register(RITLPhotosCell.self, forCellWithReuseIdentifier: "Cell")
         
         
         return collectionView
@@ -54,32 +54,32 @@ class RITLMainViewController: UIViewController
     /// 弹出图片控制器
     ///
     /// - Parameter sender: Photo Barbutton
-    @IBAction func __presentPhotoViewController(_ sender: Any)
+    @IBAction private func presentPhotoViewController(_ sender: Any)
     {
         //获得控制器
-        let viewController : RITLPhotoNavigationViewController = RITLPhotoNavigationViewController()
-        
-        //设置viewModel属性
-        let viewModel = viewController.viewModel
-        
-        // 获得图片
-        viewModel.completeUsingImage = {(images) in
-            
-            self.images = images
-            
-            self.collectionView.reloadData()
-        }
-        
-        // 获得资源的data数据
-        viewModel.completeUsingData = {(datas) in
-            
-            //coding for data ex: uploading..
-            print("data = \(datas)")
-        }
-        
-
-        
-        self.present(viewController, animated: true) {}
+//        let viewController : RITLPhotoNavigationViewController = RITLPhotoNavigationViewController()
+//
+//        //设置viewModel属性
+//        let viewModel = viewController.viewModel
+//
+//        // 获得图片
+//        viewModel.completeUsingImage = {(images) in
+//
+//            self.images = images
+//
+//            self.collectionView.reloadData()
+//        }
+//
+//        // 获得资源的data数据
+//        viewModel.completeUsingData = {(datas) in
+//
+//            //coding for data ex: uploading..
+//            print("data = \(datas)")
+//        }
+//
+//
+//
+//        self.present(viewController, animated: true) {}
     }
     
 }
@@ -112,21 +112,21 @@ extension RITLMainViewController : UICollectionViewDelegateFlowLayout
 
 
 
-extension RITLMainViewController : UICollectionViewDataSource
+extension RITLMainViewController/* : UICollectionViewDataSource*/
 {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return images.count
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! RITLPhotosCell
-        
-        cell.ritl_imageView.image = self.images[indexPath.item]
-        cell.ritl_chooseImageView.isHidden = true
-        
-        return cell
-    }
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//
+//        return images.count
+//    }
+//
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//
+////        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! RITLPhotosCell
+//
+//        cell.ritl_imageView.image = self.images[indexPath.item]
+//        cell.ritl_chooseImageView.isHidden = true
+//
+//        return cell
+//    }
 }
