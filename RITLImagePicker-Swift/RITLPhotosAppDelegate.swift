@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class RITLAppDelegate: UIResponder, UIApplicationDelegate {
+class RITLPhotosAppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 

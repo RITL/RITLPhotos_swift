@@ -14,9 +14,9 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EC545396DF1E6772515AAE2FAC8C2AF5"
-               BuildableName = "libPods-RITLImagePicker-Swift.a"
-               BlueprintName = "Pods-RITLImagePicker-Swift"
+               BlueprintIdentifier = "19622742EBA51E823D6DAE3F8CDBFAD4"
+               BuildableName = "libSnapKit.a"
+               BlueprintName = "SnapKit"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

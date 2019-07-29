@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RITLMainViewController: UIViewController
+class RITLPhotoMainViewController: UIViewController
 {
     
     lazy var collectionView : UICollectionView = {
@@ -88,7 +88,7 @@ class RITLMainViewController: UIViewController
 
 
 
-extension RITLMainViewController : UICollectionViewDelegateFlowLayout
+extension RITLPhotoMainViewController : UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -112,7 +112,7 @@ extension RITLMainViewController : UICollectionViewDelegateFlowLayout
 
 
 
-extension RITLMainViewController/* : UICollectionViewDataSource*/
+extension RITLPhotoMainViewController/* : UICollectionViewDataSource*/
 {
 //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //

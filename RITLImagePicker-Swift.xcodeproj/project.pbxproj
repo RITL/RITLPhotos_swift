@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		A988843EA5269BE1B9BA761B /* libPods-RITLImagePicker-Swift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D168CDFAE20DB74D5D962034 /* libPods-RITLImagePicker-Swift.a */; };
-		DBCF86561DED12B40054A410 /* RITLAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCF86551DED12B40054A410 /* RITLAppDelegate.swift */; };
+		DBCF86561DED12B40054A410 /* RITLPhotosAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCF86551DED12B40054A410 /* RITLPhotosAppDelegate.swift */; };
 		DBCF865B1DED12B40054A410 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBCF86591DED12B40054A410 /* Main.storyboard */; };
 		DBCF865D1DED12B40054A410 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBCF865C1DED12B40054A410 /* Assets.xcassets */; };
 		DBCF86601DED12B40054A410 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBCF865E1DED12B40054A410 /* LaunchScreen.storyboard */; };
-		DBCF86681DED14DD0054A410 /* RITLMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCF86671DED14DD0054A410 /* RITLMainViewController.swift */; };
+		DBCF86681DED14DD0054A410 /* RITLPhotoMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCF86671DED14DD0054A410 /* RITLPhotoMainViewController.swift */; };
 		DBCF866F1DED16260054A410 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBCF866E1DED16260054A410 /* Photos.framework */; };
 /* End PBXBuildFile section */
 
@@ -21,15 +21,13 @@
 		AAD06A803868C85127784DBA /* Pods-RITLImagePicker-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RITLImagePicker-Swift.debug.xcconfig"; path = "Target Support Files/Pods-RITLImagePicker-Swift/Pods-RITLImagePicker-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		D168CDFAE20DB74D5D962034 /* libPods-RITLImagePicker-Swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RITLImagePicker-Swift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBCF86521DED12B40054A410 /* RITLImagePicker-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RITLImagePicker-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DBCF86551DED12B40054A410 /* RITLAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLAppDelegate.swift; sourceTree = "<group>"; };
+		DBCF86551DED12B40054A410 /* RITLPhotosAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosAppDelegate.swift; sourceTree = "<group>"; };
 		DBCF865A1DED12B40054A410 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DBCF865C1DED12B40054A410 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBCF865F1DED12B40054A410 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBCF86611DED12B40054A410 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DBCF86671DED14DD0054A410 /* RITLMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLMainViewController.swift; sourceTree = "<group>"; };
+		DBCF86671DED14DD0054A410 /* RITLPhotoMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoMainViewController.swift; sourceTree = "<group>"; };
 		DBCF866E1DED16260054A410 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		DBDE9E121E30A205009ECEC2 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
-		DBDE9E141E30A298009ECEC2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,16 +52,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		DB3BD2B322EEF3200068657B /* Photos */ = {
+		DB3BD2B322EEF3200068657B /* RITLPhotos */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Photos;
+			path = RITLPhotos;
 			sourceTree = "<group>";
 		};
 		DBCF86491DED12B40054A410 = {
 			isa = PBXGroup;
 			children = (
+				DB3BD2B322EEF3200068657B /* RITLPhotos */,
 				DBCF86541DED12B40054A410 /* RITLImagePicker-Swift */,
 				DBCF86531DED12B40054A410 /* Products */,
 				DBCF866D1DED16260054A410 /* Frameworks */,
@@ -82,9 +81,8 @@
 		DBCF86541DED12B40054A410 /* RITLImagePicker-Swift */ = {
 			isa = PBXGroup;
 			children = (
-				DB3BD2B322EEF3200068657B /* Photos */,
-				DBCF86551DED12B40054A410 /* RITLAppDelegate.swift */,
-				DBCF86671DED14DD0054A410 /* RITLMainViewController.swift */,
+				DBCF86551DED12B40054A410 /* RITLPhotosAppDelegate.swift */,
+				DBCF86671DED14DD0054A410 /* RITLPhotoMainViewController.swift */,
 				DBCF86591DED12B40054A410 /* Main.storyboard */,
 				DBCF865C1DED12B40054A410 /* Assets.xcassets */,
 				DBCF865E1DED12B40054A410 /* LaunchScreen.storyboard */,
@@ -96,8 +94,6 @@
 		DBCF866D1DED16260054A410 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DBDE9E141E30A298009ECEC2 /* libz.tbd */,
-				DBDE9E121E30A205009ECEC2 /* Reveal.framework */,
 				DBCF866E1DED16260054A410 /* Photos.framework */,
 				D168CDFAE20DB74D5D962034 /* libPods-RITLImagePicker-Swift.a */,
 			);
@@ -205,8 +201,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBCF86681DED14DD0054A410 /* RITLMainViewController.swift in Sources */,
-				DBCF86561DED12B40054A410 /* RITLAppDelegate.swift in Sources */,
+				DBCF86681DED14DD0054A410 /* RITLPhotoMainViewController.swift in Sources */,
+				DBCF86561DED12B40054A410 /* RITLPhotosAppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,7 +353,7 @@
 				INFOPLIST_FILE = "RITLImagePicker-Swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yue.RITL-ImagePicker-Swift";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yue.RITLImagePicker-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -377,7 +373,7 @@
 				INFOPLIST_FILE = "RITLImagePicker-Swift/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yue.RITL-ImagePicker-Swift";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yue.RITLImagePicker-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
