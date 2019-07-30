@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1Z9-Gp-wbj">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,7 +14,7 @@
             <objects>
                 <navigationController id="1Z9-Gp-wbj" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gxP-1m-XJU">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -30,7 +34,7 @@
                         <viewControllerLayoutGuide type="bottom" id="CaP-BI-dIG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nw0-rO-Ufw">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96445935964584351" green="1" blue="0.7160038948059082" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -42,7 +46,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Photo" id="g2i-QN-yeY">
                             <connections>
-                                <action selector="__presentPhotoViewController:" destination="XPw-0u-1Vm" id="Kej-40-dpp"/>
+                                <action selector="presentPhotoViewController:" destination="XPw-0u-1Vm" id="wWL-jZ-SZa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

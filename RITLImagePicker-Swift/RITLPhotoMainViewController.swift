@@ -19,7 +19,7 @@ class RITLPhotoMainViewController: UIViewController
 //        collectionView.dataSource = self
         
 //        collectionView.backgroundColor = UIColor.colorValue(with: 0xF6FFB7)
-//        collectionView.backgroundColor = 0xF6FFB7.ritl_color
+        collectionView.backgroundColor = .white
         
 //        collectionView.register(RITLPhotosCell.self, forCellWithReuseIdentifier: "Cell")
         
@@ -54,34 +54,9 @@ class RITLPhotoMainViewController: UIViewController
     /// 弹出图片控制器
     ///
     /// - Parameter sender: Photo Barbutton
-    @IBAction private func presentPhotoViewController(_ sender: Any)
-    {
-        //获得控制器
-//        let viewController : RITLPhotoNavigationViewController = RITLPhotoNavigationViewController()
-//
-//        //设置viewModel属性
-//        let viewModel = viewController.viewModel
-//
-//        // 获得图片
-//        viewModel.completeUsingImage = {(images) in
-//
-//            self.images = images
-//
-//            self.collectionView.reloadData()
-//        }
-//
-//        // 获得资源的data数据
-//        viewModel.completeUsingData = {(datas) in
-//
-//            //coding for data ex: uploading..
-//            print("data = \(datas)")
-//        }
-//
-//
-//
-//        self.present(viewController, animated: true) {}
+    @IBAction private func presentPhotoViewController(_ sender: Any) {
+        self.present(RITLPhotosViewController(), animated: true) {}
     }
-    
 }
 
 
