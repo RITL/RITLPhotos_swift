@@ -9,7 +9,7 @@
 import UIKit
 
 /// RITLPhotosPicker 的 启动控制器
-final class RITLPhotosViewController: UINavigationController {
+final public class RITLPhotosViewController: UINavigationController {
 
     convenience init() { self.init(nibName: nil, bundle: nil) }
     
@@ -27,7 +27,7 @@ final class RITLPhotosViewController: UINavigationController {
     }
 
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.

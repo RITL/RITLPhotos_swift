@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 /// RITLPhotos - 展示分组的界面
-final class RITLPhotosGroupTableViewController: UITableViewController {
+final public class RITLPhotosGroupTableViewController: UITableViewController {
 
     /// 图片库
     private let photoLibrary = PHPhotoLibrary.shared()
@@ -23,7 +23,7 @@ final class RITLPhotosGroupTableViewController: UITableViewController {
     /// 片刻相册组
     private var moment: PHFetchResult<PHCollection>?
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
 
         //navigationItem
@@ -35,7 +35,7 @@ final class RITLPhotosGroupTableViewController: UITableViewController {
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
+    override public func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard regularGroups.isEmpty && momentGroups.isEmpty else { return }
         //加载图片
@@ -101,17 +101,17 @@ extension RITLPhotosGroupTableViewController {
     
     // MARK: - Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override public func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? regularGroups.count : momentGroups.count
     }
     
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         //进行获取
         let cell = tableView.dequeueReusableCell(withIdentifier: "groupCell", for: indexPath)

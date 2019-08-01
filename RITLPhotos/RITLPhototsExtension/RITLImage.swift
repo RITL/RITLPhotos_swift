@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 fileprivate extension Bundle {
 
     ///RITLImagePicker-Swift的bundle
@@ -21,7 +20,6 @@ fileprivate extension Bundle {
         return Bundle(path: bundlePath)
     }
 }
-
 
 
 fileprivate extension String {

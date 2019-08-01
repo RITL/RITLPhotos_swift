@@ -9,7 +9,7 @@
 import UIKit
 
 /// RITLPhotos - 展示分组的cell
-final class RITLPhotosGroupCell: UITableViewCell {
+public final class RITLPhotosGroupCell: UITableViewCell {
 
     /// 展示图片的imageView
     @IBOutlet weak var leadingImageView: UIImageView!
