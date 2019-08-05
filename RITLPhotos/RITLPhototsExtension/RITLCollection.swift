@@ -29,7 +29,7 @@ private struct RITLCollectionMakerCache {
     }
     
     /// 删除所有
-    static func moveAll(){
+    static func removeAll(){
         share.cache.removeAll()
     }
 }
@@ -56,16 +56,24 @@ extension RITLCollectionMaker {
 extension PHAssetCollection: RITLCollectionMaker { }
 extension RITLCollectionMaker where Self: PHAssetCollection {
     
+    /// 移除所有的缓存
+    static func removeAllCache(){
+        RITLCollectionMakerCache.removeAll()
+    }
+    
+    
     func image(size: CGSize,
                mode: PHImageRequestOptionsDeliveryMode,
                complete:@escaping ((String?,Int,UIImage?) -> ())) {
         //获得图片对象
-        guard let assetResult = PHAsset.fetchKeyAssets(in: self, options: nil),assetResult.count > 0, let lastResult = assetResult.lastObject else {
-            complete(localizedTitle, 0, nil); return
+        let assetResult = PHAsset.fetchAssets(in: self, options: nil)
+        guard assetResult.count > 0, let lastResult = assetResult.lastObject else {
+            complete(localizedTitle, 0, RITLPhotosImage.placeholder.image()); return
         }
-        
+
         //查询缓存
         if let cacheImage = RITLCollectionMakerCache.image(for: "\(lastResult.localIdentifier)_group")  {
+            print("我有缓存")
             complete(self.localizedTitle, assetResult.count, cacheImage); return
         }
 

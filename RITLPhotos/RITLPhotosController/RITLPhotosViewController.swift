@@ -18,7 +18,8 @@ final public class RITLPhotosViewController: UINavigationController {
 
         //避免iOS13的presnet= .auto
         modalPresentationStyle = .fullScreen
-        viewControllers = [RITLViewControllers.group.viewController()]
+        viewControllers = [RITLPhotosGroupTableViewController(),
+                           RITLPhotosCollectionViewController()]
     }
 
 

@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 /// RITLPhotos - 展示分组的界面
-final public class RITLPhotosGroupTableViewController: UITableViewController {
+final class RITLPhotosGroupTableViewController: UITableViewController {
 
     /// 图片库
     private let photoLibrary = PHPhotoLibrary.shared()
@@ -23,23 +23,33 @@ final public class RITLPhotosGroupTableViewController: UITableViewController {
     /// 片刻相册组
     private var moment: PHFetchResult<PHCollection>?
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
 
         //navigationItem
         navigationItem.title = "照片"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .done, target: self, action: #selector(dismissPhotoControllers))
         
+        
         //tableView
+        tableView.estimatedRowHeight = 0
+        tableView.rowHeight = 60
+        tableView.register(RITLPhotosGroupCell.self, forCellReuseIdentifier: "groupCell")
         tableView.tableFooterView = UIView()
     }
     
     
-    override public func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard regularGroups.isEmpty && momentGroups.isEmpty else { return }
         //加载图片
         loadGroupCollections()
+    }
+    
+    
+    deinit {
+        PHAssetCollection.removeAllCache()
+        print("\(type(of: self)) I am dealloc")
     }
 
     
@@ -94,6 +104,7 @@ extension RITLPhotosGroupTableViewController {
         regularGroups = regularCollections
         momentGroups = momentCollections
     }
+
 }
 
 
@@ -101,17 +112,17 @@ extension RITLPhotosGroupTableViewController {
     
     // MARK: - Table view data source
     
-    override public func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
     
-    override public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? regularGroups.count : momentGroups.count
     }
     
     
-    override public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         //进行获取
         let cell = tableView.dequeueReusableCell(withIdentifier: "groupCell", for: indexPath)
@@ -120,7 +131,6 @@ extension RITLPhotosGroupTableViewController {
         guard let groupCell = cell as? RITLPhotosGroupCell, let collection = collection(at: indexPath) else { return cell }
         
         collection.image(size: CGSize(width: 30, height: 30), mode: .opportunistic) { (title, count, image) in
-            
             if let title = title {
                 groupCell.titleLabel.text = "\(title)  (\(count))"
             }
@@ -129,7 +139,18 @@ extension RITLPhotosGroupTableViewController {
 
         return groupCell
     }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //跳转到详情视图
+        guard let assetCollection = collection(at: indexPath) else { return }
+       
+        let viewController = RITLPhotosCollectionViewController(localIdentifier: assetCollection.localIdentifier)
+        viewController.navigationItem.title = NSLocalizedString(assetCollection.localizedTitle ?? "相册", comment: "")
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
+
 
 fileprivate extension RITLPhotosGroupTableViewController {
     

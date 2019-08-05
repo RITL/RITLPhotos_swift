@@ -10,6 +10,16 @@ import Foundation
 import UIKit
 
 fileprivate extension Bundle {
+    
+    /// RITLPhotos 的主 Bundle
+    static func ritl_MainBunle() -> Bundle {
+        return Bundle(for: RITLPhotosViewController.self)
+    }
+}
+
+
+
+fileprivate extension Bundle {
 
     ///RITLImagePicker-Swift的bundle
     static func ritl_bundle() -> Bundle? {
@@ -27,41 +37,41 @@ fileprivate extension String {
     func ritl_bundleImage() -> UIImage? {
         /// 获得本地资源bundle路径
         guard let path = Bundle.ritl_bundle()?.resourcePath else { return nil }
-        return UIImage(contentsOfFile: "\(path)\(self)")
+        return UIImage(contentsOfFile: "\(path)/\(self)")
     }
 }
 
 
 /// RITLPhotos 使用的图片
-enum RITLImage: String {
+enum RITLPhotosImage: String {
     
     //相册组
     
     /// 占位图
-    case placeholder = "ritl_placeholder"
+    case placeholder = "ritl_placeholder.png"
     /// 右侧的箭头
-    case arrowRight = "ritl_arrow_right"
+    case arrowRight = "ritl_arrow_right.png"
     
     //集合视图
     
     /// 集合视图
-    case deselect = "ritl_deselect"
+    case deselect = "ritl_deselect.png"
     
     //浏览视图
     
     /// 浏览右上角的选中
-    case browerSelect = "ritl_brower_selected"
+    case browerSelect = "ritl_brower_selected.png"
     /// 浏览左上角的返回
-    case browseBack = "ritl_browse_back"
+    case browseBack = "ritl_browse_back.png"
     /// 浏览下方原图选中
-    case borwseBottomSelecte = "ritl_bottomSelected"
+    case borwseBottomSelecte = "ritl_bottomSelected.png"
     /// 浏览下方原图未选中
-    case borwseBottomDeselecte = "ritl_bottomUnselected"
+    case borwseBottomDeselecte = "ritl_bottomUnselected.png"
     /// 视频播放
-    case videoPlayer = "ritl_video_play"
+    case videoPlayer = "ritl_video_play.png"
 }
 
-extension RITLImage {
+extension RITLPhotosImage {
     
     /// RITLPhotos 
     func image() -> UIImage? {
