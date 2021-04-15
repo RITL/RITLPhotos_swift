@@ -8,8 +8,7 @@
 
 import UIKit
 
-class RITLPhotoMainViewController: UIViewController
-{
+class RITLPhotoMainViewController: UIViewController {
     
     lazy var collectionView : UICollectionView = {
        
