@@ -116,3 +116,121 @@ extension Int{
 
 
 
+final class RITLPhotosPhoneHeaderUtility: NSObject {
+    /// 默认值为空字符串
+    static var hasPhoneHeaderStatus = ""
+    
+    static func setHasNotPhoneHeader() {
+        RITLPhotosPhoneHeaderUtility.hasPhoneHeaderStatus = "0"
+    }
+    
+    static func setHasPhoneHeader() {
+        RITLPhotosPhoneHeaderUtility.hasPhoneHeaderStatus = "1"
+    }
+    
+    static func hasPhoneHeader() -> Bool {
+        return RITLPhotosPhoneHeaderUtility.hasPhoneHeaderStatus == "1"
+    }
+}
+
+
+/// 刘海屏判断
+public func hasPhoneHeader() -> Bool {
+    //如果缓存为空，进行判断
+    guard RITLPhotosPhoneHeaderUtility.hasPhoneHeaderStatus.isEmpty else {
+        print("我是取得缓存,我\(RITLPhotosPhoneHeaderUtility.hasPhoneHeader() ? "" : "不")是刘海屏")
+        return RITLPhotosPhoneHeaderUtility.hasPhoneHeader()
+    }
+    
+    print("deivice = \(UIScreen.main.bounds)")
+    //安全
+    guard #available(iOS 11.0, *) else { RITLPhotosPhoneHeaderUtility.setHasNotPhoneHeader(); return false }
+//    print(UIApplication.shared.windows.first?.safeAreaInsets)
+    //返回
+    guard let window = UIApplication.shared.windows.first else { RITLPhotosPhoneHeaderUtility.setHasNotPhoneHeader(); return false }
+    //获得底部的间距
+    let bottom = window.safeAreaInsets.bottom
+
+    if bottom > 0 {
+        RITLPhotosPhoneHeaderUtility.setHasPhoneHeader()
+    } else {
+        RITLPhotosPhoneHeaderUtility.setHasNotPhoneHeader()
+    }
+    return RITLPhotosPhoneHeaderUtility.hasPhoneHeader()
+}
+
+
+
+public enum RITLPhotoBarDistance {
+    case navigationBar
+    case tabBar
+}
+
+extension RITLPhotoBarDistance {
+    
+    /// 正常情况下的高度
+    var normalHeight: CGFloat {
+        switch self {
+        case .navigationBar:
+            return 64
+        case .tabBar:
+            return 49
+        }
+    }
+    
+    
+    /// 默认高度
+    var height: CGFloat {
+        switch self {
+        case .navigationBar:
+            return hasPhoneHeader() ? 88 : 64
+        case .tabBar:
+            return hasPhoneHeader() ? 83 : 49
+        }
+    }
+    
+    /// 安全间隔
+    var safeDistance: CGFloat {
+        switch self {
+        case .navigationBar:
+            return hasPhoneHeader() ? 88 - 64 : 0
+        case .tabBar:
+            return hasPhoneHeader() ? 83 - 49 : 0
+        }
+    }
+}
+
+
+
+/// 字体
+enum RITLPhotoFont: String {
+    
+    case regular = "PingFangSC-Regular"
+    case medium = "PingFangSC-Medium"
+    case bold = "PingFangSC-Bold"
+    case light = "PingFangSC-Light"
+    case semibold = "PingFangSC-Semibold"
+}
+
+
+extension RITLPhotoFont {
+    func font(size: CGFloat) -> UIFont {
+        return UIFont.ritl_p_font(name: self.rawValue, size: size)
+    }
+}
+
+
+extension UIFont {
+    
+    /// 根据字体名字获取font对象，如果不存在，返回系统默认字体
+    ///
+    /// - Parameters:
+    ///   - name: 字体类型
+    ///   - size: 字体大小
+    public class func ritl_p_font(name: String, size: CGFloat) -> UIFont{
+        if let font = UIFont(name: name, size: size) {
+            return font
+        }
+        return UIFont.systemFont(ofSize: size)
+    }
+}

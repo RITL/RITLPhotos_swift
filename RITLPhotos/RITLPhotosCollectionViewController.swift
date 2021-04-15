@@ -38,6 +38,9 @@ public class RITLPhotosCollectionViewController: UIViewController {
         return collectionView
     }()
     
+    /// 底部的工具栏
+    private let bottomBar = RITLPhotosBottomBar()
+    
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,8 +72,17 @@ public class RITLPhotosCollectionViewController: UIViewController {
         
         //追加视图
         view.addSubview(collectionView)
+        view.addSubview(bottomBar)
+        
+        bottomBar.backgroundColor = .white
+        
         collectionView.snp.remakeConstraints { (make) in
             make.edges.equalToSuperview()
+        }
+        
+        bottomBar.snp.makeConstraints { (make) in
+            make.leading.bottom.trailing.equalToSuperview()
+            make.height.equalTo(RITLPhotoBarDistance.tabBar.height)
         }
         
         //更新数据
