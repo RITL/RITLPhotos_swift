@@ -38,6 +38,8 @@ public class RITLPhotosCollectionViewController: UIViewController {
         return collectionView
     }()
     
+    /// 顶部的工具栏
+    private let groupPickerView = RITLPhotosTopPickerView()
     /// 底部的工具栏
     private let bottomBar = RITLPhotosBottomBar()
     
@@ -64,8 +66,24 @@ public class RITLPhotosCollectionViewController: UIViewController {
         navigationItem.leftBarButtonItem = buttonItem
         //导航栏的titleView
         let titleView = UIView()
-        titleView.frame.size = CGSize(width: 100, height: 40)
+//        titleView.backgroundColor = .orange
+        //宽度
+        let width: CGFloat = UIScreen.main.bounds.width - 54 * 2
+        titleView.frame.size = CGSize(width: width, height: 44)
         navigationItem.titleView = titleView
+        if (UIDevice.current.systemVersion as NSString).floatValue >= 13.0 {
+            titleView.snp.makeConstraints { (make) in
+                make.width.equalTo(width)
+                make.height.equalTo(44)
+            }
+        }
+        //追加导航标题
+        titleView.addSubview(groupPickerView)
+        groupPickerView.snp.makeConstraints { (make) in
+            make.height.equalTo(44)
+            make.width.equalTo(width)
+            make.top.leading.equalToSuperview()
+        }
         
         //设置UI
         view.backgroundColor = 50.ritl_p_color

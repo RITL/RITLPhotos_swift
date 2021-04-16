@@ -12,8 +12,15 @@ import UIKit
 enum RITLPhotosImage: String {
     
     /// 导航栏关闭的按钮
-    case nav_close = "ritl_photo_close.png"
+    case nav_close = "ritl_photos_nav_close.png"
     
+    /// 下方bar中原图按钮的选中
+    case tool_bottom_selecte = "ritl_photos_bottom_selected.png"
+    /// 下方bar中原图按钮的默认未选中
+    case tool_bottom_deselect = "ritl_photos_bottom_deselected.png"
+    
+    /// 顶部导航的箭头按钮
+    case pick_top_arrow = "ritl_photos_picker.png"
     
     /// 占位图
     case placeholder = "ritl_placeholder.png"
@@ -31,10 +38,7 @@ enum RITLPhotosImage: String {
     case browerSelect = "ritl_brower_selected.png"
     /// 浏览左上角的返回
     case browseBack = "ritl_browse_back.png"
-    /// 浏览下方原图选中
-    case borwseBottomSelecte = "ritl_bottomSelected.png"
-    /// 浏览下方原图未选中
-    case borwseBottomDeselecte = "ritl_bottomUnselected.png"
+
     /// 视频播放
     case videoPlayer = "ritl_video_play.png"
 }

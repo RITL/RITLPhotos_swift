@@ -40,8 +40,8 @@ public class RITLPhotosBottomBar: UIView {
         button.setTitle("原图", for: .selected)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(#colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1), for: .disabled)
-        button.setImage(RITLPhotosImage.borwseBottomDeselecte.image, for: .normal)
-        button.setImage(RITLPhotosImage.borwseBottomSelecte.image, for: .selected)
+        button.setImage(RITLPhotosImage.tool_bottom_deselect.image, for: .normal)
+        button.setImage(RITLPhotosImage.tool_bottom_selecte.image, for: .selected)
 //        button.imageView?.contentMode = .scaleToFill
         
         return button
