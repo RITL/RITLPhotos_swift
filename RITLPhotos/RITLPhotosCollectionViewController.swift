@@ -10,6 +10,12 @@ import UIKit
 import Photos
 import SnapKit
 
+
+public enum RITLPhotoDifferencesKey: String {
+    case add
+    case remove
+}
+
 ///
 public class RITLPhotosCollectionViewController: UIViewController {
     
@@ -32,6 +38,8 @@ public class RITLPhotosCollectionViewController: UIViewController {
     private lazy var photo_queue: DispatchQueue = {
         return DispatchQueue(label: "com.ritl_photo", attributes: .concurrent)
     }()
+    /// iOS10之后不再使用
+    private var previousPreheatRect: CGRect = .zero
 
     // Views
     private lazy var collectionView: UICollectionView = {
@@ -90,7 +98,7 @@ public class RITLPhotosCollectionViewController: UIViewController {
         let titleView = UIView()
 //        titleView.backgroundColor = .orange
         //宽度
-        let width: CGFloat = UIScreen.main.bounds.width - 54 * 2
+        let width: CGFloat = UIScreen.main.bounds.width - 60 * 2
         titleView.frame.size = CGSize(width: width, height: 44)
         navigationItem.titleView = titleView
         if (UIDevice.current.systemVersion as NSString).floatValue >= 13.0 {
@@ -157,8 +165,10 @@ public class RITLPhotosCollectionViewController: UIViewController {
     
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        /// 展开
-//        updatePhotosCollectionTableViewDisplay(isHidden: false)
+        //如果低于iOS10 启用自己的优化方案
+        if (UIDevice.current.systemVersion as NSString).floatValue < 10.0 {
+            updateCachedAsset()
+        }
     }
     
 
@@ -267,6 +277,13 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSourcePrefetch
         }
     }
     
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //如果低于iOS10 启用自己的优化方案
+        if (UIDevice.current.systemVersion as NSString).floatValue < 10.0 {
+            updateCachedAsset()
+        }
+    }
 }
 
 
@@ -346,6 +363,81 @@ extension RITLPhotosCollectionViewController: RITLPhotosRowTableViewDelegate {
 
             guard isHidden else { return }
             self.groupPickerView.isHidden = isHidden
+        }
+    }
+}
+
+//MARK: Cache
+//iOS10之前需要进行手动计算，iOS10之后使用 UICollectionViewDataSourcePrefetching
+fileprivate extension RITLPhotosCollectionViewController {
+    
+    
+    @available(iOS, deprecated: 10.0, message: "iOS 10 Use collectionView:prefetchItemsAtIndexPaths: and collectionView:cancelPrefetchingForItemsAtIndexPaths: instead.")
+    func updateCachedAsset() {
+        
+        guard isViewLoaded && view.window != nil else { return }
+        //没有权限关闭即可
+        guard PHPhotoLibrary.authorizationStatus() != .authorized else { return }
+
+        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+        //进行拓展
+        let preheatRect = visibleRect.insetBy(dx: 0, dy: -0.5 * visibleRect.height)
+
+        //只有可视化的区域与之前有显著的区域变化才需要更新
+        let delta = abs(preheatRect.midY - previousPreheatRect.midY)
+        guard delta > view.bounds.height / 3 else { return }
+
+        //进行提前缓存的资源
+        let (addedRects, removedRects) = differencesBetweenRects(previousPreheatRect, preheatRect)
+        //进行添加的
+        let addedAssets = addedRects
+            .flatMap { rect in self.collectionView.ritl_p_indexPathsForElements(in: rect) }
+            .compactMap { indexPath in self.assets?.object(at: indexPath.item) }
+        
+        let removedAssets = removedRects
+            .flatMap { rect in collectionView.ritl_p_indexPathsForElements(in: rect) }
+            .compactMap { indexPath in self.assets?.object(at: indexPath.item) }
+
+        let thumbnailSize = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: 0, section: 0))
+        
+        // Update the assets the PHCachingImageManager is caching.
+        imageManager.startCachingImages(for: addedAssets,
+            targetSize: thumbnailSize, contentMode: .aspectFill, options: nil)
+        imageManager.stopCachingImages(for: removedAssets,
+            targetSize: thumbnailSize, contentMode: .aspectFill, options: nil)
+
+        // Store the preheat rect to compare against in the future.
+        previousPreheatRect = preheatRect
+    }
+
+    @available(iOS, deprecated: 10.0, message: "iOS 10 Use collectionView:prefetchItemsAtIndexPaths: and collectionView:cancelPrefetchingForItemsAtIndexPaths: instead.")
+    func differencesBetweenRects(_ old: CGRect, _ new: CGRect) -> (added: [CGRect], removed: [CGRect]) {
+        if old.intersects(new) {
+            var added = [CGRect]()
+            //表示上拉
+            if new.maxY > old.maxY {
+                added += [CGRect(x: new.origin.x, y: old.maxY,
+                                    width: new.width, height: new.maxY - old.maxY)]
+            }
+            //表示下拉
+            if old.minY > new.minY {
+                added += [CGRect(x: new.origin.x, y: new.minY,
+                                    width: new.width, height: old.minY - new.minY)]
+            }
+            var removed = [CGRect]()
+            //表示下拉
+            if new.maxY < old.maxY {
+                removed += [CGRect(x: new.origin.x, y: new.maxY,
+                                      width: new.width, height: old.maxY - new.maxY)]
+            }
+            //表示上拉
+            if old.minY < new.minY {
+                removed += [CGRect(x: new.origin.x, y: old.minY,
+                                      width: new.width, height: new.minY - old.minY)]
+            }
+            return (added, removed)
+        } else {
+            return ([new], [old])
         }
     }
 }

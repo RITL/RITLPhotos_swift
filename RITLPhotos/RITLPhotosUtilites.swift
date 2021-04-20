@@ -234,3 +234,11 @@ extension UIFont {
         return UIFont.systemFont(ofSize: size)
     }
 }
+
+
+extension UICollectionView {
+    
+    func ritl_p_indexPathsForElements(in rect: CGRect) -> [IndexPath] {
+        return collectionViewLayout.layoutAttributesForElements(in: rect)?.map{ $0.indexPath } ?? []
+    }
+}
