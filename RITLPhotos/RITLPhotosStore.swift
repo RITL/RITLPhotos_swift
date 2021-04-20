@@ -49,7 +49,7 @@ extension PHPhotoLibrary {
             options.sortDescriptors = [NSSortDescriptor(key: "endDate", ascending: false)]
             let smartAlum = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: options)
             //进行数据转换
-            var smartAlums = RITLFetchResultTransformer.toArray(result: smartAlum)
+            var smartAlums = RITLFetchResultTransformer.toArray(result: smartAlum).filter{ PHAsset.fetchAssets(in: $0, options: nil).count > 0 }
             //如果需要排序，进行排序
             if (autoSort) {
                 smartAlums = smartAlums.ritl_p_defalutSort()

@@ -79,16 +79,19 @@ public class RITLPhotosBottomBar: UIView {
         toolBar.barStyle = .black
         if #available(iOS 13.0, *) {
             let appearance = UIToolbarAppearance()
-            appearance.backgroundImage = 35.ritl_p_image
-            appearance.shadowImage =  35.ritl_p_image
+            appearance.backgroundColor = 35.ritl_p_color.withAlphaComponent(0.9)
+//            appearance.backgroundImage = 35.ritl_p_image
+//            appearance.shadowImage =  35.ritl_p_image
             toolBar.standardAppearance = appearance
         } else {
             // Fallback on earlier versions
-            toolBar.setBackgroundImage(35.ritl_p_image, forToolbarPosition: .any, barMetrics: .default)
-            toolBar.setShadowImage(35.ritl_p_image, forToolbarPosition: .any)
+            toolBar.barTintColor = 35.ritl_p_color.withAlphaComponent(0.9)
+//            toolBar.setBackgroundImage(35.ritl_p_image, forToolbarPosition: .any, barMetrics: .default)
+//            toolBar.setShadowImage(35.ritl_p_image, forToolbarPosition: .any)
         }
         
         let itemsContentView = UIView()
+        itemsContentView.backgroundColor = .clear
         
         addSubview(toolBar)
         addSubview(itemsContentView)
@@ -104,13 +107,13 @@ public class RITLPhotosBottomBar: UIView {
             make.leading.top.trailing.equalToSuperview()
             make.height.equalTo(RITLPhotoBarDistance.tabBar.normalHeight)
         }
-            
+
         previewButton.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(12)
             make.centerY.equalToSuperview()
             make.width.equalTo(60)
         }
-        
+
         highButton.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.centerX.equalToSuperview()

@@ -27,6 +27,11 @@ public class RITLPhotosCollectionViewController: UIViewController {
     /// 用于判断变化
     private var regularResult: PHFetchResult<PHAssetCollection>?
     private var topLevelResult: PHFetchResult<PHCollection>?
+    /// 队列
+    @available(iOS 10.0, *)
+    private lazy var photo_queue: DispatchQueue = {
+        return DispatchQueue(label: "com.ritl_photo", attributes: .concurrent)
+    }()
 
     // Views
     private lazy var collectionView: UICollectionView = {
@@ -34,12 +39,18 @@ public class RITLPhotosCollectionViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.dataSource = self
         collectionView.delegate = self
+        if #available(iOS 10.0, *) {
+            collectionView.prefetchDataSource = self
+        }
+        collectionView.contentInset.bottom = RITLPhotoBarDistance.tabBar.normalHeight
+        collectionView.bounces = true
         collectionView.backgroundView = {
             let view = UIView()
             view.backgroundColor = 50.ritl_p_color
             return view
         }()
-        
+        //注册cell
+        collectionView.register(RITLPhotosCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         return collectionView
     }()
     
@@ -109,7 +120,7 @@ public class RITLPhotosCollectionViewController: UIViewController {
         view.addSubview(bottomBar)
         view.addSubview(groupPickerView)
         
-        bottomBar.backgroundColor = .white
+        bottomBar.backgroundColor = .clear
         
         collectionView.snp.remakeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -172,17 +183,6 @@ public class RITLPhotosCollectionViewController: UIViewController {
     }
     
     
-//    /// 更新所有的数据
-//    func updateAssets() {
-//
-//        guard let assetCollection = self.assetCollection else { return }
-//        //更新assets
-//        let options = PHFetchOptions()
-//        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-//        //获取数据
-//        assets = PHAsset.fetchAssets(in: assetCollection, options: options)
-//    }
-    
     /// 重置缓存
     func resetCache() {
         imageManager.stopCachingImagesForAllAssets()
@@ -191,17 +191,86 @@ public class RITLPhotosCollectionViewController: UIViewController {
 }
 
 
-extension RITLPhotosCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//MARK: <UICollectionViewDataSource>
+extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
+    
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets?.count ?? 0
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        cell.contentView.backgroundColor = .purple
+        guard let assets = assets else { return cell }
+        
+        if let cell = cell as? RITLPhotosCollectionViewCell {
+            //安全判定
+            guard assets.count > indexPath.item else { return cell }
+            //asset
+            let asset = assets.object(at: indexPath.item)
+            //size
+            let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: indexPath)
+            //id
+            cell.assetIdentifer = asset.localIdentifier
+            //cache
+            imageManager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: PHImageRequestOptions()) { (image, info) in
+                guard cell.assetIdentifer == asset.localIdentifier, let image = image else { return }
+                cell.iconImageView.image = image
+            }
+        }
+        
+        return cell
     }
 }
 
 
+//MARK: <UICollectionViewDelegateFlowLayout>
+extension RITLPhotosCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let size: CGFloat = (min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) - 3 * 3) / 4
+        return CGSize(width: size, height: size)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 3
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 3
+    }
+}
+
+
+//MARK: <UICollectionViewDataSourcePrefetching>
+extension RITLPhotosCollectionViewController: UICollectionViewDataSourcePrefetching {
+    
+    @available(iOS 10.0, *)
+    public func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        //size
+        let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: 0, section: 0))
+        //Cache
+        photo_queue.async {
+            self.imageManager.startCachingImages(for: indexPaths.compactMap { self.assets?.object(at: $0.item) }, targetSize: size, contentMode: .aspectFill, options: nil)
+        }
+    }
+    
+    @available(iOS 10.0, *)
+    public func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        
+        //size
+        let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: 0, section: 0))
+        //Cache
+        photo_queue.async {
+            self.imageManager.stopCachingImages(for: indexPaths.compactMap { self.assets?.object(at: $0.item) }, targetSize: size, contentMode: .aspectFill, options: nil)
+        }
+    }
+    
+}
+
+
+//MARK: <RITLPhotosNavigationItemViewDelegate>
 extension RITLPhotosCollectionViewController: RITLPhotosNavigationItemViewDelegate {
     
     /// 点击需要进行动画变化以及列表展示·
@@ -237,7 +306,7 @@ extension RITLPhotosCollectionViewController: RITLPhotosNavigationItemViewDelega
 }
 
 
-
+//MARK: <RITLPhotosRowTableViewDelegate>
 extension RITLPhotosCollectionViewController: RITLPhotosRowTableViewDelegate {
     
     public func photosRowTableView(view: RITLPhotosRowTableView, didTap indexPath: IndexPath) {

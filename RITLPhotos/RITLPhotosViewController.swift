@@ -84,8 +84,8 @@ public class RITLPhotosViewController: UINavigationController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        navigationBar.setBackgroundImage(35.ritl_p_image, for: .default)
-        navigationBar.shadowImage = 35.ritl_p_image
+        navigationBar.barTintColor = 35.ritl_p_color.withAlphaComponent(0.9)
+        navigationBar.isTranslucent = true
     }
     
     public override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -94,5 +94,10 @@ public class RITLPhotosViewController: UINavigationController {
     
     deinit {
         print("\(type(of: self)) is deinit")
+    }
+    
+    /// 目前只支持普通方向
+    public override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
     }
 }

@@ -81,7 +81,7 @@ public class RITLPhotosNavigationItemView: UIView {
         stackView.snp.makeConstraints { (make) in
             make.height.equalTo(25)
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(7.5)
+            make.bottom.equalToSuperview().inset(9)
             make.width.lessThanOrEqualTo(self)
         }
         
@@ -91,7 +91,7 @@ public class RITLPhotosNavigationItemView: UIView {
             make.height.equalTo(30)
             make.leading.equalTo(stackView).offset(-10)
             make.trailing.equalTo(stackView).offset(10)
-            make.bottom.equalToSuperview().inset(5)
+            make.bottom.equalToSuperview().inset(6.5)
         }
         
         control.snp.makeConstraints { (make) in

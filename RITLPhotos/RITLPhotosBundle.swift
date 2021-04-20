@@ -33,7 +33,7 @@ enum RITLPhotosImage: String {
     //集合视图
     
     /// 集合视图
-    case deselect = "ritl_deselect.png"
+    case collection_normal = "ritl_photos_deselect.png"
     
     //浏览视图
     
