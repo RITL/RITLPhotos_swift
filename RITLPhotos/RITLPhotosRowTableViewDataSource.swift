@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 /// 数据源
-public class RITLPhotosCollectionTableViewDataSource: NSObject, UITableViewDataSource {
+public class RITLPhotosRowTableViewDataSource: NSObject, UITableViewDataSource {
 
     /// 作为数据源的tableView
     weak var tableView: UITableView?
@@ -64,7 +64,7 @@ public class RITLPhotosCollectionTableViewDataSource: NSObject, UITableViewDataS
     }
 }
 
-extension RITLPhotosCollectionTableViewDataSource {
+extension RITLPhotosRowTableViewDataSource {
     
     /// 更新数据
     func update(currentId: String, datas: [[PHAssetCollection]]) {

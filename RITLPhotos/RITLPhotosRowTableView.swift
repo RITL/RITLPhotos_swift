@@ -11,10 +11,10 @@ import UIKit
 /// 代理方法
 public protocol RITLPhotosRowTableViewDelegate: class {
     
-    /// 将要展示的回调
-//    func photosCollectionTableViewWillShow(view: RITLPhotosCollectionTableView)
+    /// 点击选择后的回调
+    func photosRowTableView(view: RITLPhotosRowTableView, didTap indexPath: IndexPath)
     /// 将要消失的回调
-    func photosCollectionTableViewShouldDismiss(view: RITLPhotosRowTableView)
+    func photosRowTableViewShouldDismiss(view: RITLPhotosRowTableView)
 }
 
 /// 用于点击获得数据的列表
@@ -70,7 +70,7 @@ public class RITLPhotosRowTableView: UIView {
     
     
     @objc func controlDidTap() {
-        delegate?.photosCollectionTableViewShouldDismiss(view: self)
+        delegate?.photosRowTableViewShouldDismiss(view: self)
     }
 
     /// 更新tableView
@@ -89,6 +89,9 @@ public class RITLPhotosRowTableView: UIView {
 
 extension RITLPhotosRowTableView: UITableViewDelegate {
     
-
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //执行回调即可
+        delegate?.photosRowTableView(view: self, didTap: indexPath)
+    }
     
 }

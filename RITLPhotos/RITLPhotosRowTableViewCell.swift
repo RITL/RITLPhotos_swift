@@ -34,6 +34,7 @@ public class RITLPhotosRowTableViewCell: UITableViewCell {
         
 //        iconImageView.backgroundColor = .systemOrange
         iconImageView.contentMode = .scaleAspectFill
+        iconImageView.clipsToBounds = true
         
         titleLabel.text = "最近项目"
         titleLabel.textColor = .white

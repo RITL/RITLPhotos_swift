@@ -18,10 +18,15 @@ public class RITLPhotosCollectionViewController: UIViewController {
     /// 当前展示的集合
     private var assetCollection: PHAssetCollection?
     private var assets: PHFetchResult<PHAsset>?
+    /// 所有的资源数组
+    private var allAssetCollections = [[PHAssetCollection]]()
     
     /// Library
     private let photoLibrary = PHPhotoLibrary.shared()
     private let imageManager = PHCachingImageManager()
+    /// 用于判断变化
+    private var regularResult: PHFetchResult<PHAssetCollection>?
+    private var topLevelResult: PHFetchResult<PHCollection>?
 
     // Views
     private lazy var collectionView: UICollectionView = {
@@ -46,7 +51,7 @@ public class RITLPhotosCollectionViewController: UIViewController {
     private let bottomBar = RITLPhotosBottomBar()
     /// 相册组的选择器
     private let groupPickerView = RITLPhotosRowTableView()
-    private let groupPickerViewDataSource = RITLPhotosCollectionTableViewDataSource()
+    private let groupPickerViewDataSource = RITLPhotosRowTableViewDataSource()
     private let groupPickerViewHeight = UIScreen.main.bounds.height - RITLPhotoBarDistance.navigationBar.height
     
     
@@ -124,18 +129,12 @@ public class RITLPhotosCollectionViewController: UIViewController {
             self.photoLibrary.fetchAlbumGroups(autoSort: true, needTopLevel: true) { (regularItem, topLevelItem) in
                 //如果都是空，则规避掉
                 guard regularItem.datas.count + (topLevelItem?.data?.count ?? 0) > 0 else { return }
-                //默认选择第一个
-                let assetCollection = regularItem.datas.first ?? (topLevelItem?.datas.first as? PHAssetCollection) ?? PHAssetCollection()
-                self.assetCollection = assetCollection
-                //获得所有的数据源
-                self.assets = PHAsset.fetchAssets(in: assetCollection, options: nil)
-                //更新头部以及选择器的数据
-                self.groupSwitchView.titleLabel.text = self.assetCollection?.localizedTitle ?? ""
                 //更新列表数据源
                 let topLevelDatas = topLevelItem?.datas as? [PHAssetCollection] ?? []
-                self.groupPickerViewDataSource.update(currentId: assetCollection.localIdentifier, datas: [regularItem.datas] + [topLevelDatas])
-                //刷新本地的图片
-                self.collectionView.reloadData()
+                self.allAssetCollections = [regularItem.datas] + [topLevelDatas]
+                //默认选择第一个
+                let assetCollection = regularItem.datas.first ?? (topLevelItem?.datas.first as? PHAssetCollection) ?? PHAssetCollection()
+                self.updateCollection(collection: assetCollection)
             }
             
         } deniedHander: { (status) in
@@ -194,7 +193,7 @@ public class RITLPhotosCollectionViewController: UIViewController {
 
 extension RITLPhotosCollectionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return assets?.count ?? 0
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -210,7 +209,7 @@ extension RITLPhotosCollectionViewController: RITLPhotosNavigationItemViewDelega
         //
         updateTopPickerViewUI()
         //展示或者隐藏
-        updatePhotosCollectionTableViewDisplay(isHidden: !groupPickerView.isHidden)
+        updatePhotosRowTableViewDisplay(isHidden: !groupPickerView.isHidden)
     }
     
     /// 更新 groupPickerView
@@ -220,26 +219,47 @@ extension RITLPhotosCollectionViewController: RITLPhotosNavigationItemViewDelega
             self.groupSwitchView.imageView.transform = self.groupSwitchView.imageView.transform.rotated(by: .pi)
         }
     }
+    
+    
+    private func updateCollection(collection: PHAssetCollection) {
+        //设置数据
+        assetCollection = collection
+        //获得所有的数据源
+        assets = PHAsset.fetchAssets(in: collection, options: nil)
+        //更新头部以及选择器的数据
+//        groupSwitchView.titleLabel.text = collection.localizedTitle ?? ""
+        groupSwitchView.updateTitle(text: collection.localizedTitle ?? "")
+        //更新列表的数据源
+        groupPickerViewDataSource.update(currentId: collection.localIdentifier, datas: self.allAssetCollections)
+        //刷新本地的图片
+        collectionView.reloadData()
+    }
 }
 
 
 
 extension RITLPhotosCollectionViewController: RITLPhotosRowTableViewDelegate {
     
-    public func photosCollectionTableViewShouldDismiss(view: RITLPhotosRowTableView) {
-        //消失
-        updateTopPickerViewUI()
-        updatePhotosCollectionTableViewDisplay(isHidden: true)
+    public func photosRowTableView(view: RITLPhotosRowTableView, didTap indexPath: IndexPath) {
+        //更新数据
+        let collection = allAssetCollections[indexPath.section][indexPath.row]
+        updateCollection(collection: collection)
+        //消失即可
+        photosRowTableViewShouldDismiss(view: view)
     }
     
-    /// 更新数据
-    private func updatePhotosCollectionTableViewData() {
-        
+    
+    public func photosRowTableViewShouldDismiss(view: RITLPhotosRowTableView) {
+        //消失
+        updateTopPickerViewUI()
+        updatePhotosRowTableViewDisplay(isHidden: true)
     }
+    
+    
     
     /// 更新展示状态
     /// status: true表示启用，false表示隐藏
-    private func updatePhotosCollectionTableViewDisplay(isHidden: Bool) {
+    private func updatePhotosRowTableViewDisplay(isHidden: Bool) {
         //只有状态不同才会响应
         guard isHidden != groupPickerView.isHidden else { return }
         //率先将状态修改

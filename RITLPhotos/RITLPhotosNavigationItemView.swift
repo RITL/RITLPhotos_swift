@@ -25,6 +25,8 @@ public class RITLPhotosNavigationItemView: UIView {
     /// 显示的图片
     let imageView = UIImageView()
     
+    private var stackView: UIStackView?
+    
     
     public convenience init(frame: CGRect, delegate: RITLPhotosNavigationItemViewDelegate?) {
         self.init(frame: frame)
@@ -51,6 +53,7 @@ public class RITLPhotosNavigationItemView: UIView {
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(imageView)
         stackView.isUserInteractionEnabled = false
+        self.stackView = stackView
         
         imageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(18)
@@ -79,6 +82,7 @@ public class RITLPhotosNavigationItemView: UIView {
             make.height.equalTo(25)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(7.5)
+            make.width.lessThanOrEqualTo(self)
         }
         
 //        stackView.backgroundColor = .systemYellow
@@ -93,7 +97,18 @@ public class RITLPhotosNavigationItemView: UIView {
         control.snp.makeConstraints { (make) in
             make.edges.equalTo(contentView)
         }
-        
+    }
+    
+    /// 修改显示的标题
+    func updateTitle(text: String) {
+        //如果个数一致，直接修改即可
+        if titleLabel.text?.count == text.count {
+            titleLabel.text = text
+            return
+        }
+        //先移除再追加
+        titleLabel.text = text
+        stackView?.insertArrangedSubview(titleLabel, at: 0)
     }
     
     
