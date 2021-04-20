@@ -8,13 +8,28 @@
 
 import UIKit
 
+public protocol RITLPhotosTopPickerViewDelegate: class {
+    
+    /// 选择图片的模块点击的回调
+    func photosPickerViewDidTap(view: RITLPhotosTopPickerView)
+}
+
 /// 导航栏顶部的选择栏
 public class RITLPhotosTopPickerView: UIView {
+    
+    ///
+    weak var delegate: RITLPhotosTopPickerViewDelegate? = nil
     
     /// 显示文本的标题
     let titleLabel = UILabel()
     /// 显示的图片
     let imageView = UIImageView()
+    
+    
+    public convenience init(frame: CGRect, delegate: RITLPhotosTopPickerViewDelegate?) {
+        self.init(frame: frame)
+        self.delegate = delegate
+    }
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,6 +50,7 @@ public class RITLPhotosTopPickerView: UIView {
         stackView.distribution = .fill
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(imageView)
+        stackView.isUserInteractionEnabled = false
         
         imageView.snp.makeConstraints { (make) in
             make.height.width.equalTo(18)
@@ -49,8 +65,14 @@ public class RITLPhotosTopPickerView: UIView {
         let contentView = UIView()
         contentView.backgroundColor = #colorLiteral(red: 0.3058823529, green: 0.2980392157, blue: 0.3019607843, alpha: 1)
         contentView.layer.cornerRadius = 15
-//        contentView.backgroundColor = .systemRed
+        contentView.isUserInteractionEnabled = false
+        
+        /// 响应点击的回调
+        let control = UIControl()
+        control.addTarget(self, action: #selector(pickerViewDidClick), for: .touchUpInside)
+        
         addSubview(contentView)
+        addSubview(control)
         addSubview(stackView)
         
         stackView.snp.makeConstraints { (make) in
@@ -68,17 +90,23 @@ public class RITLPhotosTopPickerView: UIView {
             make.bottom.equalToSuperview().inset(5)
         }
         
-
+        control.snp.makeConstraints { (make) in
+            make.edges.equalTo(contentView)
+        }
         
     }
     
-    public override func layoutSubviews() {
-        
-//        titleLabel.center.y = bounds.height / 2.0
-//        imageView.center.y = bounds.height / 2.0
-    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    @objc func pickerViewDidClick() {
+        delegate?.photosPickerViewDidTap(view: self)
+    }
+    
+    deinit {
+        print("\(type(of: self)) is deinit")
     }
 }

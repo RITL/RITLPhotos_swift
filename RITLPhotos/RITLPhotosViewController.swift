@@ -91,4 +91,8 @@ public class RITLPhotosViewController: UINavigationController {
     public override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    deinit {
+        print("\(type(of: self)) is deinit")
+    }
 }

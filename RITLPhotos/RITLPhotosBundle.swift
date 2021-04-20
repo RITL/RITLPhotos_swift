@@ -22,6 +22,9 @@ enum RITLPhotosImage: String {
     /// 顶部导航的箭头按钮
     case pick_top_arrow = "ritl_photos_picker.png"
     
+    /// 分组选中的标记
+    case group_select =  "ritl_photos_group_select.png"
+    
     /// 占位图
     case placeholder = "ritl_placeholder.png"
     /// 右侧的箭头

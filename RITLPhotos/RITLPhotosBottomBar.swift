@@ -144,4 +144,8 @@ public class RITLPhotosBottomBar: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    deinit {
+        print("\(type(of: self)) is deinit")
+    }
 }

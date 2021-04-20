@@ -39,9 +39,15 @@ public class RITLPhotosCollectionViewController: UIViewController {
     }()
     
     /// 顶部的工具栏
-    private let groupPickerView = RITLPhotosTopPickerView()
+    private lazy var groupSwitchView: RITLPhotosTopPickerView = {
+        return RITLPhotosTopPickerView(frame: .zero, delegate: self)
+    }()
     /// 底部的工具栏
     private let bottomBar = RITLPhotosBottomBar()
+    /// 相册组的选择器
+    private let groupPickerView = RITLPhotosCollectionTableView()
+    private let groupPickerViewDataSource = RITLPhotosCollectionTableViewDataSource()
+    private let groupPickerViewHeight = UIScreen.main.bounds.height - RITLPhotoBarDistance.navigationBar.height
     
     
     public override func viewDidLoad() {
@@ -78,8 +84,8 @@ public class RITLPhotosCollectionViewController: UIViewController {
             }
         }
         //追加导航标题
-        titleView.addSubview(groupPickerView)
-        groupPickerView.snp.makeConstraints { (make) in
+        titleView.addSubview(groupSwitchView)
+        groupSwitchView.snp.makeConstraints { (make) in
             make.height.equalTo(44)
             make.width.equalTo(width)
             make.top.leading.equalToSuperview()
@@ -87,10 +93,16 @@ public class RITLPhotosCollectionViewController: UIViewController {
         
         //设置UI
         view.backgroundColor = 50.ritl_p_color
+        groupPickerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: groupPickerViewHeight)
+        groupPickerView.layer.opacity = 0.0
+        groupPickerView.isHidden = true
+        groupPickerView.delegate = self
+        groupPickerViewDataSource.registerTableViewAndCells(tableView:  groupPickerView.tableView)
         
         //追加视图
         view.addSubview(collectionView)
         view.addSubview(bottomBar)
+        view.addSubview(groupPickerView)
         
         bottomBar.backgroundColor = .white
         
@@ -108,8 +120,23 @@ public class RITLPhotosCollectionViewController: UIViewController {
         
         //进行权限检测
         PHPhotoLibrary.authorizationCheck { (status) in
-            
-            self.updateAssets()
+            //首先获得相册组
+            self.photoLibrary.fetchAlbumGroups(autoSort: true, needTopLevel: true) { (regularItem, topLevelItem) in
+                //如果都是空，则规避掉
+                guard regularItem.datas.count + (topLevelItem?.data?.count ?? 0) > 0 else { return }
+                //默认选择第一个
+                let assetCollection = regularItem.datas.first ?? (topLevelItem?.datas.first as? PHAssetCollection) ?? PHAssetCollection()
+                self.assetCollection = assetCollection
+                //获得所有的数据源
+                self.assets = PHAsset.fetchAssets(in: assetCollection, options: nil)
+                //更新头部以及选择器的数据
+                self.groupSwitchView.titleLabel.text = self.assetCollection?.localizedTitle ?? ""
+                //更新列表数据源
+                let topLevelDatas = topLevelItem?.datas as? [PHAssetCollection] ?? []
+                self.groupPickerViewDataSource.update(currentId: assetCollection.localIdentifier, datas: [regularItem.datas] + [topLevelDatas])
+                //刷新本地的图片
+                self.collectionView.reloadData()
+            }
             
         } deniedHander: { (status) in
             
@@ -117,7 +144,17 @@ public class RITLPhotosCollectionViewController: UIViewController {
         }
     }
     
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        /// 展开
+//        updatePhotosCollectionTableViewDisplay(isHidden: false)
+    }
+    
 
+    deinit {
+        print("\(type(of: self)) is deinit")
+    }
     
     @objc func backItemDidTap() {
         navigationController?.dismiss(animated: true, completion: nil)
@@ -136,15 +173,16 @@ public class RITLPhotosCollectionViewController: UIViewController {
     }
     
     
-    /// 更新所有的数据
-    func updateAssets() {
-        guard let assetCollection = self.assetCollection else { return }
-        //更新assets
-        let options = PHFetchOptions()
-        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        //获取数据
-        assets = PHAsset.fetchAssets(in: assetCollection, options: options)
-    }
+//    /// 更新所有的数据
+//    func updateAssets() {
+//
+//        guard let assetCollection = self.assetCollection else { return }
+//        //更新assets
+//        let options = PHFetchOptions()
+//        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+//        //获取数据
+//        assets = PHAsset.fetchAssets(in: assetCollection, options: options)
+//    }
     
     /// 重置缓存
     func resetCache() {
@@ -161,5 +199,64 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource, UIColl
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         return UICollectionViewCell()
+    }
+}
+
+
+extension RITLPhotosCollectionViewController: RITLPhotosTopPickerViewDelegate {
+    
+    /// 点击需要进行动画变化以及列表展示·
+    public func photosPickerViewDidTap(view: RITLPhotosTopPickerView) {
+        //
+        updateTopPickerViewUI()
+        //展示或者隐藏
+        updatePhotosCollectionTableViewDisplay(isHidden: !groupPickerView.isHidden)
+    }
+    
+    /// 更新 groupPickerView
+    private func updateTopPickerViewUI() {
+        //更新自己的imageView的旋转方向
+        UIView.animate(withDuration: 0.2) {
+            self.groupSwitchView.imageView.transform = self.groupSwitchView.imageView.transform.rotated(by: .pi)
+        }
+    }
+}
+
+
+
+extension RITLPhotosCollectionViewController: RITLPhotosCollectionTableViewDelegate {
+    
+    public func photosCollectionTableViewShouldDismiss(view: RITLPhotosCollectionTableView) {
+        //消失
+        updateTopPickerViewUI()
+        updatePhotosCollectionTableViewDisplay(isHidden: true)
+    }
+    
+    /// 更新数据
+    private func updatePhotosCollectionTableViewData() {
+        
+    }
+    
+    /// 更新展示状态
+    /// status: true表示启用，false表示隐藏
+    private func updatePhotosCollectionTableViewDisplay(isHidden: Bool) {
+        //只有状态不同才会响应
+        guard isHidden != groupPickerView.isHidden else { return }
+        //率先将状态修改
+        //如果是显示优先显示即可
+        if !isHidden {
+            self.groupPickerView.isHidden = isHidden
+        }
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
+
+            self.groupPickerView.layer.opacity = isHidden ? 0 : 1
+            self.groupPickerView.updateTableViewFrame(isFold: isHidden)
+
+        } completion: { (_) in
+
+            guard isHidden else { return }
+            self.groupPickerView.isHidden = isHidden
+        }
     }
 }
