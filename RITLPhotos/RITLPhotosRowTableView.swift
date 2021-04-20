@@ -9,19 +9,19 @@
 import UIKit
 
 /// 代理方法
-public protocol RITLPhotosCollectionTableViewDelegate: class {
+public protocol RITLPhotosRowTableViewDelegate: class {
     
     /// 将要展示的回调
 //    func photosCollectionTableViewWillShow(view: RITLPhotosCollectionTableView)
     /// 将要消失的回调
-    func photosCollectionTableViewShouldDismiss(view: RITLPhotosCollectionTableView)
+    func photosCollectionTableViewShouldDismiss(view: RITLPhotosRowTableView)
 }
 
 /// 用于点击获得数据的列表
-public class RITLPhotosCollectionTableView: UIView {
+public class RITLPhotosRowTableView: UIView {
 
     /// 代理对象
-    weak var delegate: RITLPhotosCollectionTableViewDelegate?
+    weak var delegate: RITLPhotosRowTableViewDelegate?
     /// 用于当做黑色遮罩容器
     private let containerView = UIView()
     
@@ -87,7 +87,7 @@ public class RITLPhotosCollectionTableView: UIView {
 }
 
 
-extension RITLPhotosCollectionTableView: UITableViewDelegate {
+extension RITLPhotosRowTableView: UITableViewDelegate {
     
 
     

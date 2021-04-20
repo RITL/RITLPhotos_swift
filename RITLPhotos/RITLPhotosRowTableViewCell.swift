@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class RITLPhotosCollectionTableViewCell: UITableViewCell {
+public class RITLPhotosRowTableViewCell: UITableViewCell {
 
     /// 相册组的id
     var collectionId = ""

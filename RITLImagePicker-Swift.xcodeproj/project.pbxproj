@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A988843EA5269BE1B9BA761B /* libPods-RITLImagePicker-Swift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D168CDFAE20DB74D5D962034 /* libPods-RITLImagePicker-Swift.a */; };
-		DB5250A82629648C006F0A09 /* RITLPhotosCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5250A72629648C006F0A09 /* RITLPhotosCollectionTableViewCell.swift */; };
+		DB5250A82629648C006F0A09 /* RITLPhotosRowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5250A72629648C006F0A09 /* RITLPhotosRowTableViewCell.swift */; };
 		DB5250AB26297449006F0A09 /* RITLPhotosCollectionTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5250AA26297449006F0A09 /* RITLPhotosCollectionTableViewDataSource.swift */; };
 		DB7C5B7F2626C70C00D7512F /* RITLPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5B7E2626C70C00D7512F /* RITLPhotosViewController.swift */; };
 		DB7C5B8C2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5B8B2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift */; };
@@ -17,8 +17,8 @@
 		DB7C5BA72626EB1600D7512F /* RITLPhotos.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DB7C5BA62626EB1600D7512F /* RITLPhotos.bundle */; };
 		DB7C5BAA2626EBA100D7512F /* RITLPhotosBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5BA92626EBA100D7512F /* RITLPhotosBundle.swift */; };
 		DB7C5C132627D6BA00D7512F /* RITLPhotosBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5C122627D6BA00D7512F /* RITLPhotosBottomBar.swift */; };
-		DB7C5C162628225900D7512F /* RITLPhotosTopPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5C152628225900D7512F /* RITLPhotosTopPickerView.swift */; };
-		DB7C5C222629281200D7512F /* RITLPhotosCollectionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5C212629281200D7512F /* RITLPhotosCollectionTableView.swift */; };
+		DB7C5C162628225900D7512F /* RITLPhotosNavigationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5C152628225900D7512F /* RITLPhotosNavigationItemView.swift */; };
+		DB7C5C222629281200D7512F /* RITLPhotosRowTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5C212629281200D7512F /* RITLPhotosRowTableView.swift */; };
 		DBCF86561DED12B40054A410 /* RITLPhotosAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCF86551DED12B40054A410 /* RITLPhotosAppDelegate.swift */; };
 		DBCF865B1DED12B40054A410 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBCF86591DED12B40054A410 /* Main.storyboard */; };
 		DBCF865D1DED12B40054A410 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBCF865C1DED12B40054A410 /* Assets.xcassets */; };
@@ -31,7 +31,7 @@
 		33A0DDD768DBDAB57D5413F2 /* Pods-RITLImagePicker-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RITLImagePicker-Swift.release.xcconfig"; path = "Target Support Files/Pods-RITLImagePicker-Swift/Pods-RITLImagePicker-Swift.release.xcconfig"; sourceTree = "<group>"; };
 		AAD06A803868C85127784DBA /* Pods-RITLImagePicker-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RITLImagePicker-Swift.debug.xcconfig"; path = "Target Support Files/Pods-RITLImagePicker-Swift/Pods-RITLImagePicker-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		D168CDFAE20DB74D5D962034 /* libPods-RITLImagePicker-Swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RITLImagePicker-Swift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DB5250A72629648C006F0A09 /* RITLPhotosCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosCollectionTableViewCell.swift; sourceTree = "<group>"; };
+		DB5250A72629648C006F0A09 /* RITLPhotosRowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosRowTableViewCell.swift; sourceTree = "<group>"; };
 		DB5250AA26297449006F0A09 /* RITLPhotosCollectionTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosCollectionTableViewDataSource.swift; sourceTree = "<group>"; };
 		DB7C5B7E2626C70C00D7512F /* RITLPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosViewController.swift; sourceTree = "<group>"; };
 		DB7C5B8B2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosCollectionViewController.swift; sourceTree = "<group>"; };
@@ -40,8 +40,8 @@
 		DB7C5BA62626EB1600D7512F /* RITLPhotos.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RITLPhotos.bundle; sourceTree = "<group>"; };
 		DB7C5BA92626EBA100D7512F /* RITLPhotosBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosBundle.swift; sourceTree = "<group>"; };
 		DB7C5C122627D6BA00D7512F /* RITLPhotosBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosBottomBar.swift; sourceTree = "<group>"; };
-		DB7C5C152628225900D7512F /* RITLPhotosTopPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosTopPickerView.swift; sourceTree = "<group>"; };
-		DB7C5C212629281200D7512F /* RITLPhotosCollectionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosCollectionTableView.swift; sourceTree = "<group>"; };
+		DB7C5C152628225900D7512F /* RITLPhotosNavigationItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosNavigationItemView.swift; sourceTree = "<group>"; };
+		DB7C5C212629281200D7512F /* RITLPhotosRowTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosRowTableView.swift; sourceTree = "<group>"; };
 		DBCF86521DED12B40054A410 /* RITLImagePicker-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RITLImagePicker-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBCF86551DED12B40054A410 /* RITLPhotosAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosAppDelegate.swift; sourceTree = "<group>"; };
 		DBCF865A1DED12B40054A410 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -84,9 +84,9 @@
 				DB7C5BA22626E77E00D7512F /* RITLPhotosUtilites.swift */,
 				DB7C5BA92626EBA100D7512F /* RITLPhotosBundle.swift */,
 				DB7C5C122627D6BA00D7512F /* RITLPhotosBottomBar.swift */,
-				DB7C5C152628225900D7512F /* RITLPhotosTopPickerView.swift */,
-				DB7C5C212629281200D7512F /* RITLPhotosCollectionTableView.swift */,
-				DB5250A72629648C006F0A09 /* RITLPhotosCollectionTableViewCell.swift */,
+				DB7C5C152628225900D7512F /* RITLPhotosNavigationItemView.swift */,
+				DB7C5C212629281200D7512F /* RITLPhotosRowTableView.swift */,
+				DB5250A72629648C006F0A09 /* RITLPhotosRowTableViewCell.swift */,
 				DB5250AA26297449006F0A09 /* RITLPhotosCollectionTableViewDataSource.swift */,
 			);
 			path = RITLPhotos;
@@ -170,22 +170,21 @@
 			attributes = {
 				CLASSPREFIX = RITL;
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = YueWen;
 				TargetAttributes = {
 					DBCF86511DED12B40054A410 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 8S4NWFZC5J;
+						DevelopmentTeam = 6Q3UXGAXR8;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = DBCF864D1DED12B40054A410 /* Build configuration list for PBXProject "RITLImagePicker-Swift" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -247,12 +246,12 @@
 				DB7C5BAA2626EBA100D7512F /* RITLPhotosBundle.swift in Sources */,
 				DB5250AB26297449006F0A09 /* RITLPhotosCollectionTableViewDataSource.swift in Sources */,
 				DB7C5B9C2626CDF000D7512F /* RITLPhotosStore.swift in Sources */,
-				DB7C5C222629281200D7512F /* RITLPhotosCollectionTableView.swift in Sources */,
+				DB7C5C222629281200D7512F /* RITLPhotosRowTableView.swift in Sources */,
 				DB7C5BA32626E77E00D7512F /* RITLPhotosUtilites.swift in Sources */,
 				DBCF86681DED14DD0054A410 /* RITLPhotoMainViewController.swift in Sources */,
 				DB7C5B8C2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift in Sources */,
-				DB5250A82629648C006F0A09 /* RITLPhotosCollectionTableViewCell.swift in Sources */,
-				DB7C5C162628225900D7512F /* RITLPhotosTopPickerView.swift in Sources */,
+				DB5250A82629648C006F0A09 /* RITLPhotosRowTableViewCell.swift in Sources */,
+				DB7C5C162628225900D7512F /* RITLPhotosNavigationItemView.swift in Sources */,
 				DB7C5C132627D6BA00D7512F /* RITLPhotosBottomBar.swift in Sources */,
 				DBCF86561DED12B40054A410 /* RITLPhotosAppDelegate.swift in Sources */,
 			);
@@ -305,6 +304,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -330,7 +330,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -364,6 +364,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -383,7 +384,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -397,15 +398,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 8S4NWFZC5J;
+				DEVELOPMENT_TEAM = 6Q3UXGAXR8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "RITLImagePicker-Swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yue.RITLImagePicker-Swift";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yue.RITLImagePickerSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -417,15 +418,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 8S4NWFZC5J;
+				DEVELOPMENT_TEAM = 6Q3UXGAXR8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "RITLImagePicker-Swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yue.RITLImagePicker-Swift";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yue.RITLImagePickerSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

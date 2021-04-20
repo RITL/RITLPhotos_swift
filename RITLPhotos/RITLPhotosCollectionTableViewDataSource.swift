@@ -24,7 +24,7 @@ public class RITLPhotosCollectionTableViewDataSource: NSObject, UITableViewDataS
     func registerTableViewAndCells(tableView: UITableView) {
         self.tableView = tableView
         tableView.dataSource = self
-        tableView.register(RITLPhotosCollectionTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(RITLPhotosRowTableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     
@@ -41,7 +41,7 @@ public class RITLPhotosCollectionTableViewDataSource: NSObject, UITableViewDataS
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        if let cell = cell as? RITLPhotosCollectionTableViewCell {
+        if let cell = cell as? RITLPhotosRowTableViewCell {
             //获得item
             let item = datas[indexPath.section][indexPath.row]
             let collectionId = item.localIdentifier

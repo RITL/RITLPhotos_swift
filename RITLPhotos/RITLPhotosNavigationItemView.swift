@@ -8,17 +8,17 @@
 
 import UIKit
 
-public protocol RITLPhotosTopPickerViewDelegate: class {
+public protocol RITLPhotosNavigationItemViewDelegate: class {
     
     /// 选择图片的模块点击的回调
-    func photosPickerViewDidTap(view: RITLPhotosTopPickerView)
+    func photosPickerViewDidTap(view: RITLPhotosNavigationItemView)
 }
 
 /// 导航栏顶部的选择栏
-public class RITLPhotosTopPickerView: UIView {
+public class RITLPhotosNavigationItemView: UIView {
     
     ///
-    weak var delegate: RITLPhotosTopPickerViewDelegate? = nil
+    weak var delegate: RITLPhotosNavigationItemViewDelegate? = nil
     
     /// 显示文本的标题
     let titleLabel = UILabel()
@@ -26,7 +26,7 @@ public class RITLPhotosTopPickerView: UIView {
     let imageView = UIImageView()
     
     
-    public convenience init(frame: CGRect, delegate: RITLPhotosTopPickerViewDelegate?) {
+    public convenience init(frame: CGRect, delegate: RITLPhotosNavigationItemViewDelegate?) {
         self.init(frame: frame)
         self.delegate = delegate
     }

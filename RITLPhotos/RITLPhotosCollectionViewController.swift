@@ -39,13 +39,13 @@ public class RITLPhotosCollectionViewController: UIViewController {
     }()
     
     /// 顶部的工具栏
-    private lazy var groupSwitchView: RITLPhotosTopPickerView = {
-        return RITLPhotosTopPickerView(frame: .zero, delegate: self)
+    private lazy var groupSwitchView: RITLPhotosNavigationItemView = {
+        return RITLPhotosNavigationItemView(frame: .zero, delegate: self)
     }()
     /// 底部的工具栏
     private let bottomBar = RITLPhotosBottomBar()
     /// 相册组的选择器
-    private let groupPickerView = RITLPhotosCollectionTableView()
+    private let groupPickerView = RITLPhotosRowTableView()
     private let groupPickerViewDataSource = RITLPhotosCollectionTableViewDataSource()
     private let groupPickerViewHeight = UIScreen.main.bounds.height - RITLPhotoBarDistance.navigationBar.height
     
@@ -203,10 +203,10 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource, UIColl
 }
 
 
-extension RITLPhotosCollectionViewController: RITLPhotosTopPickerViewDelegate {
+extension RITLPhotosCollectionViewController: RITLPhotosNavigationItemViewDelegate {
     
     /// 点击需要进行动画变化以及列表展示·
-    public func photosPickerViewDidTap(view: RITLPhotosTopPickerView) {
+    public func photosPickerViewDidTap(view: RITLPhotosNavigationItemView) {
         //
         updateTopPickerViewUI()
         //展示或者隐藏
@@ -224,9 +224,9 @@ extension RITLPhotosCollectionViewController: RITLPhotosTopPickerViewDelegate {
 
 
 
-extension RITLPhotosCollectionViewController: RITLPhotosCollectionTableViewDelegate {
+extension RITLPhotosCollectionViewController: RITLPhotosRowTableViewDelegate {
     
-    public func photosCollectionTableViewShouldDismiss(view: RITLPhotosCollectionTableView) {
+    public func photosCollectionTableViewShouldDismiss(view: RITLPhotosRowTableView) {
         //消失
         updateTopPickerViewUI()
         updatePhotosCollectionTableViewDisplay(isHidden: true)
