@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import PhotosUI
 
 /// 基类
 public class RITLPhotosCollectionViewCell: UICollectionViewCell {
@@ -81,6 +82,23 @@ public class RITLPhotosNormalCollectionCell: RITLPhotosCollectionViewCell {
 public class RITLPhotosLiveCollectionCell: RITLPhotosCollectionViewCell {
     /// 支持支持iOS9.1之后的livePhoto
     let liveBadgeImageView = UIImageView()
+    
+    public override func addSubViews() {
+        super.addSubViews()
+        
+        liveBadgeImageView.backgroundColor = .clear
+        liveBadgeImageView.contentMode = .scaleAspectFill
+        if #available(iOS 9.1, *) {
+            liveBadgeImageView.image = PHLivePhotoView.livePhotoBadgeImage(options: .overContent)
+        }
+        
+        contentView.addSubview(liveBadgeImageView)
+        liveBadgeImageView.snp.makeConstraints { (make) in
+            make.bottom.equalToSuperview().inset(3)
+            make.left.equalToSuperview().offset(3)
+            make.width.height.equalTo(28)
+        }
+    }
 }
 
 
@@ -93,4 +111,37 @@ public class RITLPhotosVideoCollectionCell: RITLPhotosCollectionViewCell {
     /// 显示视频信息
     let messageImageView = UIImageView()
     let messageLabel = UILabel()
+    
+    public override func addSubViews() {
+        super.addSubViews()
+        
+        messageView.backgroundColor = UIColor.black.withAlphaComponent(0.03)
+        messageLabel.font = RITLPhotoFont.regular.font(size: 11)
+        messageLabel.textAlignment = .right
+        messageLabel.textColor = .white
+        messageLabel.text = "00:25"
+        
+        contentView.addSubview(messageView)
+        messageView.addSubview(messageImageView)
+        messageView.addSubview(messageLabel)
+        
+        messageView.snp.makeConstraints { (make) in
+            make.leading.bottom.trailing.equalToSuperview()
+            make.height.equalTo(20)
+        }
+        
+        messageImageView.snp.makeConstraints { (make) in
+            make.leading.equalToSuperview().offset(5)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(20)
+            make.width.equalTo(30)
+        }
+        
+        messageLabel.snp.makeConstraints { (make) in
+            make.leading.equalTo(messageImageView.snp.trailing)
+            make.trailing.equalToSuperview().inset(3)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(20)
+        }
+    }
 }

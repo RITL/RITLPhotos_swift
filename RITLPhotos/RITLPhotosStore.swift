@@ -54,6 +54,11 @@ extension PHPhotoLibrary {
             if (autoSort) {
                 smartAlums = smartAlums.ritl_p_defalutSort()
             }
+            //将最近删除屏蔽
+            smartAlums = smartAlums.filter{
+                $0.assetCollectionSubtype != .smartAlbumAllHidden
+                && $0.assetCollectionSubtype .rawValue != 1000000201 //最近删除
+            }
             //生成regularItem
             let regularItem = RITLPhotosAlbumItem(data: smartAlum, datas: smartAlums)
             //如果不需要直接返回即可

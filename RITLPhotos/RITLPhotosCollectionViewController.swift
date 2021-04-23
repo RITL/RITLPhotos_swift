@@ -16,6 +16,49 @@ public enum RITLPhotoDifferencesKey: String {
     case remove
 }
 
+
+fileprivate enum CollectionCellType: String, CaseIterable {
+    case video
+    case live
+    case photo
+    case unknown
+}
+
+extension CollectionCellType {
+    
+    var cellClass: AnyClass {
+        switch self {
+        case .video: return RITLPhotosVideoCollectionCell.self
+        case .live: return RITLPhotosLiveCollectionCell.self
+        case .photo: return RITLPhotosNormalCollectionCell.self
+        default: return RITLPhotosCollectionViewCell.self
+        }
+    }
+}
+
+fileprivate extension PHAsset {
+    
+    /// 注册的样式
+    func cellIdentifiers() -> CollectionCellType {
+        //进行图片以及视频的区分
+        switch mediaType {
+        case .video: return .video
+        case .image:
+            if #available(iOS 9.1, *) {
+                switch mediaSubtypes {
+                case .photoLive: return .live
+                default: return .photo
+                }
+            } else {
+                // Fallback on earlier versions
+                return .photo
+            }
+        default: return .unknown
+        }
+    }
+    
+}
+
 ///
 public class RITLPhotosCollectionViewController: UIViewController {
     
@@ -58,7 +101,10 @@ public class RITLPhotosCollectionViewController: UIViewController {
             return view
         }()
         //注册cell
-        collectionView.register(RITLPhotosCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        for type in CollectionCellType.allCases {
+            collectionView.register(type.cellClass, forCellWithReuseIdentifier: type.rawValue)
+        }
+
         return collectionView
     }()
     
@@ -117,7 +163,7 @@ public class RITLPhotosCollectionViewController: UIViewController {
         
         //设置UI
         view.backgroundColor = 50.ritl_p_color
-        groupPickerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: groupPickerViewHeight)
+        groupPickerView.frame = CGRect(x: 0, y: RITLPhotoBarDistance.navigationBar.height, width: view.bounds.width, height: groupPickerViewHeight)
         groupPickerView.layer.opacity = 0.0
         groupPickerView.isHidden = true
         groupPickerView.delegate = self
@@ -209,15 +255,14 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.contentView.backgroundColor = .purple
-        guard let assets = assets else { return cell }
+        //安全判定
+        guard let assets = assets, assets.count > indexPath.item else { return UICollectionViewCell() }
+        //asset
+        let asset = assets.object(at: indexPath.item)
+        //获得cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: asset.cellIdentifiers().rawValue, for: indexPath)
         
         if let cell = cell as? RITLPhotosCollectionViewCell {
-            //安全判定
-            guard assets.count > indexPath.item else { return cell }
-            //asset
-            let asset = assets.object(at: indexPath.item)
             //size
             let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: indexPath)
             //id
@@ -227,6 +272,11 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
                 guard cell.assetIdentifer == asset.localIdentifier, let image = image else { return }
                 cell.iconImageView.image = image
             }
+        }
+        
+        if let cell = cell as? RITLPhotosVideoCollectionCell {
+            //设置时间显示
+            cell.messageLabel.text = asset.duration.toString()
         }
         
         return cell
@@ -329,6 +379,8 @@ extension RITLPhotosCollectionViewController: RITLPhotosRowTableViewDelegate {
     public func photosRowTableView(view: RITLPhotosRowTableView, didTap indexPath: IndexPath) {
         //更新数据
         let collection = allAssetCollections[indexPath.section][indexPath.row]
+        //如果存在数据
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         updateCollection(collection: collection)
         //消失即可
         photosRowTableViewShouldDismiss(view: view)
@@ -439,5 +491,39 @@ fileprivate extension RITLPhotosCollectionViewController {
         } else {
             return ([new], [old])
         }
+    }
+}
+
+
+private extension TimeInterval {
+    /// 转换格式
+    func toString() -> String {
+        let time = Int(self)
+        // 大于小时
+        if time >= 60 * 60 {
+            return "\((time / 60 / 60).format()): \((time % 3600 / 60).format()):\((time % 3600 % 60).format())"
+        }
+        // 大于分钟
+        if time >= 60 {
+            return "\((time / 60).format()):\((time % 60).format())"
+        }
+        
+        return "00:\(time.format())"
+    }
+}
+
+
+fileprivate extension Int {
+    
+    func format() -> String {
+        return String.p_format(number: self)
+    }
+}
+
+private extension String {
+    
+    //固定的转成2位的Int类型字符串
+    static func p_format(number: Int) -> String {
+        return String(format: "%0.2d", number)
     }
 }
