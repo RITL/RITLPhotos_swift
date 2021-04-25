@@ -26,6 +26,7 @@
 		DBCF86601DED12B40054A410 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBCF865E1DED12B40054A410 /* LaunchScreen.storyboard */; };
 		DBCF86681DED14DD0054A410 /* RITLPhotoMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCF86671DED14DD0054A410 /* RITLPhotoMainViewController.swift */; };
 		DBCF866F1DED16260054A410 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBCF866E1DED16260054A410 /* Photos.framework */; };
+		DBE1150F2632C8E40092B1D5 /* RITLPhotosDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1150E2632C8E40092B1D5 /* RITLPhotosDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		DBCF86611DED12B40054A410 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBCF86671DED14DD0054A410 /* RITLPhotoMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoMainViewController.swift; sourceTree = "<group>"; };
 		DBCF866E1DED16260054A410 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		DBE1150E2632C8E40092B1D5 /* RITLPhotosDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				DB7C5C212629281200D7512F /* RITLPhotosRowTableView.swift */,
 				DB5250A72629648C006F0A09 /* RITLPhotosRowTableViewCell.swift */,
 				DB5250AA26297449006F0A09 /* RITLPhotosRowTableViewDataSource.swift */,
+				DBE1150E2632C8E40092B1D5 /* RITLPhotosDataManager.swift */,
 			);
 			path = RITLPhotos;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				DB7C5B7F2626C70C00D7512F /* RITLPhotosViewController.swift in Sources */,
 				DB7C5BAA2626EBA100D7512F /* RITLPhotosBundle.swift in Sources */,
 				DB5250AB26297449006F0A09 /* RITLPhotosRowTableViewDataSource.swift in Sources */,
+				DBE1150F2632C8E40092B1D5 /* RITLPhotosDataManager.swift in Sources */,
 				DB7C5B9C2626CDF000D7512F /* RITLPhotosStore.swift in Sources */,
 				DB7C5C222629281200D7512F /* RITLPhotosRowTableView.swift in Sources */,
 				DB7C5BA32626E77E00D7512F /* RITLPhotosUtilites.swift in Sources */,

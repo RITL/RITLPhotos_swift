@@ -119,7 +119,7 @@ extension PHPhotoLibrary {
 
 
 
-fileprivate class RITLFetchResultTransformer {
+class RITLFetchResultTransformer {
     
     /// 转成数组
     static func toArray<T>(result: PHFetchResult<T>) -> [T] {
