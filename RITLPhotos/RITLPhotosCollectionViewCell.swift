@@ -10,6 +10,19 @@ import UIKit
 import Photos
 import PhotosUI
 
+public enum RITLPhotosCellAnimatedStatus: Int {
+    /// 允许使用
+    case permit
+}
+
+public typealias RITLPhotosCellStatusAction = (RITLPhotosCellAnimatedStatus, Bool, Int)->()
+
+public protocol RITLPhotosCollectionCellActionTarget: class {
+    
+    /// 选中按钮被点击后的回调
+    func photosCollectionCell(selectedDidTap cell: RITLPhotosCollectionViewCell, complete: RITLPhotosCellStatusAction?)
+}
+
 /// 基类
 public class RITLPhotosCollectionViewCell: UICollectionViewCell {
     /// 用于标记图片的id
@@ -20,6 +33,13 @@ public class RITLPhotosCollectionViewCell: UICollectionViewCell {
     let indexLabel = UILabel()
     /// 选择的按钮
     let chooseButton = UIButton()
+    /// 选中后的遮罩
+    let shadowView = UIView()
+    
+    ///weak数据
+    weak var delegate: RITLPhotosCollectionCellActionTarget?
+    weak var asset: PHAsset?
+    var indexPath: IndexPath?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,14 +67,34 @@ public class RITLPhotosCollectionViewCell: UICollectionViewCell {
         chooseButton.imageView?.backgroundColor = 227.ritl_p_color.withAlphaComponent(0.3)
         chooseButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 9, bottom: 14, right: 10)
         chooseButton.imageView?.clipsToBounds = true
-        chooseButton.setTitle("1", for: .selected)
+        chooseButton.setTitle("", for: .selected)
         chooseButton.setTitleColor(.white, for: .selected)
         chooseButton.setImage(RITLPhotosImage.collection_normal.image, for: .normal)
+        chooseButton.addTarget(self, action: #selector(chooseButtonDidTap), for: .touchUpInside)
+        
+        indexLabel.text = "0"
+        indexLabel.backgroundColor = #colorLiteral(red: 0.03529411765, green: 0.7333333333, blue: 0.3529411765, alpha: 1)
+        indexLabel.textColor = .white
+        indexLabel.font = RITLPhotoFont.regular.font(size: 13)
+        indexLabel.textAlignment = .center
+        indexLabel.clipsToBounds = true
+        indexLabel.layer.cornerRadius = 21 / 2.0
+        indexLabel.isHidden = true
+        
+        
+        shadowView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        shadowView.isHidden = true
         
         contentView.addSubview(iconImageView)
+        contentView.addSubview(shadowView)
         contentView.addSubview(chooseButton)
+        contentView.addSubview(indexLabel)
         
         iconImageView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        shadowView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
         
@@ -63,9 +103,42 @@ public class RITLPhotosCollectionViewCell: UICollectionViewCell {
             make.top.trailing.equalToSuperview()
         }
         
-//        indexLabel.backgroundColor =
-        //未选中的图片
-        
+        indexLabel.snp.makeConstraints { (make) in
+            make.width.height.equalTo(21)
+            make.trailing.equalToSuperview().inset(10)
+            make.top.equalToSuperview().offset(5)
+        }
+    }
+    
+    /// 选择按钮被点击
+    @objc func chooseButtonDidTap() {
+        //执行回调即可
+        delegate?.photosCollectionCell(selectedDidTap: self, complete: { (status, isSelected, index) in
+            switch status {
+            case .permit: self.changedSelectedStatus(isSelected: isSelected, index: "\(index)")
+            }
+        })
+    }
+    
+    private func changedSelectedStatus(isSelected: Bool, index: String) {
+        indexLabel.isHidden = !isSelected
+        //未选中，清空即可
+        guard isSelected else {
+            self.indexLabel.text = ""; return
+        }
+        //选中的
+        indexLabel.text = index
+        //执行动画
+        UIView.animate(withDuration: 0.15) {
+            //放大
+            self.indexLabel.transform = self.indexLabel.transform.scaledBy(x: 1.3, y: 1.3)
+            
+        } completion: { (_) in
+            //缩小
+            UIView.animate(withDuration: 0.1) {
+                self.indexLabel.transform = .identity
+            }
+        }
     }
 }
 

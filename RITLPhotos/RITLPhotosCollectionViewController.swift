@@ -64,18 +64,24 @@ public class RITLPhotosCollectionViewController: UIViewController {
     
     /// `PHCollection`的`localIdentifier`
     var localIdentifier = ""
-    /// 当前展示的集合
-    private var assetCollection: PHAssetCollection?
-    private var assets: PHFetchResult<PHAsset>?
-    /// 所有的资源数组
-    private var allAssetCollections = [[PHAssetCollection]]()
     
     /// Library
     private let photoLibrary = PHPhotoLibrary.shared()
     private let imageManager = PHCachingImageManager()
+    //DataManager
+    private let dataManager = RITLPhotosDataManager.shareInstance()
+    
+    /// 当前展示的集合
+    private var assetCollection: PHAssetCollection?
+    private var assets: PHFetchResult<PHAsset>?
+
     /// 用于判断变化
     private var regularResult: PHFetchResult<PHAssetCollection>?
     private var topLevelResult: PHFetchResult<PHCollection>?
+    
+    /// 所有的资源数组
+    private var allAssetCollections = [[PHAssetCollection]]()
+    
     /// 队列
     @available(iOS 10.0, *)
     private lazy var photo_queue: DispatchQueue = {
@@ -261,25 +267,41 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
         let asset = assets.object(at: indexPath.item)
         //获得cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: asset.cellIdentifiers().rawValue, for: indexPath)
-        
         if let cell = cell as? RITLPhotosCollectionViewCell {
             //size
             let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: indexPath)
-            //id
             cell.assetIdentifer = asset.localIdentifier
             //cache
             imageManager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: PHImageRequestOptions()) { (image, info) in
                 guard cell.assetIdentifer == asset.localIdentifier, let image = image else { return }
+                cell.delegate = self
+                cell.asset =  asset
+                cell.indexPath = indexPath
                 cell.iconImageView.image = image
             }
         }
         
+        return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        //asset
+        guard let asset = assets?.object(at: indexPath.item) else { return }
+        //是否选中
+        let isSelected = dataManager.assetIdentifers.contains(asset.localIdentifier)
+        //进行划分
+        if let cell = cell as? RITLPhotosCollectionViewCell {
+            cell.indexLabel.isHidden = !isSelected
+            //如果选中
+            if isSelected {
+                cell.indexLabel.text = "\((dataManager.assetIdentifers.firstIndex(of: asset.localIdentifier) ?? 0) + 1)"
+            }
+        }
+        /// 视频样式
         if let cell = cell as? RITLPhotosVideoCollectionCell {
             //设置时间显示
             cell.messageLabel.text = asset.duration.toString()
         }
-        
-        return cell
     }
 }
 
@@ -333,6 +355,23 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSourcePrefetch
         if (UIDevice.current.systemVersion as NSString).floatValue < 10.0 {
             updateCachedAsset()
         }
+    }
+}
+
+
+//MARK: <RITLPhotosCollectionCellActionTarget>
+extension RITLPhotosCollectionViewController: RITLPhotosCollectionCellActionTarget {
+    
+    public func photosCollectionCell(selectedDidTap cell: RITLPhotosCollectionViewCell, complete: RITLPhotosCellStatusAction?) {
+        //获取asset
+        guard let asset = cell.asset else { return } //不进行选择
+        //获得各项参数
+        let index = dataManager.addOrRemove(asset: asset)
+        //执行回调
+        complete?(.permit, index > 0, max(0, index))
+        //如果是取消操作，刷新界面
+        guard index < 0 else { return }
+        collectionView.reloadData()
     }
 }
 

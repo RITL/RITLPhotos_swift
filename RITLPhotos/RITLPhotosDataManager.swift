@@ -19,7 +19,11 @@ public class RITLPhotosDataManager: NSObject {
     dynamic var isHightQuality = false
     
     /// 选中资源的标记位
-    private(set) var assetIdentifers = [String]()
+    private(set) var assetIdentifers = [String]() {
+        didSet {
+            count = assetIdentifers.count
+        }
+    }
     private(set) var assets = [PHAsset]()
     
     /// 选中资源的个数，可是使用KVO监控
