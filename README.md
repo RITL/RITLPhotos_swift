@@ -5,7 +5,7 @@ Photos.framework是iOS8后苹果推出的一套替代AssetsLibrary.framework获�
 
 博文原址 : [iOS开发------简单实现图片多选功能(Photos.framework篇)](http://www.jianshu.com/p/140f8996279e)但我觉得没啥看的必要呢..
 
-<div align="center"><img src="http://7xruse.com1.z0.glb.clouddn.com/RITLPhotos.gif" height=500></img></div>
+<div align="center"><img src="http://upload-images.jianshu.io/upload_images/1622004-44c8884e26499ff2.gif?imageMogr2/auto-orient/strip" height=500></img></div>
 <br>
 用法比较简单:
 
