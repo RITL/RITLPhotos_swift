@@ -9,6 +9,14 @@
 import UIKit
 import Photos
 
+
+extension Notification.Name {
+    
+    /// 回调通知
+    static let RITLPhotosWillDismissNotificationName = Notification.Name("RITLPhotosWillDismissNotificationName")
+}
+
+
 protocol RITLPhotosViewControllerDelegate: class {
     
     
@@ -26,12 +34,13 @@ protocol RITLPhotosViewControllerDelegate: class {
     
     
     /// 选中图片以及视频等资源的默认缩略图
-    /// 根据thumbnailSize设置所得，如果thumbnailSize为.Zero,则不进行回调
+    /// 根据thumbnailSize设置所得，
+    /// `如果thumbnailSize为.Zero,则不进行回调`
     /// - Parameters:
     ///   - viewController: RITLPhotosViewController
     ///   - thumbnailImages: 选中资源的缩略图
     ///   - infos: 选中图片的缩略图信息
-    func photosViewController(viewController: UIViewController, thumbnailImages: [UIImage], infos: [[String: Any]])
+    func photosViewController(viewController: UIViewController, thumbnailImages: [UIImage], infos: [[AnyHashable : Any]])
     
     
     /// 选中图片以及视频等资源的数据
@@ -42,7 +51,8 @@ protocol RITLPhotosViewControllerDelegate: class {
     /// - Parameters:
     ///   - viewController: RITLPhotosViewController
     ///   - datas: 选中资源的Data类型
-    func photosViewController(viewController: UIViewController, datas: [Data])
+    ///   - infos: 选中图片的额外信息
+    func photosViewController(viewController: UIViewController, datas: [Data], infos: [[AnyHashable : Any]])
     
     
     /// 选中图片以及视频等资源的源资源对象
@@ -51,18 +61,56 @@ protocol RITLPhotosViewControllerDelegate: class {
     ///   - viewController: RITLPhotosViewController
     ///   - assets: 选中的PHAsset对象
     func photosViewController(viewController: UIViewController, assets: [PHAsset])
-    
 }
+
+
+extension RITLPhotosViewControllerDelegate {
+    
+    func photosViewControllerWillDismiss(viewController: UIViewController) {}
+    func photosViewController(viewController: UIViewController, assetIdentifiers identifiers: [String]) {}
+    func photosViewController(viewController: UIViewController, thumbnailImages: [UIImage], infos: [[AnyHashable : Any]]){}
+    func photosViewController(viewController: UIViewController, datas: [Data], infos: [[AnyHashable : Any]]) {}
+    func photosViewController(viewController: UIViewController, assets: [PHAsset]) {}
+}
+
 
 /// 图片控制器
 public class RITLPhotosViewController: UINavigationController {
     
-    public override init(rootViewController: UIViewController) {
+    /// 代理对象
+    weak var photo_delegate: RITLPhotosViewControllerDelegate? {
+        didSet {
+            maker.delegate = photo_delegate
+            maker.bindViewController = self
+        }
+    }
+    
+    /// 缩略图的大小，默认为.zero
+    var thumbnailSize: CGSize = .zero {
+        didSet {
+            maker.thumbnailSize = thumbnailSize
+        }
+    }
+    
+    /// 默认选中的资源的id
+    var defaultIdentifiers = [String]() {
+        didSet {
+            dataManager.defaultIdentifiers = defaultIdentifiers
+        }
+    }
+    
+    
+    ///
+    private let maker = RITLPhotosMaker.shareInstance()
+    private let dataManager = RITLPhotosDataManager.shareInstance()
+    
+    
+    private override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
         initPhotosViewController()
     }
     
-    public override init(navigationBarClass: AnyClass?, toolbarClass: AnyClass?) {
+    private override init(navigationBarClass: AnyClass?, toolbarClass: AnyClass?) {
         super.init(navigationBarClass: navigationBarClass, toolbarClass: toolbarClass)
         initPhotosViewController()
     }
@@ -84,7 +132,7 @@ public class RITLPhotosViewController: UINavigationController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        navigationBar.barTintColor = 35.ritl_p_color.withAlphaComponent(0.9)
+        navigationBar.barTintColor = 43.ritl_p_color.withAlphaComponent(0.9)
         navigationBar.isTranslucent = true
 //        navigationBar.setBackgroundImage(UIImage(), for: .default)
 //        navigationBar.shadowImage = UIImage()

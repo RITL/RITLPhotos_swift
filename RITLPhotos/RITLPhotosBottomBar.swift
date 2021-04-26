@@ -15,6 +15,7 @@ public class RITLPhotosBottomBar: UIView {
     lazy var previewButton: UIButton = {
         
         let button = UIButton()
+        button.isEnabled = false
         button.adjustsImageWhenHighlighted = false
         button.titleLabel?.font = RITLPhotoFont.regular.font(size: 15)
         
@@ -30,6 +31,7 @@ public class RITLPhotosBottomBar: UIView {
     lazy var highButton: UIButton = {
         
         let button = UIButton()
+        
         var titleEdgeLeft: CGFloat = (UIDevice.current.systemVersion as NSString).floatValue < 13 ? -60 : 0
         button.imageEdgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 42)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: titleEdgeLeft, bottom: 0, right: 0)
@@ -52,6 +54,7 @@ public class RITLPhotosBottomBar: UIView {
     lazy var sendButton: UIButton = {
         
         let button = UIButton()
+        button.isEnabled = false
         button.adjustsImageWhenHighlighted = false
         button.titleLabel?.font = RITLPhotoFont.regular.font(size: 14)
         
@@ -79,13 +82,13 @@ public class RITLPhotosBottomBar: UIView {
         toolBar.barStyle = .black
         if #available(iOS 13.0, *) {
             let appearance = UIToolbarAppearance()
-            appearance.backgroundColor = 35.ritl_p_color.withAlphaComponent(0.9)
+            appearance.backgroundColor = 43.ritl_p_color.withAlphaComponent(0.9)
 //            appearance.backgroundImage = 35.ritl_p_image
 //            appearance.shadowImage =  35.ritl_p_image
             toolBar.standardAppearance = appearance
         } else {
             // Fallback on earlier versions
-            toolBar.barTintColor = 35.ritl_p_color.withAlphaComponent(0.9)
+            toolBar.barTintColor = 43.ritl_p_color.withAlphaComponent(0.9)
 //            toolBar.setBackgroundImage(35.ritl_p_image, forToolbarPosition: .any, barMetrics: .default)
 //            toolBar.setShadowImage(35.ritl_p_image, forToolbarPosition: .any)
         }

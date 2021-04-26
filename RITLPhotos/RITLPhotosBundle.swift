@@ -25,6 +25,7 @@ enum RITLPhotosImage: String {
     /// 分组选中的标记
     case group_select =  "ritl_photos_group_select.png"
     
+    
     /// 占位图
     case placeholder = "ritl_placeholder.png"
     /// 右侧的箭头
@@ -34,6 +35,8 @@ enum RITLPhotosImage: String {
     
     /// 集合视图
     case collection_normal = "ritl_photos_deselect.png"
+    /// 集合视图中的视频小icon
+    case collection_video_icon = "ritl_photos_m_video.png"
     
     //浏览视图
     

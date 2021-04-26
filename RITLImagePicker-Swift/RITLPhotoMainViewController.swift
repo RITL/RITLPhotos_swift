@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class RITLPhotoMainViewController: UIViewController {
     
@@ -15,13 +16,10 @@ class RITLPhotoMainViewController: UIViewController {
         let collectionView : UICollectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
         
         collectionView.delegate = self
-//        collectionView.dataSource = self
-        
-//        collectionView.backgroundColor = UIColor.colorValue(with: 0xF6FFB7)
+        collectionView.dataSource = self
         collectionView.backgroundColor = .white
         
-//        collectionView.register(RITLPhotosCell.self, forCellWithReuseIdentifier: "Cell")
-        
+        collectionView.register(RITLPhotosNormalCollectionCell.self, forCellWithReuseIdentifier: "Cell")
         
         return collectionView
         
@@ -54,8 +52,41 @@ class RITLPhotoMainViewController: UIViewController {
     ///
     /// - Parameter sender: Photo Barbutton
     @IBAction private func presentPhotoViewController(_ sender: Any) {
-        self.present(RITLPhotosViewController(), animated: true) {}
+        let viewController = RITLPhotosViewController()
+        viewController.photo_delegate = self
+        let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: 0, section: 0))
+        viewController.thumbnailSize = size
+        self.present(viewController, animated: true) {}
     }
+}
+
+
+extension RITLPhotoMainViewController: RITLPhotosViewControllerDelegate {
+    
+    func photosViewControllerWillDismiss(viewController: UIViewController) {
+        let i = 0
+        print("\(#file)_\(#function)_\(#line)")
+    }
+    
+    func photosViewController(viewController: UIViewController, assets: [PHAsset]) {
+        let i = 0
+        print("\(#file)_\(#function)_\(#line)")
+    }
+    
+    func photosViewController(viewController: UIViewController, assetIdentifiers identifiers: [String]) {
+        print("\(#file)_\(#function)_\(#line)")
+    }
+    
+    func photosViewController(viewController: UIViewController, datas: [Data], infos: [[AnyHashable : Any]]) {
+        print("\(#file)_\(#function)_\(#line)")
+    }
+    
+    func photosViewController(viewController: UIViewController, thumbnailImages: [UIImage], infos: [[AnyHashable : Any]]) {
+        print("\(#file)_\(#function)_\(#line)")
+        images = thumbnailImages
+        collectionView.reloadData()
+    }
+    
 }
 
 
@@ -86,21 +117,20 @@ extension RITLPhotoMainViewController : UICollectionViewDelegateFlowLayout
 
 
 
-extension RITLPhotoMainViewController/* : UICollectionViewDataSource*/
-{
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//
-//        return images.count
-//    }
-//
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//
-////        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! RITLPhotosCell
-//
-//        cell.ritl_imageView.image = self.images[indexPath.item]
-//        cell.ritl_chooseImageView.isHidden = true
-//
-//        return cell
-//    }
+extension RITLPhotoMainViewController : UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! RITLPhotosNormalCollectionCell
+        
+        cell.iconImageView.image = self.images[indexPath.item]
+        cell.chooseButton.isHidden = true
+
+        return cell
+    }
 }

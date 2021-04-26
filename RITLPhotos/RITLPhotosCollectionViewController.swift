@@ -70,6 +70,10 @@ public class RITLPhotosCollectionViewController: UIViewController {
     private let imageManager = PHCachingImageManager()
     //DataManager
     private let dataManager = RITLPhotosDataManager.shareInstance()
+    private var countObservation: NSKeyValueObservation?
+    private var isHightQualityObservation: NSKeyValueObservation?
+    private var photoMaker = RITLPhotosMaker.shareInstance()
+    private var photoConfiguration = RITLPhotosConfigation.default()
     
     /// 当前展示的集合
     private var assetCollection: PHAssetCollection?
@@ -181,6 +185,8 @@ public class RITLPhotosCollectionViewController: UIViewController {
         view.addSubview(groupPickerView)
         
         bottomBar.backgroundColor = .clear
+        bottomBar.highButton.addTarget(self, action: #selector(highButtonDidTap), for: .touchUpInside)
+        bottomBar.sendButton.addTarget(self, action: #selector(sendButtonDidTap), for: .touchUpInside)
         
         collectionView.snp.remakeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -190,6 +196,16 @@ public class RITLPhotosCollectionViewController: UIViewController {
             make.leading.bottom.trailing.equalToSuperview()
             make.height.equalTo(RITLPhotoBarDistance.tabBar.height)
         }
+        
+        //设置KVO
+        countObservation = dataManager.observe(\.count, options: .new) { [weak self] (_, _) in
+            self?.updateBottomSendButton()
+        }
+        
+        isHightQualityObservation = dataManager.observe(\.isHightQuality, options: .new, changeHandler: { [weak self] (_, change) in
+            let isHight = change.newValue ?? false
+            self?.bottomBar.highButton.isSelected = isHight
+        })
         
         //更新数据
         updateAssetCollection()
@@ -225,11 +241,9 @@ public class RITLPhotosCollectionViewController: UIViewController {
     
 
     deinit {
+        countObservation = nil
+        isHightQualityObservation = nil
         print("\(type(of: self)) is deinit")
-    }
-    
-    @objc func backItemDidTap() {
-        navigationController?.dismiss(animated: true, completion: nil)
     }
     
 
@@ -249,7 +263,36 @@ public class RITLPhotosCollectionViewController: UIViewController {
     func resetCache() {
         imageManager.stopCachingImagesForAllAssets()
     }
+    
+    /// 底部发送按钮状态
+    private func updateBottomSendButton() {
+        let isEmpty = dataManager.count <= 0
+        bottomBar.previewButton.isEnabled = !isEmpty
+        let title = "发送\(isEmpty ? "" : "(\(dataManager.count))")"
+        let state: UIControl.State = isEmpty ? .disabled : .normal
+        bottomBar.sendButton.setTitle(title, for: state)
+        bottomBar.sendButton.isEnabled = !isEmpty
+    }
+    
+    @objc func highButtonDidTap() {
+        updateStateBottomHighButton()
+    }
+    
+    @objc func sendButtonDidTap() {
+        photoMaker.startMake {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc func backItemDidTap() {
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
 
+    /// 底部高清状态
+    private func updateStateBottomHighButton() {
+        dataManager.isHightQuality = !dataManager.isHightQuality
+    }
 }
 
 
@@ -269,7 +312,9 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: asset.cellIdentifiers().rawValue, for: indexPath)
         if let cell = cell as? RITLPhotosCollectionViewCell {
             //size
-            let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: indexPath)
+            var size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: indexPath)
+            size.width *= UIScreen.main.scale
+            size.height *= UIScreen.main.scale
             cell.assetIdentifer = asset.localIdentifier
             //cache
             imageManager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: PHImageRequestOptions()) { (image, info) in
@@ -365,6 +410,10 @@ extension RITLPhotosCollectionViewController: RITLPhotosCollectionCellActionTarg
     public func photosCollectionCell(selectedDidTap cell: RITLPhotosCollectionViewCell, complete: RITLPhotosCellStatusAction?) {
         //获取asset
         guard let asset = cell.asset else { return } //不进行选择
+        //如果大于最大限制
+        if dataManager.count >= photoConfiguration.maxCount && !dataManager.contain(asset: asset) {
+            return
+        }
         //获得各项参数
         let index = dataManager.addOrRemove(asset: asset)
         //执行回调

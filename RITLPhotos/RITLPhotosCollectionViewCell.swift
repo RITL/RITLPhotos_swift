@@ -194,6 +194,8 @@ public class RITLPhotosVideoCollectionCell: RITLPhotosCollectionViewCell {
         messageLabel.textColor = .white
         messageLabel.text = "00:25"
         
+//        messageImageView.image = RITLPhotosImage.collection_video_icon.image
+        
         contentView.addSubview(messageView)
         messageView.addSubview(messageImageView)
         messageView.addSubview(messageLabel)
@@ -205,9 +207,10 @@ public class RITLPhotosVideoCollectionCell: RITLPhotosCollectionViewCell {
         
         messageImageView.snp.makeConstraints { (make) in
             make.leading.equalToSuperview().offset(5)
-            make.bottom.equalToSuperview()
+//            make.bottom.equalToSuperview()
+            make.centerY.equalToSuperview()
             make.height.equalTo(20)
-            make.width.equalTo(30)
+            make.width.equalTo(33)
         }
         
         messageLabel.snp.makeConstraints { (make) in

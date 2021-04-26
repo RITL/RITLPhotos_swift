@@ -10,13 +10,13 @@ import Foundation
 import Photos
 
 /// 数据处理
-public class RITLPhotosDataManager: NSObject {
+ public final class RITLPhotosDataManager: NSObject {
     
     /// 局部单例
     private static weak var instance: RITLPhotosDataManager?
     
     /// 是否为高质量，可以使用KVO监控
-    dynamic var isHightQuality = false
+    @objc dynamic var isHightQuality = false
     
     /// 选中资源的标记位
     private(set) var assetIdentifers = [String]() {
@@ -27,7 +27,7 @@ public class RITLPhotosDataManager: NSObject {
     private(set) var assets = [PHAsset]()
     
     /// 选中资源的个数，可是使用KVO监控
-    dynamic private(set) var count = 0
+    @objc dynamic private(set) var count = 0
     
     /// 默认选中的标志位，用来二次进入默认选中的标记
     var defaultIdentifiers = [String]() {
@@ -89,7 +89,7 @@ public class RITLPhotosDataManager: NSObject {
             return count
         }
         remove(asset: asset)
-        return count
+        return -1
     }
     
     /// 是否已经选择了asset
