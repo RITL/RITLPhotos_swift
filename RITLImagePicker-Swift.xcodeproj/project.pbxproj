@@ -7,142 +7,57 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DB04C8011E343A4800F6BD3E /* RITLPhotoBrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2D1A391E31B753007EAD08 /* RITLPhotoBrowseViewModel.swift */; };
-		DB04C8031E349F5800F6BD3E /* RITLPhotoPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04C8021E349F5800F6BD3E /* RITLPhotoPreviewController.swift */; };
-		DB29B4321E2CC86800CBD3D1 /* RITLPhotoBottomReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB29B4311E2CC86800CBD3D1 /* RITLPhotoBottomReusableView.swift */; };
-		DB2D1A331E31A321007EAD08 /* RITLPhotoExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2D1A321E31A321007EAD08 /* RITLPhotoExtension.swift */; };
-		DB2D1A361E31A744007EAD08 /* RITLPhotoBrowseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2D1A351E31A744007EAD08 /* RITLPhotoBrowseCell.swift */; };
-		DB2D1A381E31B715007EAD08 /* RITLPhotoBrowseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2D1A371E31B715007EAD08 /* RITLPhotoBrowseController.swift */; };
-		DB3FE0FC1E305DF50057606F /* RITLPhotoCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3FE0FB1E305DF50057606F /* RITLPhotoCacheManager.swift */; };
-		DB4D675B1E2DEE4B00DA3D90 /* RITLPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4D675A1E2DEE4B00DA3D90 /* RITLPhotosViewController.swift */; };
-		DB4D675D1E2DEE8600DA3D90 /* RITLPhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4D675C1E2DEE8600DA3D90 /* RITLPhotosViewModel.swift */; };
-		DB7055791E2CB60100E54B70 /* RITLPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7055781E2CB60100E54B70 /* RITLPhotosCell.swift */; };
-		DB7E04991E2370580042495B /* RITLPublicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E04981E2370580042495B /* RITLPublicViewModel.swift */; };
-		DB7E049F1E2371570042495B /* RITLPhotoClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E049E1E2371570042495B /* RITLPhotoClosure.swift */; };
-		DB7E04A11E2374610042495B /* RITLPhotoConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E04A01E2374610042495B /* RITLPhotoConfig.swift */; };
-		DB7E04A31E2375450042495B /* RITLPhotoConfigExtern.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E04A21E2375450042495B /* RITLPhotoConfigExtern.swift */; };
-		DB7E04A61E2385880042495B /* RITLPhotoHandleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7E04A51E2385880042495B /* RITLPhotoHandleManager.swift */; };
-		DBCF86561DED12B40054A410 /* RITLAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCF86551DED12B40054A410 /* RITLAppDelegate.swift */; };
+		A988843EA5269BE1B9BA761B /* libPods-RITLImagePicker-Swift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D168CDFAE20DB74D5D962034 /* libPods-RITLImagePicker-Swift.a */; };
+		DB078C2A262EC02B00D7E367 /* RITLPhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB078C29262EC02B00D7E367 /* RITLPhotosCollectionViewCell.swift */; };
+		DB5250A82629648C006F0A09 /* RITLPhotosRowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5250A72629648C006F0A09 /* RITLPhotosRowTableViewCell.swift */; };
+		DB5250AB26297449006F0A09 /* RITLPhotosRowTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5250AA26297449006F0A09 /* RITLPhotosRowTableViewDataSource.swift */; };
+		DB6E3591263667A30006028E /* RITLPhotosMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E3590263667A30006028E /* RITLPhotosMaker.swift */; };
+		DB6E35942636B8650006028E /* RITLPhotosConfigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E35932636B8650006028E /* RITLPhotosConfigation.swift */; };
+		DB7C5B7F2626C70C00D7512F /* RITLPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5B7E2626C70C00D7512F /* RITLPhotosViewController.swift */; };
+		DB7C5B8C2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5B8B2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift */; };
+		DB7C5B9C2626CDF000D7512F /* RITLPhotosStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5B9B2626CDF000D7512F /* RITLPhotosStore.swift */; };
+		DB7C5BA32626E77E00D7512F /* RITLPhotosUtilites.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5BA22626E77E00D7512F /* RITLPhotosUtilites.swift */; };
+		DB7C5BA72626EB1600D7512F /* RITLPhotos.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DB7C5BA62626EB1600D7512F /* RITLPhotos.bundle */; };
+		DB7C5BAA2626EBA100D7512F /* RITLPhotosBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5BA92626EBA100D7512F /* RITLPhotosBundle.swift */; };
+		DB7C5C132627D6BA00D7512F /* RITLPhotosBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5C122627D6BA00D7512F /* RITLPhotosBottomBar.swift */; };
+		DB7C5C162628225900D7512F /* RITLPhotosNavigationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5C152628225900D7512F /* RITLPhotosNavigationItemView.swift */; };
+		DB7C5C222629281200D7512F /* RITLPhotosRowTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5C212629281200D7512F /* RITLPhotosRowTableView.swift */; };
+		DBCF86561DED12B40054A410 /* RITLPhotosAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCF86551DED12B40054A410 /* RITLPhotosAppDelegate.swift */; };
 		DBCF865B1DED12B40054A410 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBCF86591DED12B40054A410 /* Main.storyboard */; };
 		DBCF865D1DED12B40054A410 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBCF865C1DED12B40054A410 /* Assets.xcassets */; };
 		DBCF86601DED12B40054A410 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBCF865E1DED12B40054A410 /* LaunchScreen.storyboard */; };
-		DBCF86681DED14DD0054A410 /* RITLMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCF86671DED14DD0054A410 /* RITLMainViewController.swift */; };
+		DBCF86681DED14DD0054A410 /* RITLPhotoMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCF86671DED14DD0054A410 /* RITLPhotoMainViewController.swift */; };
 		DBCF866F1DED16260054A410 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBCF866E1DED16260054A410 /* Photos.framework */; };
-		DBCF86711DED17310054A410 /* RITLPhotoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCF86701DED17310054A410 /* RITLPhotoStore.swift */; };
-		DBDE9E171E30A6C0009ECEC2 /* RITLPhotoBridgeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDE9E161E30A6C0009ECEC2 /* RITLPhotoBridgeManager.swift */; };
-		DBDE9E191E30B221009ECEC2 /* RITLPhotoRequestStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDE9E181E30B221009ECEC2 /* RITLPhotoRequestStore.swift */; };
-		DBEC8F8C1E24B39E00CA59AE /* RITLPhotoNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8F8B1E24B39E00CA59AE /* RITLPhotoNavigationViewController.swift */; };
-		DBEC8F8E1E24B42B00CA59AE /* RITLPhotoNavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8F8D1E24B42B00CA59AE /* RITLPhotoNavigationViewModel.swift */; };
-		DBEC8F901E24B59D00CA59AE /* RITLPhotoGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8F8F1E24B59D00CA59AE /* RITLPhotoGroupViewController.swift */; };
-		DBEC8F921E24B5B800CA59AE /* RITLPhotoGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8F911E24B5B800CA59AE /* RITLPhotoGroupViewModel.swift */; };
-		DBEC8F971E24B73D00CA59AE /* RITLBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8F961E24B73D00CA59AE /* RITLBaseViewModel.swift */; };
-		DBEC8F991E24BA2500CA59AE /* RITLPhotoGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8F981E24BA2500CA59AE /* RITLPhotoGroupCell.swift */; };
-		DBEC901B1E24BBBE00CA59AE /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8FF91E24BBBE00CA59AE /* Constraint.swift */; };
-		DBEC901C1E24BBBE00CA59AE /* ConstraintAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8FFA1E24BBBE00CA59AE /* ConstraintAttributes.swift */; };
-		DBEC901D1E24BBBE00CA59AE /* ConstraintConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8FFB1E24BBBE00CA59AE /* ConstraintConfig.swift */; };
-		DBEC901E1E24BBBE00CA59AE /* ConstraintConstantTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8FFC1E24BBBE00CA59AE /* ConstraintConstantTarget.swift */; };
-		DBEC901F1E24BBBE00CA59AE /* ConstraintDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8FFD1E24BBBE00CA59AE /* ConstraintDescription.swift */; };
-		DBEC90201E24BBBE00CA59AE /* ConstraintDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8FFE1E24BBBE00CA59AE /* ConstraintDSL.swift */; };
-		DBEC90211E24BBBE00CA59AE /* ConstraintInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC8FFF1E24BBBE00CA59AE /* ConstraintInsets.swift */; };
-		DBEC90221E24BBBE00CA59AE /* ConstraintInsetTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90001E24BBBE00CA59AE /* ConstraintInsetTarget.swift */; };
-		DBEC90231E24BBBE00CA59AE /* ConstraintItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90011E24BBBE00CA59AE /* ConstraintItem.swift */; };
-		DBEC90241E24BBBE00CA59AE /* ConstraintLayoutGuide+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90021E24BBBE00CA59AE /* ConstraintLayoutGuide+Extensions.swift */; };
-		DBEC90251E24BBBE00CA59AE /* ConstraintLayoutGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90031E24BBBE00CA59AE /* ConstraintLayoutGuide.swift */; };
-		DBEC90261E24BBBE00CA59AE /* ConstraintLayoutGuideDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90041E24BBBE00CA59AE /* ConstraintLayoutGuideDSL.swift */; };
-		DBEC90271E24BBBE00CA59AE /* ConstraintLayoutSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90051E24BBBE00CA59AE /* ConstraintLayoutSupport.swift */; };
-		DBEC90281E24BBBE00CA59AE /* ConstraintLayoutSupportDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90061E24BBBE00CA59AE /* ConstraintLayoutSupportDSL.swift */; };
-		DBEC90291E24BBBE00CA59AE /* ConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90071E24BBBE00CA59AE /* ConstraintMaker.swift */; };
-		DBEC902A1E24BBBE00CA59AE /* ConstraintMakerEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90081E24BBBE00CA59AE /* ConstraintMakerEditable.swift */; };
-		DBEC902B1E24BBBE00CA59AE /* ConstraintMakerExtendable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90091E24BBBE00CA59AE /* ConstraintMakerExtendable.swift */; };
-		DBEC902C1E24BBBE00CA59AE /* ConstraintMakerFinalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC900A1E24BBBE00CA59AE /* ConstraintMakerFinalizable.swift */; };
-		DBEC902D1E24BBBE00CA59AE /* ConstraintMakerPriortizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC900B1E24BBBE00CA59AE /* ConstraintMakerPriortizable.swift */; };
-		DBEC902E1E24BBBE00CA59AE /* ConstraintMakerRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC900C1E24BBBE00CA59AE /* ConstraintMakerRelatable.swift */; };
-		DBEC902F1E24BBBE00CA59AE /* ConstraintMultiplierTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC900D1E24BBBE00CA59AE /* ConstraintMultiplierTarget.swift */; };
-		DBEC90301E24BBBE00CA59AE /* ConstraintOffsetTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC900E1E24BBBE00CA59AE /* ConstraintOffsetTarget.swift */; };
-		DBEC90311E24BBBE00CA59AE /* ConstraintPriorityTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC900F1E24BBBE00CA59AE /* ConstraintPriorityTarget.swift */; };
-		DBEC90321E24BBBE00CA59AE /* ConstraintRelatableTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90101E24BBBE00CA59AE /* ConstraintRelatableTarget.swift */; };
-		DBEC90331E24BBBE00CA59AE /* ConstraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90111E24BBBE00CA59AE /* ConstraintRelation.swift */; };
-		DBEC90341E24BBBE00CA59AE /* ConstraintView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90121E24BBBE00CA59AE /* ConstraintView+Extensions.swift */; };
-		DBEC90351E24BBBE00CA59AE /* ConstraintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90131E24BBBE00CA59AE /* ConstraintView.swift */; };
-		DBEC90361E24BBBE00CA59AE /* ConstraintViewDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90141E24BBBE00CA59AE /* ConstraintViewDSL.swift */; };
-		DBEC90371E24BBBE00CA59AE /* Debugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90151E24BBBE00CA59AE /* Debugging.swift */; };
-		DBEC90381E24BBBE00CA59AE /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DBEC90161E24BBBE00CA59AE /* Info.plist */; };
-		DBEC90391E24BBBE00CA59AE /* LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90171E24BBBE00CA59AE /* LayoutConstraint.swift */; };
-		DBEC903A1E24BBBE00CA59AE /* LayoutConstraintItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC90181E24BBBE00CA59AE /* LayoutConstraintItem.swift */; };
-		DBEC903B1E24BBBE00CA59AE /* UILayoutSupport+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC901A1E24BBBE00CA59AE /* UILayoutSupport+Extensions.swift */; };
-		DBEC903D1E24C21900CA59AE /* RITLScrollViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEC903C1E24C21900CA59AE /* RITLScrollViewModel.swift */; };
+		DBE1150F2632C8E40092B1D5 /* RITLPhotosDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE1150E2632C8E40092B1D5 /* RITLPhotosDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DB04C8021E349F5800F6BD3E /* RITLPhotoPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoPreviewController.swift; sourceTree = "<group>"; };
-		DB29B4311E2CC86800CBD3D1 /* RITLPhotoBottomReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoBottomReusableView.swift; sourceTree = "<group>"; };
-		DB2D1A321E31A321007EAD08 /* RITLPhotoExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoExtension.swift; sourceTree = "<group>"; };
-		DB2D1A351E31A744007EAD08 /* RITLPhotoBrowseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoBrowseCell.swift; sourceTree = "<group>"; };
-		DB2D1A371E31B715007EAD08 /* RITLPhotoBrowseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoBrowseController.swift; sourceTree = "<group>"; };
-		DB2D1A391E31B753007EAD08 /* RITLPhotoBrowseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoBrowseViewModel.swift; sourceTree = "<group>"; };
-		DB3FE0FB1E305DF50057606F /* RITLPhotoCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoCacheManager.swift; sourceTree = "<group>"; };
-		DB4D675A1E2DEE4B00DA3D90 /* RITLPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotosViewController.swift; sourceTree = "<group>"; };
-		DB4D675C1E2DEE8600DA3D90 /* RITLPhotosViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotosViewModel.swift; sourceTree = "<group>"; };
-		DB7055781E2CB60100E54B70 /* RITLPhotosCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotosCell.swift; sourceTree = "<group>"; };
-		DB7E04981E2370580042495B /* RITLPublicViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPublicViewModel.swift; sourceTree = "<group>"; };
-		DB7E049E1E2371570042495B /* RITLPhotoClosure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoClosure.swift; sourceTree = "<group>"; };
-		DB7E04A01E2374610042495B /* RITLPhotoConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoConfig.swift; sourceTree = "<group>"; };
-		DB7E04A21E2375450042495B /* RITLPhotoConfigExtern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoConfigExtern.swift; sourceTree = "<group>"; };
-		DB7E04A51E2385880042495B /* RITLPhotoHandleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoHandleManager.swift; sourceTree = "<group>"; };
+		33A0DDD768DBDAB57D5413F2 /* Pods-RITLImagePicker-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RITLImagePicker-Swift.release.xcconfig"; path = "Target Support Files/Pods-RITLImagePicker-Swift/Pods-RITLImagePicker-Swift.release.xcconfig"; sourceTree = "<group>"; };
+		AAD06A803868C85127784DBA /* Pods-RITLImagePicker-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RITLImagePicker-Swift.debug.xcconfig"; path = "Target Support Files/Pods-RITLImagePicker-Swift/Pods-RITLImagePicker-Swift.debug.xcconfig"; sourceTree = "<group>"; };
+		D168CDFAE20DB74D5D962034 /* libPods-RITLImagePicker-Swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RITLImagePicker-Swift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB078C29262EC02B00D7E367 /* RITLPhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB5250A72629648C006F0A09 /* RITLPhotosRowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosRowTableViewCell.swift; sourceTree = "<group>"; };
+		DB5250AA26297449006F0A09 /* RITLPhotosRowTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosRowTableViewDataSource.swift; sourceTree = "<group>"; };
+		DB6E3590263667A30006028E /* RITLPhotosMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosMaker.swift; sourceTree = "<group>"; };
+		DB6E35932636B8650006028E /* RITLPhotosConfigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosConfigation.swift; sourceTree = "<group>"; };
+		DB7C5B7E2626C70C00D7512F /* RITLPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosViewController.swift; sourceTree = "<group>"; };
+		DB7C5B8B2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosCollectionViewController.swift; sourceTree = "<group>"; };
+		DB7C5B9B2626CDF000D7512F /* RITLPhotosStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosStore.swift; sourceTree = "<group>"; };
+		DB7C5BA22626E77E00D7512F /* RITLPhotosUtilites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosUtilites.swift; sourceTree = "<group>"; };
+		DB7C5BA62626EB1600D7512F /* RITLPhotos.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RITLPhotos.bundle; sourceTree = "<group>"; };
+		DB7C5BA92626EBA100D7512F /* RITLPhotosBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosBundle.swift; sourceTree = "<group>"; };
+		DB7C5C122627D6BA00D7512F /* RITLPhotosBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosBottomBar.swift; sourceTree = "<group>"; };
+		DB7C5C152628225900D7512F /* RITLPhotosNavigationItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosNavigationItemView.swift; sourceTree = "<group>"; };
+		DB7C5C212629281200D7512F /* RITLPhotosRowTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosRowTableView.swift; sourceTree = "<group>"; };
 		DBCF86521DED12B40054A410 /* RITLImagePicker-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RITLImagePicker-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DBCF86551DED12B40054A410 /* RITLAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLAppDelegate.swift; sourceTree = "<group>"; };
+		DBCF86551DED12B40054A410 /* RITLPhotosAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosAppDelegate.swift; sourceTree = "<group>"; };
 		DBCF865A1DED12B40054A410 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DBCF865C1DED12B40054A410 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBCF865F1DED12B40054A410 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBCF86611DED12B40054A410 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DBCF86671DED14DD0054A410 /* RITLMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLMainViewController.swift; sourceTree = "<group>"; };
+		DBCF86671DED14DD0054A410 /* RITLPhotoMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoMainViewController.swift; sourceTree = "<group>"; };
 		DBCF866E1DED16260054A410 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
-		DBCF86701DED17310054A410 /* RITLPhotoStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoStore.swift; sourceTree = "<group>"; };
-		DBDE9E121E30A205009ECEC2 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
-		DBDE9E141E30A298009ECEC2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		DBDE9E161E30A6C0009ECEC2 /* RITLPhotoBridgeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoBridgeManager.swift; sourceTree = "<group>"; };
-		DBDE9E181E30B221009ECEC2 /* RITLPhotoRequestStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoRequestStore.swift; sourceTree = "<group>"; };
-		DBEC8F8B1E24B39E00CA59AE /* RITLPhotoNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoNavigationViewController.swift; sourceTree = "<group>"; };
-		DBEC8F8D1E24B42B00CA59AE /* RITLPhotoNavigationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoNavigationViewModel.swift; sourceTree = "<group>"; };
-		DBEC8F8F1E24B59D00CA59AE /* RITLPhotoGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoGroupViewController.swift; sourceTree = "<group>"; };
-		DBEC8F911E24B5B800CA59AE /* RITLPhotoGroupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoGroupViewModel.swift; sourceTree = "<group>"; };
-		DBEC8F961E24B73D00CA59AE /* RITLBaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLBaseViewModel.swift; sourceTree = "<group>"; };
-		DBEC8F981E24BA2500CA59AE /* RITLPhotoGroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLPhotoGroupCell.swift; sourceTree = "<group>"; };
-		DBEC8FF91E24BBBE00CA59AE /* Constraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
-		DBEC8FFA1E24BBBE00CA59AE /* ConstraintAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintAttributes.swift; sourceTree = "<group>"; };
-		DBEC8FFB1E24BBBE00CA59AE /* ConstraintConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintConfig.swift; sourceTree = "<group>"; };
-		DBEC8FFC1E24BBBE00CA59AE /* ConstraintConstantTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintConstantTarget.swift; sourceTree = "<group>"; };
-		DBEC8FFD1E24BBBE00CA59AE /* ConstraintDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintDescription.swift; sourceTree = "<group>"; };
-		DBEC8FFE1E24BBBE00CA59AE /* ConstraintDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintDSL.swift; sourceTree = "<group>"; };
-		DBEC8FFF1E24BBBE00CA59AE /* ConstraintInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintInsets.swift; sourceTree = "<group>"; };
-		DBEC90001E24BBBE00CA59AE /* ConstraintInsetTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintInsetTarget.swift; sourceTree = "<group>"; };
-		DBEC90011E24BBBE00CA59AE /* ConstraintItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintItem.swift; sourceTree = "<group>"; };
-		DBEC90021E24BBBE00CA59AE /* ConstraintLayoutGuide+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConstraintLayoutGuide+Extensions.swift"; sourceTree = "<group>"; };
-		DBEC90031E24BBBE00CA59AE /* ConstraintLayoutGuide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintLayoutGuide.swift; sourceTree = "<group>"; };
-		DBEC90041E24BBBE00CA59AE /* ConstraintLayoutGuideDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintLayoutGuideDSL.swift; sourceTree = "<group>"; };
-		DBEC90051E24BBBE00CA59AE /* ConstraintLayoutSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintLayoutSupport.swift; sourceTree = "<group>"; };
-		DBEC90061E24BBBE00CA59AE /* ConstraintLayoutSupportDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintLayoutSupportDSL.swift; sourceTree = "<group>"; };
-		DBEC90071E24BBBE00CA59AE /* ConstraintMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMaker.swift; sourceTree = "<group>"; };
-		DBEC90081E24BBBE00CA59AE /* ConstraintMakerEditable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMakerEditable.swift; sourceTree = "<group>"; };
-		DBEC90091E24BBBE00CA59AE /* ConstraintMakerExtendable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMakerExtendable.swift; sourceTree = "<group>"; };
-		DBEC900A1E24BBBE00CA59AE /* ConstraintMakerFinalizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMakerFinalizable.swift; sourceTree = "<group>"; };
-		DBEC900B1E24BBBE00CA59AE /* ConstraintMakerPriortizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMakerPriortizable.swift; sourceTree = "<group>"; };
-		DBEC900C1E24BBBE00CA59AE /* ConstraintMakerRelatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMakerRelatable.swift; sourceTree = "<group>"; };
-		DBEC900D1E24BBBE00CA59AE /* ConstraintMultiplierTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMultiplierTarget.swift; sourceTree = "<group>"; };
-		DBEC900E1E24BBBE00CA59AE /* ConstraintOffsetTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintOffsetTarget.swift; sourceTree = "<group>"; };
-		DBEC900F1E24BBBE00CA59AE /* ConstraintPriorityTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintPriorityTarget.swift; sourceTree = "<group>"; };
-		DBEC90101E24BBBE00CA59AE /* ConstraintRelatableTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintRelatableTarget.swift; sourceTree = "<group>"; };
-		DBEC90111E24BBBE00CA59AE /* ConstraintRelation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintRelation.swift; sourceTree = "<group>"; };
-		DBEC90121E24BBBE00CA59AE /* ConstraintView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConstraintView+Extensions.swift"; sourceTree = "<group>"; };
-		DBEC90131E24BBBE00CA59AE /* ConstraintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintView.swift; sourceTree = "<group>"; };
-		DBEC90141E24BBBE00CA59AE /* ConstraintViewDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintViewDSL.swift; sourceTree = "<group>"; };
-		DBEC90151E24BBBE00CA59AE /* Debugging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debugging.swift; sourceTree = "<group>"; };
-		DBEC90161E24BBBE00CA59AE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DBEC90171E24BBBE00CA59AE /* LayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConstraint.swift; sourceTree = "<group>"; };
-		DBEC90181E24BBBE00CA59AE /* LayoutConstraintItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConstraintItem.swift; sourceTree = "<group>"; };
-		DBEC90191E24BBBE00CA59AE /* SnapKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnapKit.h; sourceTree = "<group>"; };
-		DBEC901A1E24BBBE00CA59AE /* UILayoutSupport+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILayoutSupport+Extensions.swift"; sourceTree = "<group>"; };
-		DBEC903C1E24C21900CA59AE /* RITLScrollViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RITLScrollViewModel.swift; sourceTree = "<group>"; };
+		DBE1150E2632C8E40092B1D5 /* RITLPhotosDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,86 +66,60 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBCF866F1DED16260054A410 /* Photos.framework in Frameworks */,
+				A988843EA5269BE1B9BA761B /* libPods-RITLImagePicker-Swift.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DB2D1A311E31A311007EAD08 /* Extension */ = {
+		B17E4829B893449D138CAA05 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DB2D1A321E31A321007EAD08 /* RITLPhotoExtension.swift */,
+				AAD06A803868C85127784DBA /* Pods-RITLImagePicker-Swift.debug.xcconfig */,
+				33A0DDD768DBDAB57D5413F2 /* Pods-RITLImagePicker-Swift.release.xcconfig */,
 			);
-			path = Extension;
+			path = Pods;
 			sourceTree = "<group>";
 		};
-		DB2D1A341E31A719007EAD08 /* Browse */ = {
+		DB7C5B7D2626C6E600D7512F /* RITLPhotos */ = {
 			isa = PBXGroup;
 			children = (
-				DB2D1A351E31A744007EAD08 /* RITLPhotoBrowseCell.swift */,
-				DB2D1A371E31B715007EAD08 /* RITLPhotoBrowseController.swift */,
-				DB2D1A391E31B753007EAD08 /* RITLPhotoBrowseViewModel.swift */,
+				DB7C5BA52626EB1600D7512F /* Resource */,
+				DB7C5B7E2626C70C00D7512F /* RITLPhotosViewController.swift */,
+				DB078C29262EC02B00D7E367 /* RITLPhotosCollectionViewCell.swift */,
+				DB7C5B8B2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift */,
+				DB7C5B9B2626CDF000D7512F /* RITLPhotosStore.swift */,
+				DB7C5BA22626E77E00D7512F /* RITLPhotosUtilites.swift */,
+				DB7C5BA92626EBA100D7512F /* RITLPhotosBundle.swift */,
+				DB7C5C122627D6BA00D7512F /* RITLPhotosBottomBar.swift */,
+				DB7C5C152628225900D7512F /* RITLPhotosNavigationItemView.swift */,
+				DB7C5C212629281200D7512F /* RITLPhotosRowTableView.swift */,
+				DB5250A72629648C006F0A09 /* RITLPhotosRowTableViewCell.swift */,
+				DB5250AA26297449006F0A09 /* RITLPhotosRowTableViewDataSource.swift */,
+				DBE1150E2632C8E40092B1D5 /* RITLPhotosDataManager.swift */,
+				DB6E3590263667A30006028E /* RITLPhotosMaker.swift */,
+				DB6E35932636B8650006028E /* RITLPhotosConfigation.swift */,
 			);
-			path = Browse;
+			path = RITLPhotos;
 			sourceTree = "<group>";
 		};
-		DB7055771E2CB45300E54B70 /* Photo */ = {
+		DB7C5BA52626EB1600D7512F /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				DB7055781E2CB60100E54B70 /* RITLPhotosCell.swift */,
-				DB29B4311E2CC86800CBD3D1 /* RITLPhotoBottomReusableView.swift */,
-				DB4D675A1E2DEE4B00DA3D90 /* RITLPhotosViewController.swift */,
-				DB4D675C1E2DEE8600DA3D90 /* RITLPhotosViewModel.swift */,
-				DB04C8021E349F5800F6BD3E /* RITLPhotoPreviewController.swift */,
+				DB7C5BA62626EB1600D7512F /* RITLPhotos.bundle */,
 			);
-			path = Photo;
-			sourceTree = "<group>";
-		};
-		DB7E04961E236FF10042495B /* Tool */ = {
-			isa = PBXGroup;
-			children = (
-				DB2D1A311E31A311007EAD08 /* Extension */,
-				DBEC8FF81E24BBBE00CA59AE /* SnapKit */,
-				DB7E049D1E2371470042495B /* Closure */,
-				DB7E04971E23703B0042495B /* Protocol */,
-			);
-			path = Tool;
-			sourceTree = "<group>";
-		};
-		DB7E04971E23703B0042495B /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				DB7E04981E2370580042495B /* RITLPublicViewModel.swift */,
-				DBEC903C1E24C21900CA59AE /* RITLScrollViewModel.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		DB7E049D1E2371470042495B /* Closure */ = {
-			isa = PBXGroup;
-			children = (
-				DB7E049E1E2371570042495B /* RITLPhotoClosure.swift */,
-			);
-			path = Closure;
-			sourceTree = "<group>";
-		};
-		DB7E04A41E23855D0042495B /* PhotoManager */ = {
-			isa = PBXGroup;
-			children = (
-				DB7E04A51E2385880042495B /* RITLPhotoHandleManager.swift */,
-				DB3FE0FB1E305DF50057606F /* RITLPhotoCacheManager.swift */,
-				DBDE9E161E30A6C0009ECEC2 /* RITLPhotoBridgeManager.swift */,
-			);
-			path = PhotoManager;
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		DBCF86491DED12B40054A410 = {
 			isa = PBXGroup;
 			children = (
+				DB7C5B7D2626C6E600D7512F /* RITLPhotos */,
 				DBCF86541DED12B40054A410 /* RITLImagePicker-Swift */,
 				DBCF86531DED12B40054A410 /* Products */,
 				DBCF866D1DED16260054A410 /* Frameworks */,
+				B17E4829B893449D138CAA05 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -245,10 +134,8 @@
 		DBCF86541DED12B40054A410 /* RITLImagePicker-Swift */ = {
 			isa = PBXGroup;
 			children = (
-				DB7E04961E236FF10042495B /* Tool */,
-				DBCF86691DED15740054A410 /* Photofiles */,
-				DBCF86551DED12B40054A410 /* RITLAppDelegate.swift */,
-				DBCF86671DED14DD0054A410 /* RITLMainViewController.swift */,
+				DBCF86551DED12B40054A410 /* RITLPhotosAppDelegate.swift */,
+				DBCF86671DED14DD0054A410 /* RITLPhotoMainViewController.swift */,
 				DBCF86591DED12B40054A410 /* Main.storyboard */,
 				DBCF865C1DED12B40054A410 /* Assets.xcassets */,
 				DBCF865E1DED12B40054A410 /* LaunchScreen.storyboard */,
@@ -257,115 +144,13 @@
 			path = "RITLImagePicker-Swift";
 			sourceTree = "<group>";
 		};
-		DBCF86691DED15740054A410 /* Photofiles */ = {
-			isa = PBXGroup;
-			children = (
-				DBEC8F951E24B73D00CA59AE /* BaseClass */,
-				DBEC8F8A1E24B37100CA59AE /* Navigation */,
-				DBCF866A1DED159D0054A410 /* Group */,
-				DB7055771E2CB45300E54B70 /* Photo */,
-				DB2D1A341E31A719007EAD08 /* Browse */,
-				DBCF866B1DED159D0054A410 /* PhotoStore */,
-				DB7E04A41E23855D0042495B /* PhotoManager */,
-				DBCF866C1DED159D0054A410 /* Supporting */,
-			);
-			path = Photofiles;
-			sourceTree = "<group>";
-		};
-		DBCF866A1DED159D0054A410 /* Group */ = {
-			isa = PBXGroup;
-			children = (
-				DBEC8F981E24BA2500CA59AE /* RITLPhotoGroupCell.swift */,
-				DBEC8F911E24B5B800CA59AE /* RITLPhotoGroupViewModel.swift */,
-				DBEC8F8F1E24B59D00CA59AE /* RITLPhotoGroupViewController.swift */,
-			);
-			path = Group;
-			sourceTree = "<group>";
-		};
-		DBCF866B1DED159D0054A410 /* PhotoStore */ = {
-			isa = PBXGroup;
-			children = (
-				DBCF86701DED17310054A410 /* RITLPhotoStore.swift */,
-				DBDE9E181E30B221009ECEC2 /* RITLPhotoRequestStore.swift */,
-				DB7E04A21E2375450042495B /* RITLPhotoConfigExtern.swift */,
-				DB7E04A01E2374610042495B /* RITLPhotoConfig.swift */,
-			);
-			path = PhotoStore;
-			sourceTree = "<group>";
-		};
-		DBCF866C1DED159D0054A410 /* Supporting */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Supporting;
-			sourceTree = "<group>";
-		};
 		DBCF866D1DED16260054A410 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DBDE9E141E30A298009ECEC2 /* libz.tbd */,
-				DBDE9E121E30A205009ECEC2 /* Reveal.framework */,
 				DBCF866E1DED16260054A410 /* Photos.framework */,
+				D168CDFAE20DB74D5D962034 /* libPods-RITLImagePicker-Swift.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		DBEC8F8A1E24B37100CA59AE /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				DBEC8F8D1E24B42B00CA59AE /* RITLPhotoNavigationViewModel.swift */,
-				DBEC8F8B1E24B39E00CA59AE /* RITLPhotoNavigationViewController.swift */,
-			);
-			path = Navigation;
-			sourceTree = "<group>";
-		};
-		DBEC8F951E24B73D00CA59AE /* BaseClass */ = {
-			isa = PBXGroup;
-			children = (
-				DBEC8F961E24B73D00CA59AE /* RITLBaseViewModel.swift */,
-			);
-			path = BaseClass;
-			sourceTree = "<group>";
-		};
-		DBEC8FF81E24BBBE00CA59AE /* SnapKit */ = {
-			isa = PBXGroup;
-			children = (
-				DBEC8FF91E24BBBE00CA59AE /* Constraint.swift */,
-				DBEC8FFA1E24BBBE00CA59AE /* ConstraintAttributes.swift */,
-				DBEC8FFB1E24BBBE00CA59AE /* ConstraintConfig.swift */,
-				DBEC8FFC1E24BBBE00CA59AE /* ConstraintConstantTarget.swift */,
-				DBEC8FFD1E24BBBE00CA59AE /* ConstraintDescription.swift */,
-				DBEC8FFE1E24BBBE00CA59AE /* ConstraintDSL.swift */,
-				DBEC8FFF1E24BBBE00CA59AE /* ConstraintInsets.swift */,
-				DBEC90001E24BBBE00CA59AE /* ConstraintInsetTarget.swift */,
-				DBEC90011E24BBBE00CA59AE /* ConstraintItem.swift */,
-				DBEC90021E24BBBE00CA59AE /* ConstraintLayoutGuide+Extensions.swift */,
-				DBEC90031E24BBBE00CA59AE /* ConstraintLayoutGuide.swift */,
-				DBEC90041E24BBBE00CA59AE /* ConstraintLayoutGuideDSL.swift */,
-				DBEC90051E24BBBE00CA59AE /* ConstraintLayoutSupport.swift */,
-				DBEC90061E24BBBE00CA59AE /* ConstraintLayoutSupportDSL.swift */,
-				DBEC90071E24BBBE00CA59AE /* ConstraintMaker.swift */,
-				DBEC90081E24BBBE00CA59AE /* ConstraintMakerEditable.swift */,
-				DBEC90091E24BBBE00CA59AE /* ConstraintMakerExtendable.swift */,
-				DBEC900A1E24BBBE00CA59AE /* ConstraintMakerFinalizable.swift */,
-				DBEC900B1E24BBBE00CA59AE /* ConstraintMakerPriortizable.swift */,
-				DBEC900C1E24BBBE00CA59AE /* ConstraintMakerRelatable.swift */,
-				DBEC900D1E24BBBE00CA59AE /* ConstraintMultiplierTarget.swift */,
-				DBEC900E1E24BBBE00CA59AE /* ConstraintOffsetTarget.swift */,
-				DBEC900F1E24BBBE00CA59AE /* ConstraintPriorityTarget.swift */,
-				DBEC90101E24BBBE00CA59AE /* ConstraintRelatableTarget.swift */,
-				DBEC90111E24BBBE00CA59AE /* ConstraintRelation.swift */,
-				DBEC90121E24BBBE00CA59AE /* ConstraintView+Extensions.swift */,
-				DBEC90131E24BBBE00CA59AE /* ConstraintView.swift */,
-				DBEC90141E24BBBE00CA59AE /* ConstraintViewDSL.swift */,
-				DBEC90151E24BBBE00CA59AE /* Debugging.swift */,
-				DBEC90161E24BBBE00CA59AE /* Info.plist */,
-				DBEC90171E24BBBE00CA59AE /* LayoutConstraint.swift */,
-				DBEC90181E24BBBE00CA59AE /* LayoutConstraintItem.swift */,
-				DBEC90191E24BBBE00CA59AE /* SnapKit.h */,
-				DBEC901A1E24BBBE00CA59AE /* UILayoutSupport+Extensions.swift */,
-			);
-			path = SnapKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,6 +160,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBCF86641DED12B40054A410 /* Build configuration list for PBXNativeTarget "RITLImagePicker-Swift" */;
 			buildPhases = (
+				4AA740B04EE9C1D3A8B18AD7 /* [CP] Check Pods Manifest.lock */,
 				DBCF864E1DED12B40054A410 /* Sources */,
 				DBCF864F1DED12B40054A410 /* Frameworks */,
 				DBCF86501DED12B40054A410 /* Resources */,
@@ -396,19 +182,19 @@
 			attributes = {
 				CLASSPREFIX = RITL;
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = YueWen;
 				TargetAttributes = {
 					DBCF86511DED12B40054A410 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 8S4NWFZC5J;
+						DevelopmentTeam = 6Q3UXGAXR8;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = DBCF864D1DED12B40054A410 /* Build configuration list for PBXProject "RITLImagePicker-Swift" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -429,8 +215,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBEC90381E24BBBE00CA59AE /* Info.plist in Resources */,
 				DBCF86601DED12B40054A410 /* LaunchScreen.storyboard in Resources */,
+				DB7C5BA72626EB1600D7512F /* RITLPhotos.bundle in Resources */,
 				DBCF865D1DED12B40054A410 /* Assets.xcassets in Resources */,
 				DBCF865B1DED12B40054A410 /* Main.storyboard in Resources */,
 			);
@@ -438,70 +224,52 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4AA740B04EE9C1D3A8B18AD7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RITLImagePicker-Swift-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DBCF864E1DED12B40054A410 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB04C8011E343A4800F6BD3E /* RITLPhotoBrowseViewModel.swift in Sources */,
-				DB3FE0FC1E305DF50057606F /* RITLPhotoCacheManager.swift in Sources */,
-				DBEC901B1E24BBBE00CA59AE /* Constraint.swift in Sources */,
-				DBEC90311E24BBBE00CA59AE /* ConstraintPriorityTarget.swift in Sources */,
-				DB2D1A381E31B715007EAD08 /* RITLPhotoBrowseController.swift in Sources */,
-				DBEC901C1E24BBBE00CA59AE /* ConstraintAttributes.swift in Sources */,
-				DBEC90361E24BBBE00CA59AE /* ConstraintViewDSL.swift in Sources */,
-				DBEC90391E24BBBE00CA59AE /* LayoutConstraint.swift in Sources */,
-				DBEC90321E24BBBE00CA59AE /* ConstraintRelatableTarget.swift in Sources */,
-				DBCF86681DED14DD0054A410 /* RITLMainViewController.swift in Sources */,
-				DBEC90331E24BBBE00CA59AE /* ConstraintRelation.swift in Sources */,
-				DBEC902C1E24BBBE00CA59AE /* ConstraintMakerFinalizable.swift in Sources */,
-				DBEC901E1E24BBBE00CA59AE /* ConstraintConstantTarget.swift in Sources */,
-				DBEC90351E24BBBE00CA59AE /* ConstraintView.swift in Sources */,
-				DBEC90201E24BBBE00CA59AE /* ConstraintDSL.swift in Sources */,
-				DBEC903A1E24BBBE00CA59AE /* LayoutConstraintItem.swift in Sources */,
-				DBEC901D1E24BBBE00CA59AE /* ConstraintConfig.swift in Sources */,
-				DBEC90251E24BBBE00CA59AE /* ConstraintLayoutGuide.swift in Sources */,
-				DBCF86711DED17310054A410 /* RITLPhotoStore.swift in Sources */,
-				DBEC90301E24BBBE00CA59AE /* ConstraintOffsetTarget.swift in Sources */,
-				DBEC90281E24BBBE00CA59AE /* ConstraintLayoutSupportDSL.swift in Sources */,
-				DBEC903B1E24BBBE00CA59AE /* UILayoutSupport+Extensions.swift in Sources */,
-				DBEC90341E24BBBE00CA59AE /* ConstraintView+Extensions.swift in Sources */,
-				DB7E049F1E2371570042495B /* RITLPhotoClosure.swift in Sources */,
-				DBEC902B1E24BBBE00CA59AE /* ConstraintMakerExtendable.swift in Sources */,
-				DBEC90291E24BBBE00CA59AE /* ConstraintMaker.swift in Sources */,
-				DBDE9E191E30B221009ECEC2 /* RITLPhotoRequestStore.swift in Sources */,
-				DBEC8F901E24B59D00CA59AE /* RITLPhotoGroupViewController.swift in Sources */,
-				DBEC8F991E24BA2500CA59AE /* RITLPhotoGroupCell.swift in Sources */,
-				DBEC903D1E24C21900CA59AE /* RITLScrollViewModel.swift in Sources */,
-				DBDE9E171E30A6C0009ECEC2 /* RITLPhotoBridgeManager.swift in Sources */,
-				DBEC90231E24BBBE00CA59AE /* ConstraintItem.swift in Sources */,
-				DBEC902A1E24BBBE00CA59AE /* ConstraintMakerEditable.swift in Sources */,
-				DBEC90221E24BBBE00CA59AE /* ConstraintInsetTarget.swift in Sources */,
-				DBEC90371E24BBBE00CA59AE /* Debugging.swift in Sources */,
-				DBEC8F921E24B5B800CA59AE /* RITLPhotoGroupViewModel.swift in Sources */,
-				DBEC8F971E24B73D00CA59AE /* RITLBaseViewModel.swift in Sources */,
-				DB2D1A361E31A744007EAD08 /* RITLPhotoBrowseCell.swift in Sources */,
-				DB7E04A61E2385880042495B /* RITLPhotoHandleManager.swift in Sources */,
-				DB4D675D1E2DEE8600DA3D90 /* RITLPhotosViewModel.swift in Sources */,
-				DBEC90241E24BBBE00CA59AE /* ConstraintLayoutGuide+Extensions.swift in Sources */,
-				DBEC8F8E1E24B42B00CA59AE /* RITLPhotoNavigationViewModel.swift in Sources */,
-				DBEC902F1E24BBBE00CA59AE /* ConstraintMultiplierTarget.swift in Sources */,
-				DB7E04A11E2374610042495B /* RITLPhotoConfig.swift in Sources */,
-				DBEC90271E24BBBE00CA59AE /* ConstraintLayoutSupport.swift in Sources */,
-				DB2D1A331E31A321007EAD08 /* RITLPhotoExtension.swift in Sources */,
-				DB4D675B1E2DEE4B00DA3D90 /* RITLPhotosViewController.swift in Sources */,
-				DB04C8031E349F5800F6BD3E /* RITLPhotoPreviewController.swift in Sources */,
-				DBEC90211E24BBBE00CA59AE /* ConstraintInsets.swift in Sources */,
-				DB7E04991E2370580042495B /* RITLPublicViewModel.swift in Sources */,
-				DBEC902D1E24BBBE00CA59AE /* ConstraintMakerPriortizable.swift in Sources */,
-				DBCF86561DED12B40054A410 /* RITLAppDelegate.swift in Sources */,
-				DB7E04A31E2375450042495B /* RITLPhotoConfigExtern.swift in Sources */,
-				DBEC8F8C1E24B39E00CA59AE /* RITLPhotoNavigationViewController.swift in Sources */,
-				DBEC902E1E24BBBE00CA59AE /* ConstraintMakerRelatable.swift in Sources */,
-				DBEC901F1E24BBBE00CA59AE /* ConstraintDescription.swift in Sources */,
-				DBEC90261E24BBBE00CA59AE /* ConstraintLayoutGuideDSL.swift in Sources */,
-				DB7055791E2CB60100E54B70 /* RITLPhotosCell.swift in Sources */,
-				DB29B4321E2CC86800CBD3D1 /* RITLPhotoBottomReusableView.swift in Sources */,
+				DB6E3591263667A30006028E /* RITLPhotosMaker.swift in Sources */,
+				DB7C5B7F2626C70C00D7512F /* RITLPhotosViewController.swift in Sources */,
+				DB7C5BAA2626EBA100D7512F /* RITLPhotosBundle.swift in Sources */,
+				DB5250AB26297449006F0A09 /* RITLPhotosRowTableViewDataSource.swift in Sources */,
+				DBE1150F2632C8E40092B1D5 /* RITLPhotosDataManager.swift in Sources */,
+				DB7C5B9C2626CDF000D7512F /* RITLPhotosStore.swift in Sources */,
+				DB7C5C222629281200D7512F /* RITLPhotosRowTableView.swift in Sources */,
+				DB7C5BA32626E77E00D7512F /* RITLPhotosUtilites.swift in Sources */,
+				DBCF86681DED14DD0054A410 /* RITLPhotoMainViewController.swift in Sources */,
+				DB7C5B8C2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift in Sources */,
+				DB5250A82629648C006F0A09 /* RITLPhotosRowTableViewCell.swift in Sources */,
+				DB7C5C162628225900D7512F /* RITLPhotosNavigationItemView.swift in Sources */,
+				DB078C2A262EC02B00D7E367 /* RITLPhotosCollectionViewCell.swift in Sources */,
+				DB7C5C132627D6BA00D7512F /* RITLPhotosBottomBar.swift in Sources */,
+				DBCF86561DED12B40054A410 /* RITLPhotosAppDelegate.swift in Sources */,
+				DB6E35942636B8650006028E /* RITLPhotosConfigation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,20 +299,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -568,7 +346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -581,20 +359,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -612,7 +400,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -622,39 +410,41 @@
 		};
 		DBCF86651DED12B40054A410 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAD06A803868C85127784DBA /* Pods-RITLImagePicker-Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 8S4NWFZC5J;
+				DEVELOPMENT_TEAM = 6Q3UXGAXR8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "RITLImagePicker-Swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yue.RITL-ImagePicker-Swift";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yue.RITLImagePickerSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		DBCF86661DED12B40054A410 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33A0DDD768DBDAB57D5413F2 /* Pods-RITLImagePicker-Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 8S4NWFZC5J;
+				DEVELOPMENT_TEAM = 6Q3UXGAXR8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "RITLImagePicker-Swift/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yue.RITL-ImagePicker-Swift";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yue.RITLImagePickerSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
