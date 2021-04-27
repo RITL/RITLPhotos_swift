@@ -187,6 +187,8 @@ public class RITLPhotosCollectionViewController: UIViewController {
         bottomBar.backgroundColor = .clear
         bottomBar.highButton.addTarget(self, action: #selector(highButtonDidTap), for: .touchUpInside)
         bottomBar.sendButton.addTarget(self, action: #selector(sendButtonDidTap), for: .touchUpInside)
+        bottomBar.previewButton.addTarget(self, action: #selector(previewButtonDidTap), for: .touchUpInside)
+        
         
         collectionView.snp.remakeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -284,6 +286,10 @@ public class RITLPhotosCollectionViewController: UIViewController {
         }
     }
     
+    @objc func previewButtonDidTap() {
+        pushToRITLPhotosBrowserViewController(isAll: false)
+    }
+    
     @objc func backItemDidTap() {
         navigationController?.dismiss(animated: true, completion: nil)
     }
@@ -292,6 +298,11 @@ public class RITLPhotosCollectionViewController: UIViewController {
     /// 底部高清状态
     private func updateStateBottomHighButton() {
         dataManager.isHightQuality = !dataManager.isHightQuality
+    }
+    
+    
+    private func pushToRITLPhotosBrowserViewController(isAll: Bool, atIndexPath: IndexPath? = nil) {
+        navigationController?.pushViewController(RITLPhotosBrowserViewController(), animated: true)
     }
 }
 
@@ -366,6 +377,10 @@ extension RITLPhotosCollectionViewController: UICollectionViewDelegateFlowLayout
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 3
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        pushToRITLPhotosBrowserViewController(isAll: true, atIndexPath: indexPath)
     }
 }
 
@@ -449,9 +464,10 @@ extension RITLPhotosCollectionViewController: RITLPhotosNavigationItemViewDelega
         //设置数据
         assetCollection = collection
         //获得所有的数据源
-        assets = PHAsset.fetchAssets(in: collection, options: nil)
+        let options = PHFetchOptions()
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        assets = PHAsset.fetchAssets(in: collection, options: options)
         //更新头部以及选择器的数据
-//        groupSwitchView.titleLabel.text = collection.localizedTitle ?? ""
         groupSwitchView.updateTitle(text: collection.localizedTitle ?? "")
         //更新列表的数据源
         groupPickerViewDataSource.update(currentId: collection.localIdentifier, datas: self.allAssetCollections)
