@@ -26,6 +26,7 @@
 		DB7C5C132627D6BA00D7512F /* RITLPhotosBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5C122627D6BA00D7512F /* RITLPhotosBottomBar.swift */; };
 		DB7C5C162628225900D7512F /* RITLPhotosNavigationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5C152628225900D7512F /* RITLPhotosNavigationItemView.swift */; };
 		DB7C5C222629281200D7512F /* RITLPhotosRowTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5C212629281200D7512F /* RITLPhotosRowTableView.swift */; };
+		DBAF2BB726395738008CCDD5 /* RITLPhotosBrowserUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAF2BB626395738008CCDD5 /* RITLPhotosBrowserUpdater.swift */; };
 		DBCF86561DED12B40054A410 /* RITLPhotosAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCF86551DED12B40054A410 /* RITLPhotosAppDelegate.swift */; };
 		DBCF865B1DED12B40054A410 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBCF86591DED12B40054A410 /* Main.storyboard */; };
 		DBCF865D1DED12B40054A410 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBCF865C1DED12B40054A410 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		DB7C5C122627D6BA00D7512F /* RITLPhotosBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosBottomBar.swift; sourceTree = "<group>"; };
 		DB7C5C152628225900D7512F /* RITLPhotosNavigationItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosNavigationItemView.swift; sourceTree = "<group>"; };
 		DB7C5C212629281200D7512F /* RITLPhotosRowTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosRowTableView.swift; sourceTree = "<group>"; };
+		DBAF2BB626395738008CCDD5 /* RITLPhotosBrowserUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosBrowserUpdater.swift; sourceTree = "<group>"; };
 		DBCF86521DED12B40054A410 /* RITLImagePicker-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RITLImagePicker-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBCF86551DED12B40054A410 /* RITLPhotosAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosAppDelegate.swift; sourceTree = "<group>"; };
 		DBCF865A1DED12B40054A410 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				DBE1150E2632C8E40092B1D5 /* RITLPhotosDataManager.swift */,
 				DB6E3590263667A30006028E /* RITLPhotosMaker.swift */,
 				DB6E35932636B8650006028E /* RITLPhotosConfigation.swift */,
+				DBAF2BB626395738008CCDD5 /* RITLPhotosBrowserUpdater.swift */,
 				DB6E3623263802630006028E /* RITLPhotosBrowserCollectionCell.swift */,
 				DB6E361D2637B6E90006028E /* RITLPhotosBrowserViewController.swift */,
 				DB6E36202637FC6E0006028E /* RITLPhotosBrowserAllDataSource.swift */,
@@ -267,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB6E3591263667A30006028E /* RITLPhotosMaker.swift in Sources */,
+				DBAF2BB726395738008CCDD5 /* RITLPhotosBrowserUpdater.swift in Sources */,
 				DB6E361E2637B6E90006028E /* RITLPhotosBrowserViewController.swift in Sources */,
 				DB7C5B7F2626C70C00D7512F /* RITLPhotosViewController.swift in Sources */,
 				DB7C5BAA2626EBA100D7512F /* RITLPhotosBundle.swift in Sources */,

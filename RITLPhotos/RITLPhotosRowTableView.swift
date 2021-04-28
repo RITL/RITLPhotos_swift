@@ -9,7 +9,7 @@
 import UIKit
 
 /// 代理方法
-public protocol RITLPhotosRowTableViewDelegate: class {
+public protocol RITLPhotosRowTableViewDelegate: AnyObject {
     
     /// 点击选择后的回调
     func photosRowTableView(view: RITLPhotosRowTableView, didTap indexPath: IndexPath)

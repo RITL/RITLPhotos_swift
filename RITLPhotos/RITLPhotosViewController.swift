@@ -17,7 +17,7 @@ extension Notification.Name {
 }
 
 
-protocol RITLPhotosViewControllerDelegate: class {
+protocol RITLPhotosViewControllerDelegate: AnyObject {
     
     
     /// 即将消失的回调

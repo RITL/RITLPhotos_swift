@@ -8,7 +8,7 @@
 
 import UIKit
 
-public protocol RITLPhotosNavigationItemViewDelegate: class {
+public protocol RITLPhotosNavigationItemViewDelegate: AnyObject {
     
     /// 选择图片的模块点击的回调
     func photosPickerViewDidTap(view: RITLPhotosNavigationItemView)

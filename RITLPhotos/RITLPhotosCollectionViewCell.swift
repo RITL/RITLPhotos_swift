@@ -17,7 +17,7 @@ public enum RITLPhotosCellAnimatedStatus: Int {
 
 public typealias RITLPhotosCellStatusAction = (RITLPhotosCellAnimatedStatus, Bool, Int)->()
 
-public protocol RITLPhotosCollectionCellActionTarget: class {
+public protocol RITLPhotosCollectionCellActionTarget: AnyObject {
     
     /// 选中按钮被点击后的回调
     func photosCollectionCell(selectedDidTap cell: RITLPhotosCollectionViewCell, complete: RITLPhotosCellStatusAction?)

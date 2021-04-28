@@ -10,44 +10,7 @@ import UIKit
 import Photos
 
 ///
-public protocol RITLPhotosBrowserUpdater {
-    /// 更新数据
-    func update(asset: PHAsset, at indexPath: IndexPath, imageManager: PHCachingImageManager)
-    /// 播放
-    func play()
-    /// 停止
-    func stop()
-    /// 用于图片恢复
-    func reset()
-}
-
-public extension RITLPhotosBrowserUpdater {
-    
-    func update(asset: PHAsset, at indexPath: IndexPath, imageManager: PHCachingImageManager) {}
-    func play() {}
-    func stop() {}
-    func reset() {}
-}
-
-
-public extension RITLPhotosBrowserUpdater where Self: RITLPhotosBrowserCollectionCell {
-    
-    func update(asset: PHAsset, at indexPath: IndexPath, imageManager: PHCachingImageManager) {
-        //记录
-        assetIdentifer = asset.localIdentifier
-        self.asset = asset
-        //请求图片
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .aspectFill, options: PHImageRequestOptions()) { (image, _) in
-            
-            guard asset.localIdentifier == self.assetIdentifer else { return }
-            self.iconImageView.image = image
-            self.iconImageSetComplete()
-        }
-    }
-}
-
-///
-public class RITLPhotosBrowserCollectionCell: UICollectionViewCell,RITLPhotosBrowserUpdater {
+public class RITLPhotosBrowserCollectionCell: UICollectionViewCell, RITLPhotosBrowserUpdater {
     
     /// 用于标记图片的id
     var assetIdentifer = ""
@@ -69,13 +32,6 @@ public class RITLPhotosBrowserCollectionCell: UICollectionViewCell,RITLPhotosBro
     public func iconImageSetComplete() { }
 }
 
-
-private class RITLPhotosBrowserScrollView: UIScrollView {
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-    }
-}
 
 
 /// 图片
@@ -191,4 +147,10 @@ public class RITLPhotosBrowserNormalCollectionCell: RITLPhotosBrowserCollectionC
     public func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         scrollView.setZoomScale(scale, animated: true)
     }
+}
+
+
+///
+public class RITLPhotosBrowserLiveCollectionCell: RITLPhotosBrowserCollectionCell {
+    
 }
