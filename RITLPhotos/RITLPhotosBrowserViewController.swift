@@ -18,6 +18,8 @@ protocol RITLPhotosBrowserDataSource: UICollectionViewDataSource {
     func defaultIndexPath() -> IndexPath
     /// 获得该位置的资源对象
     func asset(at indexPath: IndexPath) -> PHAsset?
+    /// 用于对collectionView进行操作
+    func update(collectionView: UICollectionView)
 }
 
 extension RITLPhotosBrowserDataSource {
@@ -25,7 +27,27 @@ extension RITLPhotosBrowserDataSource {
     func defaultIndexPath() -> IndexPath {
         return IndexPath(item: 0, section: 0)
     }
+    
+    func update(collectionView: UICollectionView) {
+        //默认对响应的数据进行注册
+        for type in RITLPhotosCollectionCellType.allCases {
+            collectionView.register(type.cellClass, forCellWithReuseIdentifier: type.rawValue)
+        }
+    }
 }
+
+fileprivate extension RITLPhotosCollectionCellType {
+    
+    var cellClass: AnyClass {
+        switch self {
+        case .video: return RITLPhotosBrowserNormalCollectionCell.self
+        case .live: return RITLPhotosBrowserNormalCollectionCell.self
+        case .photo: return RITLPhotosBrowserNormalCollectionCell.self
+        default: return RITLPhotosBrowserNormalCollectionCell.self
+        }
+    }
+}
+
 
 typealias RITLPhotosBrowserWillPopHandler = ()->()
 
@@ -37,7 +59,11 @@ final class RITLPhotosBrowserViewController: UIViewController {
     /// 点击返回进行的回调，用于刷新
     var popHandler: RITLPhotosBrowserWillPopHandler?
     /// 数据源
-    var dataSource: RITLPhotosBrowserDataSource?
+    var dataSource: RITLPhotosBrowserDataSource? {
+        didSet {
+            dataSource?.update(collectionView: collectionView)
+        }
+    }
     
     //dataManager
     private let dataManager = RITLPhotosDataManager.shareInstance()

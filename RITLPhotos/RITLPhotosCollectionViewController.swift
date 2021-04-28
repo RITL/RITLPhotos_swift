@@ -11,20 +11,7 @@ import Photos
 import SnapKit
 
 
-public enum RITLPhotoDifferencesKey: String {
-    case add
-    case remove
-}
-
-
-fileprivate enum CollectionCellType: String, CaseIterable {
-    case video
-    case live
-    case photo
-    case unknown
-}
-
-extension CollectionCellType {
+fileprivate extension RITLPhotosCollectionCellType {
     
     var cellClass: AnyClass {
         switch self {
@@ -36,28 +23,6 @@ extension CollectionCellType {
     }
 }
 
-fileprivate extension PHAsset {
-    
-    /// 注册的样式
-    func cellIdentifiers() -> CollectionCellType {
-        //进行图片以及视频的区分
-        switch mediaType {
-        case .video: return .video
-        case .image:
-            if #available(iOS 9.1, *) {
-                switch mediaSubtypes {
-                case .photoLive: return .live
-                default: return .photo
-                }
-            } else {
-                // Fallback on earlier versions
-                return .photo
-            }
-        default: return .unknown
-        }
-    }
-    
-}
 
 ///
 public class RITLPhotosCollectionViewController: UIViewController {
@@ -111,7 +76,7 @@ public class RITLPhotosCollectionViewController: UIViewController {
             return view
         }()
         //注册cell
-        for type in CollectionCellType.allCases {
+        for type in RITLPhotosCollectionCellType.allCases {
             collectionView.register(type.cellClass, forCellWithReuseIdentifier: type.rawValue)
         }
 
@@ -301,8 +266,20 @@ public class RITLPhotosCollectionViewController: UIViewController {
     }
     
     
-    private func pushToRITLPhotosBrowserViewController(isAll: Bool, atIndexPath: IndexPath? = nil) {
-        navigationController?.pushViewController(RITLPhotosBrowserViewController(), animated: true)
+    private func pushToRITLPhotosBrowserViewController(isAll: Bool, currentAsset: PHAsset? = nil) {
+        let viewController = RITLPhotosBrowserViewController()
+        viewController.dataSource = isAll ? {
+            //所有的数据源
+            let dataSource = RITLPhotosBrowserAllDataSource()
+            if let assetCollection = assetCollection {
+                dataSource.collection = assetCollection
+            }
+            if let currentAsset = currentAsset {
+                dataSource.asset = currentAsset
+            }
+            return dataSource
+        }() : nil
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -320,7 +297,7 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
         //asset
         let asset = assets.object(at: indexPath.item)
         //获得cell
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: asset.cellIdentifiers().rawValue, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: asset.cellIdentifier().rawValue, for: indexPath)
         if let cell = cell as? RITLPhotosCollectionViewCell {
             //size
             var size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: indexPath)
@@ -380,7 +357,7 @@ extension RITLPhotosCollectionViewController: UICollectionViewDelegateFlowLayout
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        pushToRITLPhotosBrowserViewController(isAll: true, atIndexPath: indexPath)
+        pushToRITLPhotosBrowserViewController(isAll: true, currentAsset: assets?[indexPath.item])
     }
 }
 

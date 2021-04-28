@@ -41,11 +41,19 @@ public final class RITLPhotosBrowserAllDataSource: NSObject, RITLPhotosBrowserDa
 extension RITLPhotosBrowserAllDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return assetResult.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+        //获得cell
+        let asset = assetResult.object(at: indexPath.item)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: asset.cellIdentifier().rawValue, for: indexPath)
+        
+        if let cell = cell as? RITLPhotosBrowserUpdater {
+            cell.update(asset: asset, at: indexPath, imageManager: imageManager)
+        }
+        
+        return cell
     }
     
 }

@@ -15,6 +15,8 @@
 		DB6E35942636B8650006028E /* RITLPhotosConfigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E35932636B8650006028E /* RITLPhotosConfigation.swift */; };
 		DB6E361E2637B6E90006028E /* RITLPhotosBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E361D2637B6E90006028E /* RITLPhotosBrowserViewController.swift */; };
 		DB6E36212637FC6E0006028E /* RITLPhotosBrowserAllDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E36202637FC6E0006028E /* RITLPhotosBrowserAllDataSource.swift */; };
+		DB6E3624263802630006028E /* RITLPhotosBrowserCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E3623263802630006028E /* RITLPhotosBrowserCollectionCell.swift */; };
+		DB6E36272638081B0006028E /* RITLPhotosCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E36262638081B0006028E /* RITLPhotosCellType.swift */; };
 		DB7C5B7F2626C70C00D7512F /* RITLPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5B7E2626C70C00D7512F /* RITLPhotosViewController.swift */; };
 		DB7C5B8C2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5B8B2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift */; };
 		DB7C5B9C2626CDF000D7512F /* RITLPhotosStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7C5B9B2626CDF000D7512F /* RITLPhotosStore.swift */; };
@@ -44,6 +46,8 @@
 		DB6E35932636B8650006028E /* RITLPhotosConfigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosConfigation.swift; sourceTree = "<group>"; };
 		DB6E361D2637B6E90006028E /* RITLPhotosBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosBrowserViewController.swift; sourceTree = "<group>"; };
 		DB6E36202637FC6E0006028E /* RITLPhotosBrowserAllDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosBrowserAllDataSource.swift; sourceTree = "<group>"; };
+		DB6E3623263802630006028E /* RITLPhotosBrowserCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosBrowserCollectionCell.swift; sourceTree = "<group>"; };
+		DB6E36262638081B0006028E /* RITLPhotosCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosCellType.swift; sourceTree = "<group>"; };
 		DB7C5B7E2626C70C00D7512F /* RITLPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosViewController.swift; sourceTree = "<group>"; };
 		DB7C5B8B2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		DB7C5B9B2626CDF000D7512F /* RITLPhotosStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosStore.swift; sourceTree = "<group>"; };
@@ -90,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				DB7C5BA52626EB1600D7512F /* Resource */,
+				DB6E36262638081B0006028E /* RITLPhotosCellType.swift */,
 				DB7C5B7E2626C70C00D7512F /* RITLPhotosViewController.swift */,
 				DB078C29262EC02B00D7E367 /* RITLPhotosCollectionViewCell.swift */,
 				DB7C5B8B2626CB2D00D7512F /* RITLPhotosCollectionViewController.swift */,
@@ -104,6 +109,7 @@
 				DBE1150E2632C8E40092B1D5 /* RITLPhotosDataManager.swift */,
 				DB6E3590263667A30006028E /* RITLPhotosMaker.swift */,
 				DB6E35932636B8650006028E /* RITLPhotosConfigation.swift */,
+				DB6E3623263802630006028E /* RITLPhotosBrowserCollectionCell.swift */,
 				DB6E361D2637B6E90006028E /* RITLPhotosBrowserViewController.swift */,
 				DB6E36202637FC6E0006028E /* RITLPhotosBrowserAllDataSource.swift */,
 			);
@@ -265,6 +271,7 @@
 				DB7C5B7F2626C70C00D7512F /* RITLPhotosViewController.swift in Sources */,
 				DB7C5BAA2626EBA100D7512F /* RITLPhotosBundle.swift in Sources */,
 				DB5250AB26297449006F0A09 /* RITLPhotosRowTableViewDataSource.swift in Sources */,
+				DB6E36272638081B0006028E /* RITLPhotosCellType.swift in Sources */,
 				DBE1150F2632C8E40092B1D5 /* RITLPhotosDataManager.swift in Sources */,
 				DB7C5B9C2626CDF000D7512F /* RITLPhotosStore.swift in Sources */,
 				DB7C5C222629281200D7512F /* RITLPhotosRowTableView.swift in Sources */,
@@ -275,6 +282,7 @@
 				DB7C5C162628225900D7512F /* RITLPhotosNavigationItemView.swift in Sources */,
 				DB078C2A262EC02B00D7E367 /* RITLPhotosCollectionViewCell.swift in Sources */,
 				DB7C5C132627D6BA00D7512F /* RITLPhotosBottomBar.swift in Sources */,
+				DB6E3624263802630006028E /* RITLPhotosBrowserCollectionCell.swift in Sources */,
 				DBCF86561DED12B40054A410 /* RITLPhotosAppDelegate.swift in Sources */,
 				DB6E35942636B8650006028E /* RITLPhotosConfigation.swift in Sources */,
 				DB6E36212637FC6E0006028E /* RITLPhotosBrowserAllDataSource.swift in Sources */,
