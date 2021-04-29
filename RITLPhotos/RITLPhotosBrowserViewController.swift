@@ -69,6 +69,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
     private let dataManager = RITLPhotosDataManager.shareInstance()
     private var countObservation: NSKeyValueObservation?
     private var isHightQualityObservation: NSKeyValueObservation?
+    private var tapNotification: NSObjectProtocol?
     
     /// 顶部未选中的按钮
     private var topSelectButton: UIButton!
@@ -82,6 +83,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 2 * RITLPhotosBrowserSpace
+//        flowLayout.minimumInteritemSpacing = 0
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: RITLPhotosBrowserSpace, bottom: 0, right: RITLPhotosBrowserSpace)
         flowLayout.itemSize = UIScreen.main.bounds.size
         //
@@ -119,6 +121,11 @@ final class RITLPhotosBrowserViewController: UIViewController {
         //设置代理
         collectionView.dataSource = dataSource
         collectionView.delegate = self
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        } else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
         
         view.addSubview(collectionView)
         view.addSubview(bottomBar)
@@ -143,6 +150,12 @@ final class RITLPhotosBrowserViewController: UIViewController {
             let isHight = change.newValue ?? false
             self?.bottomBar.highButton.isSelected = isHight
         })
+        
+        //注册通知
+        tapNotification = NotificationCenter.default.addObserver(forName: RITLPhotosBrowserTapNotificationName, object: nil, queue: OperationQueue.main) { [weak self] _ in
+            //导航变换
+            self?.toolBarShouldChanged()
+        }
     }
     
     
@@ -210,7 +223,8 @@ final class RITLPhotosBrowserViewController: UIViewController {
     deinit {
         countObservation = nil
         isHightQualityObservation = nil
-//        guard view
+        guard isViewLoaded else { return }
+        NotificationCenter.default.removeObserver(tapNotification!)
     }
     
     
@@ -224,6 +238,14 @@ final class RITLPhotosBrowserViewController: UIViewController {
         bottomBar.sendButton.isEnabled = !isEmpty
     }
     
+    private func toolBarShouldChanged() {
+        //导航
+        let isNavigationBarHidden = navigationController?.isNavigationBarHidden ?? false
+        navigationController?.setNavigationBarHidden(!isNavigationBarHidden, animated: false)
+        
+        //底部
+        bottomBar.isHidden = !bottomBar.isHidden
+    }
     
     @objc func backItemDidTap() {
         popHandler?()
@@ -237,7 +259,6 @@ final class RITLPhotosBrowserViewController: UIViewController {
     @objc func sendButtonDidTap() {
         RITLPhotosMaker.shareInstance().startMake {
             //需要停止播放即可
-            
             self.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
@@ -245,4 +266,8 @@ final class RITLPhotosBrowserViewController: UIViewController {
 
 extension RITLPhotosBrowserViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let resetter = cell as? RITLPhotosBrowserResetter else { return }
+        resetter.reset()
+    }
 }

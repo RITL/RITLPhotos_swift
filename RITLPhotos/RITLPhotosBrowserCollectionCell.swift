@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 ///
-public class RITLPhotosBrowserCollectionCell: UICollectionViewCell, RITLPhotosBrowserUpdater {
+public class RITLPhotosBrowserCollectionCell: UICollectionViewCell,RITLPhotosBrowserUpdater {
     
     /// 用于标记图片的id
     var assetIdentifer = ""
@@ -29,16 +29,19 @@ public class RITLPhotosBrowserCollectionCell: UICollectionViewCell, RITLPhotosBr
     }
     
     public func buildView() {}
-    public func iconImageSetComplete() { }
+    public func iconImageSetComplete() {}
 }
 
 
+/// 单击之后的通知
+let RITLPhotosBrowserTapNotificationName = Notification.Name("RITLPhotosBrowserTapNotificationName")
+
 
 /// 图片
-public class RITLPhotosBrowserNormalCollectionCell: RITLPhotosBrowserCollectionCell, UIScrollViewDelegate {
+public class RITLPhotosBrowserNormalCollectionCell: RITLPhotosBrowserCollectionCell, UIScrollViewDelegate, RITLPhotosBrowserResetter {
     
     /// 用于缩放的滚动视图
-    private var scrollView = UIScrollView()
+    private(set) var scrollView = UIScrollView()
     /// 是否已经缩放
     private var isScale = false
     
@@ -48,9 +51,6 @@ public class RITLPhotosBrowserNormalCollectionCell: RITLPhotosBrowserCollectionC
     
     private let minScaleZoom: CGFloat = 1.0
     private let maxScaleZoom: CGFloat = 2.0
-    
-    //点击回调
-    var tapHander: ((_ cell: RITLPhotosBrowserNormalCollectionCell)->())?
     
     public override func prepareForReuse() {
         super.prepareForReuse()
@@ -97,7 +97,7 @@ public class RITLPhotosBrowserNormalCollectionCell: RITLPhotosBrowserCollectionC
     @objc func tapGestureDidAction(tapGesture: UITapGestureRecognizer) {
         //如果是单击
         if tapGesture == self.tapGesture {
-            tapHander?(self); return
+            NotificationCenter.default.post(name: RITLPhotosBrowserTapNotificationName, object: nil); return
         }
         //双击回调
         guard tapGesture == doubleTapGesture else { return }
@@ -144,9 +144,24 @@ public class RITLPhotosBrowserNormalCollectionCell: RITLPhotosBrowserCollectionC
         iconImageView.center = CGPoint(x: scrollView.bounds.width / 2, y: scrollView.bounds.height / 2)
     }
     
+    
     public func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         scrollView.setZoomScale(scale, animated: true)
     }
+    
+    
+    public override func iconImageSetComplete() {
+        //对缩放进行设置
+//        guard let asset = asset else { return }
+//        let (height, width) = (asset.pixelHeight / 2, asset.pixelWidth / 2)
+//        let limit = max(width, height)
+//        let scale = (height > width ?
+//            { CGFloat(limit) / CGFloat(max(1, Int(iconImageView.bounds.size.height))) }() :
+//            { CGFloat(limit) / CGFloat(max(1, Int(iconImageView.bounds.size.width))) }())
+//        scrollView.maximumZoomScale = max(2,scale)
+        print("1")
+    }
+    
 }
 
 

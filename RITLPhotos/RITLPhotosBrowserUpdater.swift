@@ -17,8 +17,6 @@ public protocol RITLPhotosBrowserUpdater {
     func play()
     /// 停止
     func stop()
-    /// 用于图片恢复
-    func reset()
 }
 
 public extension RITLPhotosBrowserUpdater {
@@ -26,8 +24,8 @@ public extension RITLPhotosBrowserUpdater {
     func update(asset: PHAsset, at indexPath: IndexPath, imageManager: PHCachingImageManager) {}
     func play() {}
     func stop() {}
-    func reset() {}
 }
+
 
 
 public extension RITLPhotosBrowserUpdater where Self: RITLPhotosBrowserCollectionCell {
@@ -43,5 +41,25 @@ public extension RITLPhotosBrowserUpdater where Self: RITLPhotosBrowserCollectio
             self.iconImageView.image = image
             self.iconImageSetComplete()
         }
+    }
+}
+
+
+public protocol RITLPhotosBrowserResetter {
+    /// 用于图片恢复
+    func reset()
+}
+
+public extension RITLPhotosBrowserResetter {
+    func reset() {}
+}
+
+
+
+public extension RITLPhotosBrowserResetter where Self: RITLPhotosBrowserNormalCollectionCell {
+    
+    func reset() {
+        scrollView.maximumZoomScale = 2.0
+        scrollView.setZoomScale(1.0, animated: false)
     }
 }
