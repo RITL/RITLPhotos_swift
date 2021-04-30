@@ -15,7 +15,9 @@ public final class RITLPhotosBrowserAllDataSource: NSObject, RITLPhotosBrowserDa
     /// 进入预览组的集合
     var collection = PHAssetCollection() {
         didSet {
-            assetResult = PHAsset.fetchAssets(in: collection, options: nil)
+            let options = PHFetchOptions()
+            options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            assetResult = PHAsset.fetchAssets(in: collection, options: options)
         }
     }
     /// 当前点击进入的资源对象

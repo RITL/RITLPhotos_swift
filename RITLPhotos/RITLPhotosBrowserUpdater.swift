@@ -45,6 +45,39 @@ public extension RITLPhotosBrowserUpdater where Self: RITLPhotosBrowserCollectio
 }
 
 
+extension RITLPhotosBrowserUpdater where Self: RITLPhotosBrowserLiveCollectionCell {
+    
+    // 播放几颗
+    func play() {
+        if #available(iOS 9.1, *) {
+            guard let asset = asset, asset.mediaSubtypes == .photoLive else { return }
+            layoutIfNeeded()
+            
+            let options = PHLivePhotoRequestOptions()
+            options.deliveryMode = .highQualityFormat
+            //请求图片
+            PHImageManager.default().requestLivePhoto(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .aspectFill, options: options) { livePhoto, _ in
+                //图片
+                guard let livePhoto = livePhoto else { return }
+                //设置
+                self.livePhotoView.livePhoto = livePhoto
+                //播放即可
+                guard !self.isPlaying else { return }
+                //播放
+                self.livePhotoView.startPlayback(with: .hint)
+            }
+        }
+    }
+    
+    func stop() {
+        guard isPlaying else { return }
+        if #available(iOS 9.1, *) {
+            livePhotoView.stopPlayback()
+        }
+    }
+}
+
+
 public protocol RITLPhotosBrowserResetter {
     /// 用于图片恢复
     func reset()
@@ -53,7 +86,6 @@ public protocol RITLPhotosBrowserResetter {
 public extension RITLPhotosBrowserResetter {
     func reset() {}
 }
-
 
 
 public extension RITLPhotosBrowserResetter where Self: RITLPhotosBrowserNormalCollectionCell {

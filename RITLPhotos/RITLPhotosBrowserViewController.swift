@@ -41,7 +41,7 @@ fileprivate extension RITLPhotosCollectionCellType {
     var cellClass: AnyClass {
         switch self {
         case .video: return RITLPhotosBrowserNormalCollectionCell.self
-        case .live: return RITLPhotosBrowserNormalCollectionCell.self
+        case .live: return RITLPhotosBrowserLiveCollectionCell.self
         case .photo: return RITLPhotosBrowserNormalCollectionCell.self
         default: return RITLPhotosBrowserNormalCollectionCell.self
         }

@@ -82,13 +82,13 @@ public class RITLPhotosBottomBar: UIView {
         toolBar.barStyle = .black
         if #available(iOS 13.0, *) {
             let appearance = UIToolbarAppearance()
-            appearance.backgroundColor = 43.ritl_p_color.withAlphaComponent(0.9)
+            appearance.backgroundColor = 35.ritl_p_color.withAlphaComponent(0.9)
 //            appearance.backgroundImage = 35.ritl_p_image
 //            appearance.shadowImage =  35.ritl_p_image
             toolBar.standardAppearance = appearance
         } else {
             // Fallback on earlier versions
-            toolBar.barTintColor = 43.ritl_p_color.withAlphaComponent(0.9)
+            toolBar.barTintColor = 35.ritl_p_color.withAlphaComponent(0.9)
 //            toolBar.setBackgroundImage(35.ritl_p_image, forToolbarPosition: .any, barMetrics: .default)
 //            toolBar.setShadowImage(35.ritl_p_image, forToolbarPosition: .any)
         }

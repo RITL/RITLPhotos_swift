@@ -132,7 +132,7 @@ public class RITLPhotosViewController: UINavigationController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        navigationBar.barTintColor = 43.ritl_p_color.withAlphaComponent(0.9)
+        navigationBar.barTintColor = 35.ritl_p_color.withAlphaComponent(0.9)
         navigationBar.isTranslucent = true
 //        navigationBar.setBackgroundImage(UIImage(), for: .default)
 //        navigationBar.shadowImage = UIImage()

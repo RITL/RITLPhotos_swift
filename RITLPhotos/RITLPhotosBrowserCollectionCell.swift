@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import PhotosUI
 
 ///
 public class RITLPhotosBrowserCollectionCell: UICollectionViewCell,RITLPhotosBrowserUpdater {
@@ -21,6 +22,8 @@ public class RITLPhotosBrowserCollectionCell: UICollectionViewCell,RITLPhotosBro
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = .black
+        iconImageView.contentMode = .scaleAspectFit
         buildView()
     }
     
@@ -37,6 +40,7 @@ public class RITLPhotosBrowserCollectionCell: UICollectionViewCell,RITLPhotosBro
 let RITLPhotosBrowserTapNotificationName = Notification.Name("RITLPhotosBrowserTapNotificationName")
 
 
+//MARK: 普通的图片
 /// 图片
 public class RITLPhotosBrowserNormalCollectionCell: RITLPhotosBrowserCollectionCell, UIScrollViewDelegate, RITLPhotosBrowserResetter {
     
@@ -70,7 +74,6 @@ public class RITLPhotosBrowserNormalCollectionCell: RITLPhotosBrowserCollectionC
             pinchGestureRecognizer.addTarget(self, action: #selector(pinchGestureRecognizerDidChanged(recognizer:)))
         }
         
-        iconImageView.contentMode = .scaleAspectFit
         //单击
         tapGesture.numberOfTapsRequired = 1
         tapGesture.require(toFail: doubleTapGesture)
@@ -165,7 +168,110 @@ public class RITLPhotosBrowserNormalCollectionCell: RITLPhotosBrowserCollectionC
 }
 
 
+//MARK: Live的图片
 ///
+
 public class RITLPhotosBrowserLiveCollectionCell: RITLPhotosBrowserCollectionCell {
     
+    /// 显示livePhoto的图标
+    let liveBadgeImageView = UIImageView()
+    /// 描述
+    let liveLabel = UILabel()
+    /// 用于播放的视图
+    @available(iOS 9.1, *)
+    lazy var livePhotoView = PHLivePhotoView()
+    /// 是否在播放
+    private(set) var isPlaying = false
+    /// 是否按压唤醒
+    private var isForce = false
+    /// 单击手势
+    private let tapGestureRecognizer = UITapGestureRecognizer()
+    
+    
+    public override func buildView() {
+        super.buildView()
+        
+        liveBadgeImageView.backgroundColor = .clear
+        liveBadgeImageView.contentMode = .scaleToFill
+
+        liveLabel.text = "Live"
+        liveLabel.font = RITLPhotoFont.regular.font(size: 14)
+        liveLabel.textColor = .white
+        
+        contentView.addSubview(iconImageView)
+        contentView.addSubview(liveBadgeImageView)
+        contentView.addSubview(liveLabel)
+        
+        iconImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        liveBadgeImageView.snp.makeConstraints { make in
+            make.height.width.equalTo(25)
+            make.leading.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(RITLPhotoBarDistance.navigationBar.height + 18)
+        }
+        
+        liveLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(self.liveBadgeImageView)
+            make.leading.equalTo(self.liveBadgeImageView.snp.trailing).offset(3)
+        }
+        
+        //单击事件
+        if #available(iOS 9.1, *) {
+            liveBadgeImageView.image = PHLivePhotoView.livePhotoBadgeImage(options: .overContent)
+            livePhotoView.isHidden = true
+            livePhotoView.delegate = self
+            livePhotoView.isUserInteractionEnabled = false
+            
+            contentView.addSubview(livePhotoView)
+            livePhotoView.snp.makeConstraints { make in
+                make.center.equalTo(iconImageView)
+            }
+            contentView.addGestureRecognizer(tapGestureRecognizer)
+            tapGestureRecognizer.numberOfTapsRequired = 1
+            tapGestureRecognizer.addTarget(self, action: #selector(tapGestureDidAction(tapGesture:)))
+        }
+    }
+    
+    public override func iconImageSetComplete() {
+        guard let asset = asset else { return }
+        if #available(iOS 9.1, *) {
+            livePhotoView.snp.remakeConstraints { make in
+                make.center.width.equalTo(iconImageView)
+                make.height.equalTo(UIScreen.main.bounds.width * CGFloat(asset.pixelHeight) / CGFloat(asset.pixelWidth))
+            }
+        }
+    }
+    
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+        stop()
+    }
+    
+    @available(iOS 9.1, *)
+    @objc func tapGestureDidAction(tapGesture: UITapGestureRecognizer) {
+        if isPlaying { stop(); return }
+        guard !isPlaying && livePhotoView.isHidden else { return }
+        play()
+    }
 }
+
+
+@available(iOS 9.1, *)
+extension RITLPhotosBrowserLiveCollectionCell: PHLivePhotoViewDelegate {
+    
+    public func livePhotoView(_ livePhotoView: PHLivePhotoView, willBeginPlaybackWith playbackStyle: PHLivePhotoViewPlaybackStyle) {
+        isPlaying = true
+        livePhotoView.isHidden = false
+    }
+    
+    public func livePhotoView(_ livePhotoView: PHLivePhotoView, didEndPlaybackWith playbackStyle: PHLivePhotoViewPlaybackStyle) {
+        isPlaying = false
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
+            self.livePhotoView.isHidden = true
+        }
+    }
+}
+
+
