@@ -33,10 +33,6 @@ enum RITLPhotosImage: String {
     case pick_top_arrow = "ritl_photos_picker.png"
     
     
-    /// 占位图
-//    case placeholder = "ritl_placeholder.png"
-    /// 右侧的箭头
-//    case arrowRight = "ritl_arrow_right.png"
     
     //相册组
     
@@ -47,8 +43,7 @@ enum RITLPhotosImage: String {
     //集合视图
     
     case collection_normal = "ritl_photos_deselect.png"
-    /// 集合视图中的视频小icon
-//    case collection_video_icon = "ritl_photos_m_video.png"
+
     
     //浏览视图
     
@@ -56,7 +51,7 @@ enum RITLPhotosImage: String {
 
 
     /// 视频播放
-//    case videoPlayer = "ritl_video_play.png"
+    case browser_video = "ritl_photos_video_play.png"
 }
 
 

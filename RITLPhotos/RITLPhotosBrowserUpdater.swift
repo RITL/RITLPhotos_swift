@@ -78,6 +78,57 @@ extension RITLPhotosBrowserUpdater where Self: RITLPhotosBrowserLiveCollectionCe
 }
 
 
+extension RITLPhotosBrowserUpdater where Self: RITLPhotosBrowserVideoCollectionCell {
+    
+    public func play() {
+        guard let asset = asset, asset.mediaType == .video else { return }
+        //如果player存在直接播放即可
+        if let playerLayer = self.player, let player = playerLayer.player {
+            player.play(); return
+        }
+        //请求播放
+        let options = PHVideoRequestOptions()
+        options.deliveryMode = .automatic
+        //开始获取
+        PHImageManager.default().requestPlayerItem(forVideo: asset, options: options) { item, info in
+            guard let item = item else { return }
+            DispatchQueue.main.async {
+                
+                let player = AVPlayer(playerItem: item)
+                let playerLayer = AVPlayerLayer(player: player)
+                self.player = playerLayer
+                
+                //Notification
+                NotificationCenter.default.addObserver(self, selector: #selector(self.stopNotification), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: item)
+                
+                //config
+                playerLayer.videoGravity = .resizeAspect
+                playerLayer.frame = self.iconImageView.layer.bounds
+                self.playerImageView.isHidden = true
+                self.iconImageView.layer.addSublayer(playerLayer)
+                
+                //发送通知
+                NotificationCenter.default.post(name: RITLPhotosBrowserTapNotificationName, object: self, userInfo: [String.RITLPhotosBrowserVideoTapNotificationHiddenKey : true])
+                //播放
+                player.play()
+            }
+        }
+    }
+    
+    
+    public func stop() {
+        guard let playLayer = self.player, let player = playLayer.player else { return }
+        //发送通知
+        NotificationCenter.default.post(name: RITLPhotosBrowserTapNotificationName, object: nil, userInfo: [String.RITLPhotosBrowserVideoTapNotificationHiddenKey : false])
+        player.pause()
+        playLayer.removeFromSuperlayer()
+        NotificationCenter.default.removeObserver(self)
+        playerImageView.isHidden = false
+        self.player = nil
+    }
+}
+
+
 public protocol RITLPhotosBrowserResetter {
     /// 用于图片恢复
     func reset()
@@ -93,5 +144,21 @@ public extension RITLPhotosBrowserResetter where Self: RITLPhotosBrowserNormalCo
     func reset() {
         scrollView.maximumZoomScale = 2.0
         scrollView.setZoomScale(1.0, animated: false)
+    }
+}
+
+
+public extension RITLPhotosBrowserResetter where Self: RITLPhotosBrowserVideoCollectionCell {
+    
+    func reset() {
+        stop()
+    }
+}
+
+
+public extension RITLPhotosBrowserResetter where Self: RITLPhotosBrowserLiveCollectionCell {
+    
+    func reset() {
+        stop()
     }
 }

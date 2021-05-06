@@ -171,7 +171,7 @@ public class RITLPhotosBrowserNormalCollectionCell: RITLPhotosBrowserCollectionC
 //MARK: Live的图片
 ///
 
-public class RITLPhotosBrowserLiveCollectionCell: RITLPhotosBrowserCollectionCell {
+public class RITLPhotosBrowserLiveCollectionCell: RITLPhotosBrowserCollectionCell,RITLPhotosBrowserResetter {
     
     /// 显示livePhoto的图标
     let liveBadgeImageView = UIImageView()
@@ -274,4 +274,60 @@ extension RITLPhotosBrowserLiveCollectionCell: PHLivePhotoViewDelegate {
     }
 }
 
+
+//let RITLPhotosBrowserVideoTapNotificationName = Notification.Name("RITLPhotosBrowserVideoTapNotificationName")
+extension String {
+    static let RITLPhotosBrowserVideoTapNotificationHiddenKey = "hidden"
+}
+
+//MARK: Video的图片
+public class RITLPhotosBrowserVideoCollectionCell: RITLPhotosBrowserCollectionCell, RITLPhotosBrowserResetter {
+    
+    /// 播放的imageView
+    let playerImageView = UIImageView()
+    /// 播放的layer
+    var player: AVPlayerLayer?
+    
+    public override func buildView() {
+        super.buildView()
+        
+        playerImageView.alpha = 0.9
+        playerImageView.image = RITLPhotosImage.browser_video.image
+        
+        contentView.addSubview(iconImageView)
+        contentView.addSubview(playerImageView)
+        
+        iconImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        playerImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(80)
+            make.center.equalToSuperview()
+        }
+
+        //追加点击响应
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        tapGestureRecognizer.addTarget(self, action: #selector(tapGestureDidAction(tapGesture:)))
+        contentView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    public override func prepareForReuse() {
+        super.prepareForReuse()
+        guard player?.superlayer != nil else { return }
+        player?.removeFromSuperlayer()
+        player = nil
+    }
+    
+    
+    @objc func tapGestureDidAction(tapGesture: UITapGestureRecognizer) {
+        if player == nil { play(); return }
+        stop()
+    }
+    
+    @objc func stopNotification() {
+        stop()
+    }
+}
 

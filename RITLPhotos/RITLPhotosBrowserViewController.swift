@@ -40,7 +40,7 @@ fileprivate extension RITLPhotosCollectionCellType {
     
     var cellClass: AnyClass {
         switch self {
-        case .video: return RITLPhotosBrowserNormalCollectionCell.self
+        case .video: return RITLPhotosBrowserVideoCollectionCell.self
         case .live: return RITLPhotosBrowserLiveCollectionCell.self
         case .photo: return RITLPhotosBrowserNormalCollectionCell.self
         default: return RITLPhotosBrowserNormalCollectionCell.self
@@ -152,9 +152,9 @@ final class RITLPhotosBrowserViewController: UIViewController {
         })
         
         //注册通知
-        tapNotification = NotificationCenter.default.addObserver(forName: RITLPhotosBrowserTapNotificationName, object: nil, queue: OperationQueue.main) { [weak self] _ in
+        tapNotification = NotificationCenter.default.addObserver(forName: RITLPhotosBrowserTapNotificationName, object: nil, queue: OperationQueue.main) { [weak self] notification in
             //导航变换
-            self?.toolBarShouldChanged()
+            self?.toolBarShouldChanged(isHidden: notification.userInfo?[String.RITLPhotosBrowserVideoTapNotificationHiddenKey] as? Bool)
         }
     }
     
@@ -238,11 +238,16 @@ final class RITLPhotosBrowserViewController: UIViewController {
         bottomBar.sendButton.isEnabled = !isEmpty
     }
     
-    private func toolBarShouldChanged() {
-        //导航
+    
+    private func toolBarShouldChanged(isHidden: Bool? = nil) {
+        //自主控制
+        if let isHidden = isHidden {
+            navigationController?.setNavigationBarHidden(isHidden, animated: false)
+            bottomBar.isHidden = isHidden; return
+        }
+        //默认即可
         let isNavigationBarHidden = navigationController?.isNavigationBarHidden ?? false
         navigationController?.setNavigationBarHidden(!isNavigationBarHidden, animated: false)
-        
         //底部
         bottomBar.isHidden = !bottomBar.isHidden
     }
