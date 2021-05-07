@@ -1,2 +1,7 @@
-- `Swift5`版本正在完善
-- 原有废弃版本: [Swift3.0版本](https://github.com/RITL/Swift-RITLImagePickerDemo/tree/swift3.0)
+# RITLPhotos-Swift
+
+<div align="center"><img src="https://github.com/RITL/RITLImagePickerDemo/blob/master/RITLPhotoDemo/RITLPhotos.gif" height=500></img></div>
+
+# 之前版本
+
+- 请前往[Swift3.0版本](https://github.com/RITL/Swift-RITLImagePickerDemo/tree/swift3.0)分支获得之前版本的代码以及`README.md`
