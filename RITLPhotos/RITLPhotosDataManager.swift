@@ -33,9 +33,10 @@ import Photos
     var defaultIdentifiers = [String]() {
         didSet {
             guard !defaultIdentifiers.isEmpty else { return }
-            //追加
-            assetIdentifers.append(contentsOf: defaultIdentifiers)
-            assets.append(contentsOf: RITLFetchResultTransformer.toArray(result: PHAsset.fetchAssets(withLocalIdentifiers: defaultIdentifiers, options: nil)))
+            assetIdentifers.removeAll()
+            assetIdentifers = defaultIdentifiers
+            assets.removeAll()
+            assets = RITLFetchResultTransformer.toArray(result: PHAsset.fetchAssets(withLocalIdentifiers: defaultIdentifiers, options: nil))
             
         }
     }
