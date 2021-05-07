@@ -10,11 +10,11 @@ pod 'SnapKit'
 # 使用方法
 ```Swift
 let viewController = RITLPhotosViewController()
-viewController.photo_delegate = self
-viewController.defaultIdentifiers = defaultIds
-viewController.thumbnailSize = CGSize(50,50)
-viewController.configuration.maxCount = 15
-viewController.configuration.isSupportVideo = false
+viewController.photo_delegate = self           //代理
+viewController.defaultIdentifiers = defaultIds //默认选中的资源
+viewController.thumbnailSize = CGSize(50,50)   //返回图片的缩略图大小
+viewController.configuration.maxCount = 15     //最大支持的选择张数
+viewController.configuration.isSupportVideo = false //是否支持视频，如果为false,则视频资源不能被选中
 
 present(viewController, animated: true) {}
 ```
