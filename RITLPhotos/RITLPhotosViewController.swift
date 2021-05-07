@@ -104,6 +104,9 @@ public class RITLPhotosViewController: UINavigationController {
     private let maker = RITLPhotosMaker.shareInstance()
     private let dataManager = RITLPhotosDataManager.shareInstance()
     
+    /// 配置
+    let configuration = RITLPhotosConfigation.default()
+    
     
     private override init(rootViewController: UIViewController) {
         super.init(rootViewController: rootViewController)
@@ -134,8 +137,6 @@ public class RITLPhotosViewController: UINavigationController {
         // Do any additional setup after loading the view.
         navigationBar.barTintColor = 35.ritl_p_color.withAlphaComponent(0.9)
         navigationBar.isTranslucent = true
-//        navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        navigationBar.shadowImage = UIImage()
     }
     
     public override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -143,7 +144,7 @@ public class RITLPhotosViewController: UINavigationController {
     }
     
     deinit {
-        print("\(type(of: self)) is deinit")
+        ritl_p_print("\(type(of: self)) is deinit")
     }
     
     /// 目前只支持普通方向
