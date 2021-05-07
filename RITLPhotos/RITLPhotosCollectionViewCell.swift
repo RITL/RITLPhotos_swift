@@ -69,7 +69,7 @@ public class RITLPhotosCollectionViewCell: UICollectionViewCell {
         chooseButton.imageView?.clipsToBounds = true
         chooseButton.setTitle("", for: .selected)
         chooseButton.setTitleColor(.white, for: .selected)
-        chooseButton.setImage(RITLPhotosImage.collection_normal.image, for: .normal)
+        chooseButton.setImage(RITLPhotosImage.tool_bottom_deselect.image, for: .normal)
         chooseButton.addTarget(self, action: #selector(chooseButtonDidTap), for: .touchUpInside)
         
         indexLabel.text = "0"

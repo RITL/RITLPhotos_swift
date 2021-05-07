@@ -36,6 +36,7 @@ public final class RITLPhotosBrowserAllDataSource: NSObject, RITLPhotosBrowserDa
     
     func defaultIndexPath() -> IndexPath {
         guard assetResult.contains(asset) else { return IndexPath(item: 0, section: 0) }
+        print(assetResult.index(of: asset))
         return IndexPath(item: assetResult.index(of: asset), section: 0)
     }
 }

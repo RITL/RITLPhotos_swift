@@ -83,6 +83,7 @@ import Photos
     /// 进行自动添加或者删除的操作
     /// 如果不存在该资源，追加，并返回当前所在的个数(索引+1)
     /// 如果存在该资源，删除，并返回-1
+    @discardableResult
     func addOrRemove(asset: PHAsset) -> Int {
         guard assetIdentifers.contains(asset.localIdentifier) else {
             add(asset: asset)

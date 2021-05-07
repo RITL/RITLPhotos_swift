@@ -64,12 +64,10 @@ class RITLPhotoMainViewController: UIViewController {
 extension RITLPhotoMainViewController: RITLPhotosViewControllerDelegate {
     
     func photosViewControllerWillDismiss(viewController: UIViewController) {
-        let i = 0
         print("\(#file)_\(#function)_\(#line)")
     }
     
     func photosViewController(viewController: UIViewController, assets: [PHAsset]) {
-        let i = 0
         print("\(#file)_\(#function)_\(#line)")
     }
     

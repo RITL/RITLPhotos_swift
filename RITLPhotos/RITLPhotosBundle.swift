@@ -15,41 +15,36 @@ enum RITLPhotosImage: String {
     
     case photos_blur = "ritl_blur.png"
     
-    /// 导航栏关闭的按钮
+    /// 集合模式左上角的返回
     case nav_close = "ritl_photos_nav_close.png"
-    /// 浏览器返回的按钮
+    /// 浏览模式左上角的返回
     case nav_back = "ritl_photos_nav_back.png"
-    /// 浏览右上角的选中
+    /// 浏览模式右上角的选中
     case nav_deselect = "ritl_photos_nav_deselected.png"
-    
     
     /// 下方bar中原图按钮的选中
     case tool_bottom_selecte = "ritl_photos_bottom_selected.png"
     /// 下方bar中原图按钮的默认未选中
     case tool_bottom_deselect = "ritl_photos_bottom_deselected.png"
     
-    
-    /// 顶部导航的箭头按钮
+    /// 集合模式相册箭头按钮
     case pick_top_arrow = "ritl_photos_picker.png"
     
-    
-    
+
     //相册组
     
-    /// 分组选中的标记
-    case group_select =  "ritl_photos_group_select.png"
+    /// 相册组选中的标记
+    case group_select = "ritl_photos_group_select.png"
     
     
     //集合视图
     
-    case collection_normal = "ritl_photos_deselect.png"
+    /// 集合模式未选中的图片 use tool_bottom_deselect
+//    case collection_normal = "ritl_photos_deselect.png"
 
     
     //浏览视图
     
-
-
-
     /// 视频播放
     case browser_video = "ritl_photos_video_play.png"
 }

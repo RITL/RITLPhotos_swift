@@ -83,7 +83,6 @@ final class RITLPhotosBrowserViewController: UIViewController {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = 2 * RITLPhotosBrowserSpace
-//        flowLayout.minimumInteritemSpacing = 0
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: RITLPhotosBrowserSpace, bottom: 0, right: RITLPhotosBrowserSpace)
         flowLayout.itemSize = UIScreen.main.bounds.size
         //
@@ -93,11 +92,14 @@ final class RITLPhotosBrowserViewController: UIViewController {
             view.backgroundColor = 50.ritl_p_color
             return view
         }()
-        
+
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
+    
+    /// 用于iOS10计算
+    private var previousPreheatRect: CGRect = .zero
     
     convenience init(dataSource: RITLPhotosBrowserDataSource?,popHandler: RITLPhotosBrowserWillPopHandler? = nil) {
         self.init()
@@ -156,6 +158,14 @@ final class RITLPhotosBrowserViewController: UIViewController {
             //导航变换
             self?.toolBarShouldChanged(isHidden: notification.userInfo?[String.RITLPhotosBrowserVideoTapNotificationHiddenKey] as? Bool)
         }
+        
+        //存在默认方法滚动即可
+        guard let dataSource = dataSource else { return }
+        DispatchQueue.main.async {
+            self.collectionView.scrollToItem(at: dataSource.defaultIndexPath(), at: .right, animated: false)
+        }
+        //更新顶部的标记
+        updateTopSelectedControl(asset: dataSource.asset(at: dataSource.defaultIndexPath()), animated: false)
     }
     
     
@@ -188,7 +198,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
             selectButton.setImage(RITLPhotosImage.nav_deselect.image, for: .highlighted)
             selectButton.frame.size = 32.ritl_p_size
             selectButton.imageEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
-//            selectButton.addTarget(self, action: #selector(backItemDidTap), for: .touchUpInside)
+            selectButton.addTarget(self, action: #selector(statusButtonDidTap), for: .touchUpInside)
             self.topSelectButton = selectButton
             
             //indexLabel
@@ -217,6 +227,15 @@ final class RITLPhotosBrowserViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //如果低于iOS10 启用自己的优化方案
+        if (UIDevice.current.systemVersion as NSString).floatValue < 10.0 {
+            updateCachedAsset()
+        }
     }
     
     
@@ -252,6 +271,46 @@ final class RITLPhotosBrowserViewController: UIViewController {
         bottomBar.isHidden = !bottomBar.isHidden
     }
     
+    /// 更新顶部的选中标记
+    private func updateTopSelectedControl(asset: PHAsset?, animated: Bool) {
+        //获得资源
+        guard let asset = asset else { return }
+        //是否选中
+        let isSelected = dataManager.contain(asset: asset)
+        //如果没有选中直接隐藏即可
+        guard isSelected else { self.topIndexLabel.isHidden = true; return }
+        //获得index
+        guard let index = dataManager.assetIdentifers.firstIndex(of: asset.localIdentifier) else { return }
+        //没有隐藏 或者 不使用动画 ，直接更新数据即可 或者
+        if (!topIndexLabel.isHidden || !animated) {
+            topIndexLabel.text = "\(index + 1)"
+            topIndexLabel.isHidden = !isSelected
+        }
+        //如果使用动画
+        else if (animated) {
+            //选中的
+            topIndexLabel.text = "\(index + 1)"
+            topIndexLabel.isHidden = !isSelected
+            //执行动画
+            UIView.animate(withDuration: 0.15) {
+                //放大
+                self.topIndexLabel.transform = self.topIndexLabel.transform.scaledBy(x: 1.3, y: 1.3)
+                
+            } completion: { (_) in
+                //缩小
+                UIView.animate(withDuration: 0.1) {
+                    self.topIndexLabel.transform = .identity
+                }
+            }
+        }
+    }
+    
+    
+    private func resetCached() {
+        previousPreheatRect = .zero
+        dataSource?.imageManager.stopCachingImagesForAllAssets()
+    }
+    
     @objc func backItemDidTap() {
         popHandler?()
         navigationController?.popViewController(animated: true)
@@ -267,12 +326,130 @@ final class RITLPhotosBrowserViewController: UIViewController {
             self.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
+    
+    @objc func statusButtonDidTap() {
+        //获得资源
+        guard let asset = dataSource?.asset(at: IndexPath(item: index(collectionView), section: 0)) else { return }
+        //如果是添加,针对最大的数量进行限制
+        if !dataManager.contain(asset: asset), dataManager.count >= RITLPhotosConfigation.default().maxCount {
+            return
+        }
+        //修改数据
+        dataManager.addOrRemove(asset: asset)
+        //更新顶部即可
+        updateTopSelectedControl(asset: asset, animated: true)
+    }
 }
 
+
+//MARK: <UICollectionViewDelegate>
 extension RITLPhotosBrowserViewController: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        /// 计算当前的位置
+        func adjustScrollIndex() {
+            
+            let index = index(scrollView)
+            //获得资源
+            guard let asset = dataSource?.asset(at: IndexPath(item: index, section: 0)) else { return }
+            //更新顶部即可
+            updateTopSelectedControl(asset: asset, animated: false)
+        }
+        
+        
+        if (UIDevice.current.systemVersion as NSString).floatValue < 10.0 {
+            updateCachedAsset()
+        }
+        for updater in (collectionView.visibleCells.compactMap { $0 as? RITLPhotosBrowserUpdater }) {
+            updater.stop()
+        }
+        //计算
+        adjustScrollIndex()
+    }
+    
+    /// 获得当前的index
+    private func index(_ scrollView: UIScrollView) -> Int {
+        //获得当前的index
+        let contentOffsetX = min(scrollView.contentSize.width, max(0, scrollView.contentOffset.x))
+        let space: CGFloat = 2 * RITLPhotosBrowserSpace
+        return Int(roundf(Float(contentOffsetX + space) / Float(space + UIScreen.main.bounds.width)))
+    }
+    
+    
+    public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let resetter = cell as? RITLPhotosBrowserResetter else { return }
         resetter.reset()
+    }
+}
+
+
+
+//MARK: Cache
+//iOS10之前需要进行手动计算，iOS10之后使用 UICollectionViewDataSourcePrefetching
+extension RITLPhotosBrowserViewController {
+    
+    @available(iOS, deprecated: 10.0, message: "iOS 10 Use collectionView:prefetchItemsAtIndexPaths: and collectionView:cancelPrefetchingForItemsAtIndexPaths: instead.")
+    private func updateCachedAsset() {
+        
+        if (!isViewLoaded || view.window == nil) { return; }
+        
+        //可视化
+        let visibleRect = CGRect(x: collectionView.contentOffset.x, y: collectionView.contentOffset.y, width: collectionView.bounds.width, height: collectionView.bounds.height)
+        
+        //进行拓展
+        let preheatRect = visibleRect.insetBy(dx: -0.5 * visibleRect.width, dy: 0)
+        
+        //只有可视化的区域与之前的区域有显著的区域变化才需要更新
+        let delta = abs(preheatRect.midX - previousPreheatRect.midX)
+        guard delta > (view.bounds.width / 3.0) else { return }
+
+        //获得比较后需要进行预加载以及需要停止缓存的区域
+        let (addedRects, removedRects) = differencesBetweenRects(previousPreheatRect, preheatRect)
+
+        ///进行提前缓存的资源
+        let addedAssets = addedRects
+            .flatMap { rect in self.collectionView.ritl_p_indexPathsForElements(in: rect) }
+            .compactMap { indexPath in self.dataSource?.asset(at: indexPath) }
+        
+        ///提前停止缓存的资源
+        let removedAssets = removedRects
+            .flatMap { rect in collectionView.ritl_p_indexPathsForElements(in: rect) }
+            .compactMap { indexPath in self.dataSource?.asset(at: indexPath) }
+
+        let thimbnailSize = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.itemSize ?? UIScreen.main.bounds.size
+        
+        //更新缓存
+        dataSource?.imageManager.startCachingImages(for: addedAssets, targetSize: thimbnailSize, contentMode: .aspectFill, options: nil)
+        dataSource?.imageManager.stopCachingImages(for: removedAssets, targetSize: thimbnailSize, contentMode: .aspectFill, options: nil)
+        
+        //记录当前位置
+        previousPreheatRect = preheatRect;
+    }
+    
+    @available(iOS, deprecated: 10.0, message: "iOS 10 Use collectionView:prefetchItemsAtIndexPaths: and collectionView:cancelPrefetchingForItemsAtIndexPaths: instead.")
+    private func differencesBetweenRects(_ old: CGRect, _ new: CGRect) -> (added: [CGRect], removed: [CGRect]) {
+        
+        if (old.intersects(new)) {//如果区域交叉
+            
+            var added = [CGRect]()
+            if (new.maxX > old.maxX) {//表示左滑
+                added.append(CGRect(x: old.maxX, y: new.origin.y, width: new.maxX - old.maxX, height: new.height))
+            }
+            if(old.minX > new.minX){//表示右滑
+                added.append(CGRect(x: new.minX, y: new.origin.y, width: old.minX - new.minX, height: new.height))
+            }
+            
+            var removed = [CGRect]()
+            if (new.maxX < old.maxX) {//表示右滑
+                removed.append(CGRect(x: new.minX, y: new.origin.y, width: old.maxX - new.maxX, height: new.height))
+            }
+            if (old.minX < new.minX) {//表示左滑
+                removed.append(CGRect(x: new.minX, y: new.origin.y, width: new.minX - old.minX, height: new.size.height))
+            }
+            return (added, removed)
+        } else {
+            return ([new], [old])
+        }
     }
 }

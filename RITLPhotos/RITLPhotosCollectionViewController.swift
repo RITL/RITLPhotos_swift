@@ -233,6 +233,7 @@ public class RITLPhotosCollectionViewController: UIViewController {
     
     /// 重置缓存
     func resetCache() {
+        previousPreheatRect = .zero
         imageManager.stopCachingImagesForAllAssets()
     }
     
