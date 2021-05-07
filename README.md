@@ -1,6 +1,6 @@
 # RITLPhotos-Swift
 
-<div align="center"><img src="https://github.com/RITL/RITLImagePickerDemo/blob/master/RITLPhotoDemo/RITLPhotos.gif" height=500></img></div>
+<div align="center"><img src="https://github.com/RITL/Swift-RITLImagePickerDemo/blob/master/RITLImagePicker-Swift/RITLPhotos.gif" height=500></img></div>
 
 # 之前版本
 
