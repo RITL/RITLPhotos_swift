@@ -60,7 +60,7 @@ public class RITLPhotosRowTableViewDataSource: NSObject, UITableViewDataSource {
     }
     
     deinit {
-        print("\(type(of: self)) is deinit")
+        ritl_p_print("\(type(of: self)) is deinit")
     }
 }
 

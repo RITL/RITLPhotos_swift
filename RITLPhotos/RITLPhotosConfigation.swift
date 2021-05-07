@@ -17,7 +17,8 @@ public class RITLPhotosConfigation: NSObject {
     /// 最大选择数
     var maxCount = 9
     /// 是否支持视频
-    var containVideo = true
+    /// 如果为false，视频选项将不能被选择，但是可以浏览
+    var isSupportVideo = true
     
     private override init() {
         super.init()
@@ -33,5 +34,9 @@ public class RITLPhotosConfigation: NSObject {
         }
         objc_sync_exit(self)
         return strongInstance!
+    }
+    
+    deinit {
+        ritl_p_print("\(type(of: self)) is deinit")
     }
 }

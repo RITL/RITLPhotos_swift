@@ -49,6 +49,7 @@ public final class RITLPhotosMaker: NSObject {
     }
     
     deinit {
+        ritl_p_print("\(type(of: self)) is deinit")
         guard let willDismissObserver = willDismissObserver else { return }
         NotificationCenter.default.removeObserver(willDismissObserver)
     }

@@ -99,7 +99,7 @@ import Photos
     }
     
     deinit {
-        print("RITLPhotosDataManager is deinit")
+        ritl_p_print("RITLPhotosDataManager is deinit")
     }
 }
 

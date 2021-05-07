@@ -32,7 +32,7 @@ extension PHPhotoLibrary {
     ///   - complete: 获得分组完成，如果权限无法获取，则不进行该回调
     ///   - authorizationDeniedHandler: 权限回调
     func fetchAlbumGroups(autoSort: Bool = false,
-                          needTopLevel: Bool = false ,
+                          needTopLevel: Bool = false,
                           hasDefalutHandler: Bool = true,
                           complete: ((_ regular: RITLPhotosAlbumItem<PHFetchResult<PHAssetCollection>,PHAssetCollection>,
                                       _ topLeve: RITLPhotosAlbumItem<PHFetchResult<PHCollection>,PHCollection>?)->())? = nil,

@@ -152,6 +152,6 @@ public class RITLPhotosBottomBar: UIView {
     
     
     deinit {
-        print("\(type(of: self)) is deinit")
+        ritl_p_print("\(type(of: self)) is deinit")
     }
 }

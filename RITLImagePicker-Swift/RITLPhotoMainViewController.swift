@@ -54,8 +54,13 @@ class RITLPhotoMainViewController: UIViewController {
     @IBAction private func presentPhotoViewController(_ sender: Any) {
         let viewController = RITLPhotosViewController()
         viewController.photo_delegate = self
-        let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: 0, section: 0))
+        
+        let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout,
+                                       sizeForItemAt: IndexPath(item: 0, section: 0))
+        
         viewController.thumbnailSize = size
+        viewController.configuration.maxCount = 5
+        viewController.configuration.isSupportVideo = false
         self.present(viewController, animated: true) {}
     }
 }
@@ -64,23 +69,23 @@ class RITLPhotoMainViewController: UIViewController {
 extension RITLPhotoMainViewController: RITLPhotosViewControllerDelegate {
     
     func photosViewControllerWillDismiss(viewController: UIViewController) {
-        print("\(#file)_\(#function)_\(#line)")
+        ritl_p_print("\(#file)_\(#function)_\(#line)")
     }
     
     func photosViewController(viewController: UIViewController, assets: [PHAsset]) {
-        print("\(#file)_\(#function)_\(#line)")
+        ritl_p_print("\(#file)_\(#function)_\(#line)")
     }
     
     func photosViewController(viewController: UIViewController, assetIdentifiers identifiers: [String]) {
-        print("\(#file)_\(#function)_\(#line)")
+        ritl_p_print("\(#file)_\(#function)_\(#line)")
     }
     
     func photosViewController(viewController: UIViewController, datas: [Data], infos: [[AnyHashable : Any]]) {
-        print("\(#file)_\(#function)_\(#line)")
+        ritl_p_print("\(#file)_\(#function)_\(#line)")
     }
     
     func photosViewController(viewController: UIViewController, thumbnailImages: [UIImage], infos: [[AnyHashable : Any]]) {
-        print("\(#file)_\(#function)_\(#line)")
+        ritl_p_print("\(#file)_\(#function)_\(#line)")
         images = thumbnailImages
         collectionView.reloadData()
     }

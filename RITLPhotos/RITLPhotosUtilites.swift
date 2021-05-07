@@ -138,14 +138,14 @@ final class RITLPhotosPhoneHeaderUtility: NSObject {
 public func hasPhoneHeader() -> Bool {
     //如果缓存为空，进行判断
     guard RITLPhotosPhoneHeaderUtility.hasPhoneHeaderStatus.isEmpty else {
-        print("我是取得缓存,我\(RITLPhotosPhoneHeaderUtility.hasPhoneHeader() ? "" : "不")是刘海屏")
+        ritl_p_print("我是取得缓存,我\(RITLPhotosPhoneHeaderUtility.hasPhoneHeader() ? "" : "不")是刘海屏")
         return RITLPhotosPhoneHeaderUtility.hasPhoneHeader()
     }
     
-    print("deivice = \(UIScreen.main.bounds)")
+    ritl_p_print("deivice = \(UIScreen.main.bounds)")
     //安全
     guard #available(iOS 11.0, *) else { RITLPhotosPhoneHeaderUtility.setHasNotPhoneHeader(); return false }
-//    print(UIApplication.shared.windows.first?.safeAreaInsets)
+//    ritl_p_print(UIApplication.shared.windows.first?.safeAreaInsets)
     //返回
     guard let window = UIApplication.shared.windows.first else { RITLPhotosPhoneHeaderUtility.setHasNotPhoneHeader(); return false }
     //获得底部的间距
@@ -242,3 +242,15 @@ extension UICollectionView {
         return collectionViewLayout.layoutAttributesForElements(in: rect)?.map{ $0.indexPath } ?? []
     }
 }
+
+// MARK: Log
+func ritl_p_print<T>(_ msg: T,
+    file: NSString = #file,
+    line: Int = #line,
+    fn: String = #function) {
+    #if DEBUG
+    let prefix = "\(file.lastPathComponent)_\(line)_\(fn):"
+    print(prefix, msg)
+    #endif
+}
+

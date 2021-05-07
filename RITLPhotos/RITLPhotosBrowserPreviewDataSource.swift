@@ -40,4 +40,8 @@ public class RITLPhotosBrowserPreviewDataSource: NSObject,RITLPhotosBrowserDataS
         
         return cell
     }
+    
+    deinit {
+        ritl_p_print("\(type(of: self)) is deinit")
+    }
 }
