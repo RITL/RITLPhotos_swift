@@ -193,7 +193,7 @@ public class RITLPhotosCollectionViewController: UIViewController {
             
         } deniedHander: { (status) in
             
-            print("权限未开启");
+            ritl_p_print("权限未开启");
         }
     }
     
@@ -215,7 +215,7 @@ public class RITLPhotosCollectionViewController: UIViewController {
     deinit {
         countObservation = nil
         isHightQualityObservation = nil
-        print("\(type(of: self)) is deinit")
+        ritl_p_print("\(type(of: self)) is deinit")
     }
     
 
@@ -262,6 +262,10 @@ public class RITLPhotosCollectionViewController: UIViewController {
     }
     
     @objc func backItemDidTap() {
+        //执行回调
+        if let viewController = navigationController as? RITLPhotosViewController {
+            RITLPhotosMaker.shareInstance().delegate?.photosViewControllerWillDismiss(viewController: viewController)
+        }
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
@@ -290,6 +294,9 @@ public class RITLPhotosCollectionViewController: UIViewController {
             dataSource.assets = dataManager.assets
             return dataSource
         }()
+        viewController.disappearHandler = { [weak self] in
+            self?.collectionView.reloadData()
+        }
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -324,7 +331,11 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
                 cell.iconImageView.image = image
             }
         }
-        
+        //如果是视频资源
+        guard !RITLPhotosConfigation.default().isSupportVideo else { return cell }
+        if let cell = cell as? RITLPhotosVideoCollectionCell {
+            cell.chooseButton.isHidden = true
+        }
         return cell
     }
     

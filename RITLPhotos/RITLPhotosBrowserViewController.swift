@@ -57,7 +57,7 @@ private let RITLPhotosBrowserSpace: CGFloat = 3
 final class RITLPhotosBrowserViewController: UIViewController {
     
     /// 点击返回进行的回调，用于刷新
-    var popHandler: RITLPhotosBrowserWillPopHandler?
+    var disappearHandler: RITLPhotosBrowserWillPopHandler?
     /// 数据源
     var dataSource: RITLPhotosBrowserDataSource? {
         didSet {
@@ -104,7 +104,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
     convenience init(dataSource: RITLPhotosBrowserDataSource?,popHandler: RITLPhotosBrowserWillPopHandler? = nil) {
         self.init()
         self.dataSource = dataSource
-        self.popHandler = popHandler
+        self.disappearHandler = popHandler
     }
     
     override func viewDidLoad() {
@@ -238,8 +238,9 @@ final class RITLPhotosBrowserViewController: UIViewController {
         }
     }
     
-    
+
     deinit {
+        ritl_p_print("\(type(of: self)) is deinit")
         countObservation = nil
         isHightQualityObservation = nil
         guard isViewLoaded else { return }
@@ -275,16 +276,29 @@ final class RITLPhotosBrowserViewController: UIViewController {
     private func updateTopSelectedControl(asset: PHAsset?, animated: Bool) {
         //获得资源
         guard let asset = asset else { return }
+        //底部的原图视频将隐藏
+        bottomBar.highButton.isHidden = asset.mediaType == .video
+        //不支持视频，则全部隐藏
+        if asset.mediaType == .video && !RITLPhotosConfigation.default().isSupportVideo {
+            topIndexLabel.isHidden = true
+            topSelectButton.isHidden = true
+            return
+        }
         //是否选中
         let isSelected = dataManager.contain(asset: asset)
         //如果没有选中直接隐藏即可
-        guard isSelected else { self.topIndexLabel.isHidden = true; return }
+        guard isSelected else {
+            self.topIndexLabel.isHidden = true
+            self.topSelectButton.isSelected = false
+            return
+        }
         //获得index
         guard let index = dataManager.assetIdentifers.firstIndex(of: asset.localIdentifier) else { return }
         //没有隐藏 或者 不使用动画 ，直接更新数据即可 或者
         if (!topIndexLabel.isHidden || !animated) {
             topIndexLabel.text = "\(index + 1)"
             topIndexLabel.isHidden = !isSelected
+
         }
         //如果使用动画
         else if (animated) {
@@ -303,6 +317,8 @@ final class RITLPhotosBrowserViewController: UIViewController {
                 }
             }
         }
+        
+        topSelectButton.isHidden = false
     }
     
     
@@ -312,7 +328,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
     }
     
     @objc func backItemDidTap() {
-        popHandler?()
+        disappearHandler?()
         navigationController?.popViewController(animated: true)
     }
     
