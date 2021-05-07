@@ -89,7 +89,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.backgroundView = {
             let view = UIView()
-            view.backgroundColor = 50.ritl_p_color
+            view.backgroundColor = .black
             return view
         }()
 

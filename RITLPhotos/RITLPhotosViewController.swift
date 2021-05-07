@@ -22,8 +22,13 @@ protocol RITLPhotosViewControllerDelegate: AnyObject {
     
     /// 即将消失的回调
     /// - Parameter viewController: RITLPhotosViewController
-    func photosViewControllerWillDismiss(viewController: UIViewController);
+    func photosViewControllerWillDismiss(viewController: UIViewController)
     
+    /// 获取权限失败的回调
+    /// - Parameters:
+    ///   - viewController: RITLPhotosViewController
+    ///   - denied: 获取权限失败的权限
+    func photosViewController(viewController: UIViewController, authorization denied: PHAuthorizationStatus)
     
     /// 选中图片以及视频等资源的本地identifer
     /// 可通过本次的回调，填出二次选择时设置默认选好的资源
@@ -71,6 +76,7 @@ extension RITLPhotosViewControllerDelegate {
     func photosViewController(viewController: UIViewController, thumbnailImages: [UIImage], infos: [[AnyHashable : Any]]){}
     func photosViewController(viewController: UIViewController, datas: [Data], infos: [[AnyHashable : Any]]) {}
     func photosViewController(viewController: UIViewController, assets: [PHAsset]) {}
+    func photosViewController(viewController: UIViewController, authorization denied: PHAuthorizationStatus) {}
 }
 
 

@@ -59,6 +59,10 @@ public class RITLPhotosCollectionViewController: UIViewController {
     /// iOS10之后不再使用
     private var previousPreheatRect: CGRect = .zero
 
+    //图片的缓存，避免每次刷新都重新请求
+    //使用 localIdentifier 作为key
+    private var imageCache = [String : UIImage]()
+    
     // Views
     private lazy var collectionView: UICollectionView = {
         //
@@ -193,7 +197,9 @@ public class RITLPhotosCollectionViewController: UIViewController {
             
         } deniedHander: { (status) in
             
-            ritl_p_print("权限未开启");
+            guard let viewController = self.navigationController as? RITLPhotosViewController else { return }
+            guard let delegate = RITLPhotosMaker.shareInstance().delegate else { return }
+            delegate.photosViewController(viewController: viewController, authorization: status)
         }
     }
     
@@ -314,21 +320,35 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
         guard let assets = assets, assets.count > indexPath.item else { return UICollectionViewCell() }
         //asset
         let asset = assets.object(at: indexPath.item)
+        
+        
+        func updateRITLPhotosCollectionViewCell(cell: RITLPhotosCollectionViewCell, image: UIImage) {
+            cell.delegate = self
+            cell.asset =  asset
+            cell.indexPath = indexPath
+            cell.iconImageView.image = image
+        }
+        
         //获得cell
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: asset.cellIdentifier().rawValue, for: indexPath)
         if let cell = cell as? RITLPhotosCollectionViewCell {
+            //读取缓存图片
+            let image = imageCache[asset.localIdentifier]
+            if image != nil {
+                updateRITLPhotosCollectionViewCell(cell: cell, image: image!)
+            }
             //size
-            var size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: indexPath)
-            size.width *= UIScreen.main.scale
-            size.height *= UIScreen.main.scale
-            cell.assetIdentifer = asset.localIdentifier
-            //cache
-            imageManager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: PHImageRequestOptions()) { (image, info) in
-                guard cell.assetIdentifer == asset.localIdentifier, let image = image else { return }
-                cell.delegate = self
-                cell.asset =  asset
-                cell.indexPath = indexPath
-                cell.iconImageView.image = image
+            else {
+                var size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: indexPath)
+                size.width *= UIScreen.main.scale
+                size.height *= UIScreen.main.scale
+                cell.assetIdentifer = asset.localIdentifier
+                //cache
+                imageManager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: PHImageRequestOptions()) { (image, info) in
+                    guard cell.assetIdentifer == asset.localIdentifier, let image = image else { return }
+                    updateRITLPhotosCollectionViewCell(cell: cell, image: image)
+                    self.imageCache[asset.localIdentifier] = image
+                }
             }
         }
         //如果是视频资源
