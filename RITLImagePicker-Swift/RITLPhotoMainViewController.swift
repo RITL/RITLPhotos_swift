@@ -22,12 +22,24 @@ class RITLPhotoMainViewController: UIViewController {
         collectionView.register(RITLPhotosNormalCollectionCell.self, forCellWithReuseIdentifier: "Cell")
         
         return collectionView
+    }()
+    
+    lazy var photoViewController: RITLPhotosViewController = {
+        let viewController = RITLPhotosViewController()
+        viewController.photo_delegate = self
         
+        let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout,
+                                       sizeForItemAt: IndexPath(item: 0, section: 0))
+        viewController.thumbnailSize = size
+        viewController.configuration.maxCount = 15
+        viewController.configuration.isSupportVideo = false
+        
+        return viewController
     }()
     
     
     var images = [UIImage]()
-
+    var defaultIds = [String]()
     
     
     override func viewDidLoad()
@@ -44,24 +56,18 @@ class RITLPhotoMainViewController: UIViewController {
     
     @IBAction func __refreshCollectionView(_ sender: Any) {
         
-        self.images.removeAll()
-        self.collectionView.reloadData()
+        defaultIds.removeAll()
+        images.removeAll()
+        collectionView.reloadData()
     }
     
     /// 弹出图片控制器
     ///
     /// - Parameter sender: Photo Barbutton
     @IBAction private func presentPhotoViewController(_ sender: Any) {
-        let viewController = RITLPhotosViewController()
-        viewController.photo_delegate = self
-        
-        let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout,
-                                       sizeForItemAt: IndexPath(item: 0, section: 0))
-        
-        viewController.thumbnailSize = size
-        viewController.configuration.maxCount = 5
-        viewController.configuration.isSupportVideo = false
-        self.present(viewController, animated: true) {}
+
+        photoViewController.defaultIdentifiers = defaultIds
+        self.present(photoViewController, animated: true) {}
     }
 }
 
@@ -78,6 +84,7 @@ extension RITLPhotoMainViewController: RITLPhotosViewControllerDelegate {
     
     func photosViewController(viewController: UIViewController, assetIdentifiers identifiers: [String]) {
         ritl_p_print("\(#file)_\(#function)_\(#line)")
+        defaultIds = identifiers
     }
     
     func photosViewController(viewController: UIViewController, datas: [Data], infos: [[AnyHashable : Any]]) {
@@ -90,6 +97,13 @@ extension RITLPhotoMainViewController: RITLPhotosViewControllerDelegate {
         collectionView.reloadData()
     }
     
+    func photosViewController(viewController: UIViewController, authorization denied: PHAuthorizationStatus) {
+        ritl_p_print("\(#file)_\(#function)_\(#line)")
+//        viewController.alert("111")
+//        viewController.dismiss(animated: true) {
+//            print("Alert!")
+//        }
+    }
 }
 
 
