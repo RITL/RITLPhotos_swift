@@ -12,9 +12,7 @@ pod 'SnapKit'
 let viewController = RITLPhotosViewController()
 viewController.photo_delegate = self
 viewController.defaultIdentifiers = defaultIds
-let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout,
-                               sizeForItemAt: IndexPath(item: 0, section: 0))
-viewController.thumbnailSize = size
+viewController.thumbnailSize = CGSize(50,50)
 viewController.configuration.maxCount = 15
 viewController.configuration.isSupportVideo = false
 
