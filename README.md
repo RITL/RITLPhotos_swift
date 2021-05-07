@@ -7,6 +7,10 @@
 pod 'SnapKit'
 ```
 
+# 要求
+- iOS 9.0+
+- Swift 5.0+
+
 # 使用方法
 ```Swift
 let viewController = RITLPhotosViewController()
