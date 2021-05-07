@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A988843EA5269BE1B9BA761B /* libPods-RITLImagePicker-Swift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D168CDFAE20DB74D5D962034 /* libPods-RITLImagePicker-Swift.a */; };
 		DB078C2A262EC02B00D7E367 /* RITLPhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB078C29262EC02B00D7E367 /* RITLPhotosCollectionViewCell.swift */; };
+		DB119B312644DA350039322E /* RITLPhotosBrowserPreviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB119B302644DA350039322E /* RITLPhotosBrowserPreviewDataSource.swift */; };
 		DB5250A82629648C006F0A09 /* RITLPhotosRowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5250A72629648C006F0A09 /* RITLPhotosRowTableViewCell.swift */; };
 		DB5250AB26297449006F0A09 /* RITLPhotosRowTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5250AA26297449006F0A09 /* RITLPhotosRowTableViewDataSource.swift */; };
 		DB6E3591263667A30006028E /* RITLPhotosMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6E3590263667A30006028E /* RITLPhotosMaker.swift */; };
@@ -41,6 +42,7 @@
 		AAD06A803868C85127784DBA /* Pods-RITLImagePicker-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RITLImagePicker-Swift.debug.xcconfig"; path = "Target Support Files/Pods-RITLImagePicker-Swift/Pods-RITLImagePicker-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		D168CDFAE20DB74D5D962034 /* libPods-RITLImagePicker-Swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RITLImagePicker-Swift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB078C29262EC02B00D7E367 /* RITLPhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB119B302644DA350039322E /* RITLPhotosBrowserPreviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosBrowserPreviewDataSource.swift; sourceTree = "<group>"; };
 		DB5250A72629648C006F0A09 /* RITLPhotosRowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosRowTableViewCell.swift; sourceTree = "<group>"; };
 		DB5250AA26297449006F0A09 /* RITLPhotosRowTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosRowTableViewDataSource.swift; sourceTree = "<group>"; };
 		DB6E3590263667A30006028E /* RITLPhotosMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RITLPhotosMaker.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				DB6E3623263802630006028E /* RITLPhotosBrowserCollectionCell.swift */,
 				DB6E361D2637B6E90006028E /* RITLPhotosBrowserViewController.swift */,
 				DB6E36202637FC6E0006028E /* RITLPhotosBrowserAllDataSource.swift */,
+				DB119B302644DA350039322E /* RITLPhotosBrowserPreviewDataSource.swift */,
 			);
 			path = RITLPhotos;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				DB6E3624263802630006028E /* RITLPhotosBrowserCollectionCell.swift in Sources */,
 				DBCF86561DED12B40054A410 /* RITLPhotosAppDelegate.swift in Sources */,
 				DB6E35942636B8650006028E /* RITLPhotosConfigation.swift in Sources */,
+				DB119B312644DA350039322E /* RITLPhotosBrowserPreviewDataSource.swift in Sources */,
 				DB6E36212637FC6E0006028E /* RITLPhotosBrowserAllDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

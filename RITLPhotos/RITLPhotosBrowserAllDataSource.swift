@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-/// 游览所有数据的数据源
+/// 所有数据的数据源
 public final class RITLPhotosBrowserAllDataSource: NSObject, RITLPhotosBrowserDataSource {
 
     /// 进入预览组的集合

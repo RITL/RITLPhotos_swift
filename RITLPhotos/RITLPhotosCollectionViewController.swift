@@ -284,7 +284,12 @@ public class RITLPhotosCollectionViewController: UIViewController {
                 dataSource.asset = currentAsset
             }
             return dataSource
-        }() : nil
+        }() : {
+            //浏览
+            let dataSource = RITLPhotosBrowserPreviewDataSource()
+            dataSource.assets = dataManager.assets
+            return dataSource
+        }()
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
