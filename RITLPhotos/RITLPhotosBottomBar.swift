@@ -73,36 +73,32 @@ public class RITLPhotosBottomBar: UIView {
     private var sendButtonDidAdjust = false
     
     /// 底部的toolbar
-    private let toolBar = UIToolbar()
+//    private let toolBar = UIToolbar()
+    private let toolBar = UIView()
+    
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
         
-        toolBar.isTranslucent = true
-        toolBar.barStyle = .black
-        if #available(iOS 13.0, *) {
-            let appearance = UIToolbarAppearance()
-            appearance.backgroundColor = 35.ritl_p_color.withAlphaComponent(0.9)
-//            appearance.backgroundImage = 35.ritl_p_image
-//            appearance.shadowImage =  35.ritl_p_image
-            toolBar.standardAppearance = appearance
-        } else {
-            // Fallback on earlier versions
-            toolBar.barTintColor = 35.ritl_p_color.withAlphaComponent(0.9)
-//            toolBar.setBackgroundImage(35.ritl_p_image, forToolbarPosition: .any, barMetrics: .default)
-//            toolBar.setShadowImage(35.ritl_p_image, forToolbarPosition: .any)
-        }
-        
+        toolBar.backgroundColor = 35.ritl_p_color.withAlphaComponent(0.7)
+
         let itemsContentView = UIView()
         itemsContentView.backgroundColor = .clear
         
+        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+        
         addSubview(toolBar)
+        toolBar.addSubview(effectView)
         addSubview(itemsContentView)
         itemsContentView.addSubview(previewButton)
         itemsContentView.addSubview(highButton)
         itemsContentView.addSubview(sendButton)
 
         toolBar.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        effectView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
@@ -135,6 +131,11 @@ public class RITLPhotosBottomBar: UIView {
         sendButton.frame.size = CGSize(width: max(size.width + 30, 65) , height: 30)
         sendButton.frame.origin.x = frame.size.width - sendButton.frame.size.width - 14
         sendButton.center.y = highButton.center.y
+    }
+    
+    
+    func updateToolBackgroundColor(color: UIColor) {
+        toolBar.backgroundColor = color
     }
     
     

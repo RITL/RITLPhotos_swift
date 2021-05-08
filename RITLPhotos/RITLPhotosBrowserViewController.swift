@@ -114,6 +114,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
         //导航栏的返回
         installNavigationItem()
         
+        bottomBar.updateToolBackgroundColor(color: 35.ritl_p_color.withAlphaComponent(0.4))
         bottomBar.previewButton.isHidden = true
         updateBottomSendButton()
         bottomBar.highButton.isSelected = dataManager.isHightQuality
