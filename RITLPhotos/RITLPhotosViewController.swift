@@ -23,21 +23,21 @@ protocol RITLPhotosViewControllerDelegate: AnyObject {
     /// 即将消失的回调
     /// - Parameter viewController: RITLPhotosViewController
     func photosViewControllerWillDismiss(viewController: UIViewController)
-    
+
     /// 获取权限失败的回调
     /// - Parameters:
     ///   - viewController: RITLPhotosViewController
     ///   - denied: 获取权限失败的权限
     func photosViewController(viewController: UIViewController, authorization denied: PHAuthorizationStatus)
-    
+
     /// 选中图片以及视频等资源的本地identifer
     /// 可通过本次的回调，填出二次选择时设置默认选好的资源
     /// - Parameters:
     ///   - viewController: RITLPhotosViewController
     ///   - identifiers: 选中资源的identifier
     func photosViewController(viewController: UIViewController, assetIdentifiers identifiers: [String])
-    
-    
+
+
     /// 选中图片以及视频等资源的默认缩略图
     /// 根据thumbnailSize设置所得，
     /// `如果thumbnailSize为.Zero,则不进行回调`
@@ -46,8 +46,8 @@ protocol RITLPhotosViewControllerDelegate: AnyObject {
     ///   - thumbnailImages: 选中资源的缩略图
     ///   - infos: 选中图片的缩略图信息
     func photosViewController(viewController: UIViewController, thumbnailImages: [UIImage], infos: [[AnyHashable : Any]])
-    
-    
+
+
     /// 选中图片以及视频等资源的数据
     /// 根据是否选中原图所得
     /// 如果为原图，则返回原图大小的数据
@@ -58,8 +58,8 @@ protocol RITLPhotosViewControllerDelegate: AnyObject {
     ///   - datas: 选中资源的Data类型
     ///   - infos: 选中图片的额外信息
     func photosViewController(viewController: UIViewController, datas: [Data], infos: [[AnyHashable : Any]])
-    
-    
+
+
     /// 选中图片以及视频等资源的源资源对象
     /// 如果需要使用源资源对象进行相关操作,可以通过该方法拿到数据
     /// - Parameters:
