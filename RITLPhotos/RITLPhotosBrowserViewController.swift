@@ -77,6 +77,14 @@ final class RITLPhotosBrowserViewController: UIViewController {
     private var topIndexLabel: UILabel!
     /// 底部的工具栏
     private let bottomBar = RITLPhotosBottomBar()
+    private lazy var bottomBarInfiniteFrame: CGRect = {
+        return CGRect(x: 0, y: view.bounds.height - RITLPhotoBarDistance.tabBar.height, width: view.bounds.width, height: RITLPhotoBarDistance.tabBar.height)
+    }()
+    /// 底部的处理view
+    private lazy var operatingView: RITLPhotosBrowserOperatingView = {
+        let operatingView = RITLPhotosBrowserOperatingView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 80))
+        return operatingView
+    }()
     /// 集合
     private lazy var collectionView: UICollectionView = {
         //flowLayout
@@ -92,7 +100,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
             view.backgroundColor = .black
             return view
         }()
-
+        
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
@@ -114,7 +122,9 @@ final class RITLPhotosBrowserViewController: UIViewController {
         //导航栏的返回
         installNavigationItem()
         
-        bottomBar.updateToolBackgroundColor(color: 35.ritl_p_color.withAlphaComponent(0.4))
+        /// 涉及后续的变换，采用frame
+        bottomBar.frame = bottomBarInfiniteFrame
+        bottomBar.updateToolBackgroundColor(color: 35.ritl_p_color.withAlphaComponent(0.5))
         bottomBar.previewButton.isHidden = true
         updateBottomSendButton()
         bottomBar.highButton.isSelected = dataManager.isHightQuality
@@ -139,14 +149,11 @@ final class RITLPhotosBrowserViewController: UIViewController {
             make.trailing.equalToSuperview().offset(RITLPhotosBrowserSpace)
         }
         
-        bottomBar.snp.makeConstraints { (make) in
-            make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalTo(RITLPhotoBarDistance.tabBar.height)
-        }
         
         //设置KVO
         countObservation = dataManager.observe(\.count, options: .new) { [weak self] (_, _) in
             self?.updateBottomSendButton()
+            self?.updateOperatingView()
         }
         
         isHightQualityObservation = dataManager.observe(\.isHightQuality, options: .new, changeHandler: { [weak self] (_, change) in
@@ -159,7 +166,8 @@ final class RITLPhotosBrowserViewController: UIViewController {
             //导航变换
             self?.toolBarShouldChanged(isHidden: notification.userInfo?[String.RITLPhotosBrowserVideoTapNotificationHiddenKey] as? Bool)
         }
-        
+        //更新底部的视图
+        updateOperatingView()
         //存在默认方法滚动即可
         guard let dataSource = dataSource else { return }
         DispatchQueue.main.async {
@@ -167,6 +175,8 @@ final class RITLPhotosBrowserViewController: UIViewController {
         }
         //更新顶部的标记
         updateTopSelectedControl(asset: dataSource.asset(at: dataSource.defaultIndexPath()), animated: false)
+        //更新底部的预览
+        updateOperating(asset: dataSource.asset(at: dataSource.defaultIndexPath()), reload: false)
     }
     
     
@@ -239,7 +249,10 @@ final class RITLPhotosBrowserViewController: UIViewController {
         }
     }
     
-
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
     deinit {
         ritl_p_print("\(type(of: self)) is deinit")
         countObservation = nil
@@ -259,18 +272,41 @@ final class RITLPhotosBrowserViewController: UIViewController {
         bottomBar.sendButton.isEnabled = !isEmpty
     }
     
+    /// 更新底部的操作视图
+    private func updateOperatingView() {
+        //如果是隐藏栏，同时隐藏
+        if bottomBar.isHidden { return }
+        //是否需要隐藏
+        let isHidden = (dataManager.count <= 0)
+        let isChanged = operatingView.isHidden == isHidden
+        //不存在选中图片，隐藏即可
+        operatingView.isHidden = isHidden
+        //重置frame
+        if isChanged {
+            let operatingViewHeight = operatingView.bounds.height
+            bottomBar.frame = isHidden ? bottomBarInfiniteFrame : bottomBarInfiniteFrame.inset(by: UIEdgeInsets(top: -operatingViewHeight, left: 0, bottom: 0, right: 0))
+        }
+        //
+        if operatingView.superview == nil {
+            bottomBar.addSubview(operatingView)
+            operatingView.frame.origin = CGPoint(x: 0, y: 0)
+        }
+    }
+    
     
     private func toolBarShouldChanged(isHidden: Bool? = nil) {
         //自主控制
         if let isHidden = isHidden {
             navigationController?.setNavigationBarHidden(isHidden, animated: false)
-            bottomBar.isHidden = isHidden; return
+            bottomBar.isHidden = isHidden
+            updateOperatingView(); return
         }
         //默认即可
         let isNavigationBarHidden = navigationController?.isNavigationBarHidden ?? false
         navigationController?.setNavigationBarHidden(!isNavigationBarHidden, animated: false)
         //底部
         bottomBar.isHidden = !bottomBar.isHidden
+        updateOperatingView()
     }
     
     /// 更新顶部的选中标记
@@ -299,7 +335,6 @@ final class RITLPhotosBrowserViewController: UIViewController {
         if (!topIndexLabel.isHidden || !animated) {
             topIndexLabel.text = "\(index + 1)"
             topIndexLabel.isHidden = !isSelected
-
         }
         //如果使用动画
         else if (animated) {
@@ -318,10 +353,14 @@ final class RITLPhotosBrowserViewController: UIViewController {
                 }
             }
         }
-        
         topSelectButton.isHidden = false
     }
     
+    /// 更新底部的排版
+    private func updateOperating(asset: PHAsset?, reload: Bool) {
+        guard let asset = asset else { return }
+        operatingView.dataSource.select(asset: asset, reload: reload)
+    }
     
     private func resetCached() {
         previousPreheatRect = .zero
@@ -372,6 +411,7 @@ extension RITLPhotosBrowserViewController: UICollectionViewDelegate {
             guard let asset = dataSource?.asset(at: IndexPath(item: index, section: 0)) else { return }
             //更新顶部即可
             updateTopSelectedControl(asset: asset, animated: false)
+            updateOperating(asset: asset, reload: true)
         }
         
         
@@ -420,10 +460,10 @@ extension RITLPhotosBrowserViewController {
         //只有可视化的区域与之前的区域有显著的区域变化才需要更新
         let delta = abs(preheatRect.midX - previousPreheatRect.midX)
         guard delta > (view.bounds.width / 3.0) else { return }
-
+        
         //获得比较后需要进行预加载以及需要停止缓存的区域
         let (addedRects, removedRects) = differencesBetweenRects(previousPreheatRect, preheatRect)
-
+        
         ///进行提前缓存的资源
         let addedAssets = addedRects
             .flatMap { rect in self.collectionView.ritl_p_indexPathsForElements(in: rect) }
@@ -433,7 +473,7 @@ extension RITLPhotosBrowserViewController {
         let removedAssets = removedRects
             .flatMap { rect in collectionView.ritl_p_indexPathsForElements(in: rect) }
             .compactMap { indexPath in self.dataSource?.asset(at: indexPath) }
-
+        
         let thimbnailSize = (collectionView.collectionViewLayout as? UICollectionViewFlowLayout)?.itemSize ?? UIScreen.main.bounds.size
         
         //更新缓存

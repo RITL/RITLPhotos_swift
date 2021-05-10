@@ -28,6 +28,8 @@ import Photos
     
     /// 选中资源的个数，可是使用KVO监控
     @objc dynamic private(set) var count = 0
+    /// 添加以及移除的observer
+    var addOrRemoveObserver: ((_ isAdd: Bool, _ assetId: String, _ index: Int?)->())?
     
     /// 默认选中的标志位，用来二次进入默认选中的标记
     var defaultIdentifiers = [String]() {
@@ -37,7 +39,6 @@ import Photos
             assetIdentifers = defaultIdentifiers
             assets.removeAll()
             assets = RITLFetchResultTransformer.toArray(result: PHAsset.fetchAssets(withLocalIdentifiers: defaultIdentifiers, options: nil))
-            
         }
     }
     
@@ -57,6 +58,8 @@ import Photos
     func add(asset: PHAsset) {
         assets.append(asset)
         assetIdentifers.append(asset.localIdentifier)
+        //进行回调
+        addOrRemoveObserver?(true, asset.localIdentifier, count - 1)
     }
     
     func remove(asset: PHAsset) {
@@ -66,7 +69,8 @@ import Photos
     }
     
     func remove(atIndex index: Int) {
-        assets.remove(at: index)
+        let asset = assets.remove(at: index)
+        addOrRemoveObserver?(false, asset.localIdentifier, index)
         assetIdentifers.remove(at: index)
     }
     
@@ -112,21 +116,23 @@ extension Array {
         //数字校验
         guard (0..<count).contains(index1), (0..<count).contains(index2) else { return }
         guard index1 != index2 else { return }
-        //开始变换
-        //前面的值
-        let ex1 = Swift.min(index1, index2)
-        //后面的值
-        let ex2 = index1 + index2 - ex1
-        //是否是最后一个
-        let ex2IsLast = (ex1 == count - 1)
-        //
-        let (obj2, obj1) = (remove(at: ex2),remove(at: ex1))
-        //进行插入
-        insert(obj2, at: ex1)
-        if ex2IsLast {
-            append(obj2)
-        } else {
-            insert(obj1, at: ex2)
-        }
+        //交换即可
+        (self[index1],self[index2]) = (self[index2],self[index1])
+//        //开始变换
+//        //前面的值
+//        let ex1 = Swift.min(index1, index2)
+//        //后面的值
+//        let ex2 = index1 + index2 - ex1
+//        //是否是最后一个
+//        let ex2IsLast = (ex1 == count - 1)
+//        //
+//        let (obj2, obj1) = (remove(at: ex2),remove(at: ex1))
+//        //进行插入
+//        insert(obj2, at: ex1)
+//        if ex2IsLast {
+//            append(obj2)
+//        } else {
+//            insert(obj1, at: ex2)
+//        }
     }
 }

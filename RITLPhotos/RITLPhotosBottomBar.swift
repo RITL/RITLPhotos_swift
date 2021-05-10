@@ -101,10 +101,11 @@ public class RITLPhotosBottomBar: UIView {
         effectView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
+
         itemsContentView.snp.makeConstraints { (make) in
-            make.leading.top.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.height.equalTo(RITLPhotoBarDistance.tabBar.normalHeight)
+            make.bottom.equalToSuperview().inset(RITLPhotoBarDistance.tabBar.safeDistance)
         }
 
         previewButton.snp.makeConstraints { (make) in

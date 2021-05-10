@@ -27,7 +27,7 @@ class RITLPhotoMainViewController: UIViewController {
     lazy var photoViewController: RITLPhotosViewController = {
         let viewController = RITLPhotosViewController()
         viewController.photo_delegate = self
-        
+
         let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout,
                                        sizeForItemAt: IndexPath(item: 0, section: 0))
         viewController.thumbnailSize = size

@@ -82,7 +82,7 @@ public class RITLPhotosCollectionViewCell: UICollectionViewCell {
         indexLabel.isHidden = true
         
         
-        shadowView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        shadowView.backgroundColor = UIColor.black.withAlphaComponent(0.4)
         shadowView.isHidden = true
         
         contentView.addSubview(iconImageView)

@@ -8,6 +8,7 @@
 
 import Foundation
 import Photos
+import UIKit
 
 ///
 public protocol RITLPhotosBrowserUpdater {
@@ -20,6 +21,7 @@ public protocol RITLPhotosBrowserUpdater {
 }
 
 public extension RITLPhotosBrowserUpdater {
+    
     
     func update(asset: PHAsset, at indexPath: IndexPath, imageManager: PHCachingImageManager) {}
     func play() {}
