@@ -138,11 +138,11 @@ final class RITLPhotosPhoneHeaderUtility: NSObject {
 public func hasPhoneHeader() -> Bool {
     //如果缓存为空，进行判断
     guard RITLPhotosPhoneHeaderUtility.hasPhoneHeaderStatus.isEmpty else {
-        ritl_p_print("我是取得缓存,我\(RITLPhotosPhoneHeaderUtility.hasPhoneHeader() ? "" : "不")是刘海屏")
+//        ritl_p_print("我是取得缓存,我\(RITLPhotosPhoneHeaderUtility.hasPhoneHeader() ? "" : "不")是刘海屏")
         return RITLPhotosPhoneHeaderUtility.hasPhoneHeader()
     }
     
-    ritl_p_print("deivice = \(UIScreen.main.bounds)")
+//    ritl_p_print("deivice = \(UIScreen.main.bounds)")
     //安全
     guard #available(iOS 11.0, *) else { RITLPhotosPhoneHeaderUtility.setHasNotPhoneHeader(); return false }
 //    ritl_p_print(UIApplication.shared.windows.first?.safeAreaInsets)

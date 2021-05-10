@@ -20,6 +20,8 @@ protocol RITLPhotosBrowserDataSource: UICollectionViewDataSource {
     func asset(at indexPath: IndexPath) -> PHAsset?
     /// 用于对collectionView进行操作
     func update(collectionView: UICollectionView)
+    /// 通过assetId获得indexPath
+    func indexPath(asset: PHAsset) -> IndexPath?
 }
 
 extension RITLPhotosBrowserDataSource {
@@ -290,6 +292,12 @@ final class RITLPhotosBrowserViewController: UIViewController {
         if operatingView.superview == nil {
             bottomBar.addSubview(operatingView)
             operatingView.frame.origin = CGPoint(x: 0, y: 0)
+            operatingView.dataSource.selectHandler = {[weak self] asset in
+                //无动画滚动到当前的位置
+                guard let indexPath = self?.dataSource?.indexPath(asset: asset) else { return }
+                //
+                self?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
+            }
         }
     }
     
@@ -379,7 +387,13 @@ final class RITLPhotosBrowserViewController: UIViewController {
     @objc func sendButtonDidTap() {
         RITLPhotosMaker.shareInstance().startMake {
             //需要停止播放即可
-            self.navigationController?.dismiss(animated: true, completion: nil)
+            self.dataManager.removeAll()
+            self.collectionView.reloadData()
+            //返回
+            self.navigationController?.dismiss(animated: true, completion: { [weak self] in
+                self?.disappearHandler?()
+                self?.navigationController?.popViewController(animated: false)
+            })
         }
     }
     
