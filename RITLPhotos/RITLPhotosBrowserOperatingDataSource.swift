@@ -51,7 +51,6 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
     private let imageManager = PHCachingImageManager()
     /// 选中的index
     private var selectIdentifier = ""
-    private var selectIndex = -1
     
     //采用简单的closure
     var selectHandler: ((_ asset: PHAsset)->())?
@@ -60,7 +59,6 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
         super.init()
         dataManager.addOrRemoveObserver = { [weak self] (isAdd, id, index) in
             self?.collectionView?.reloadData()
-            self?.adjustCollectionView()
         }
     }
     
@@ -76,7 +74,11 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
         selectIdentifier = asset.localIdentifier
         //之后的index
         let currentIndex = dataManager.assetIdentifers.firstIndex { $0 == selectIdentifier }
-        
+        defer {
+            DispatchQueue.main.async {
+                self.adjustCollectionView()////调整位置
+            }
+        }
         guard reload else { return }
         let items: [Int] = (beforeIndex == nil ? [] : [beforeIndex!]) + (currentIndex == nil ? [] : [currentIndex!])
         guard !items.isEmpty else { return }
@@ -86,7 +88,9 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
     
     /// 更正collectionView
     private func adjustCollectionView() {
-        
+        guard let currentIndex = (dataManager.assetIdentifers.firstIndex { $0 == selectIdentifier }) else { return }
+        //当前的index滚动
+        collectionView?.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredHorizontally, animated: true)
     }
     
     /// 绑定collectionView
@@ -155,6 +159,4 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
         guard selectIdentifier != asset.localIdentifier else { return }
         selectHandler?(asset)
     }
-    
-    
 }
