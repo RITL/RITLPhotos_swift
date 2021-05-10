@@ -58,7 +58,16 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
     public override init() {
         super.init()
         dataManager.addOrRemoveObserver = { [weak self] (isAdd, id, index) in
-            self?.collectionView?.reloadData()
+            guard let index = index else { return }
+            defer {
+                DispatchQueue.main.async {
+                    self?.adjustCollectionView()////调整位置
+                }
+            }
+            //添加
+            if isAdd { self?.collectionView?.insertItems(at: [IndexPath(item: index, section: 0)]); return }
+            //删除
+            self?.collectionView?.deleteItems(at: [IndexPath(item: index, section: 0)])
         }
     }
     

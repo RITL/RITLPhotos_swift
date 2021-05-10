@@ -70,8 +70,8 @@ import Photos
     
     func remove(atIndex index: Int) {
         let asset = assets.remove(at: index)
-        addOrRemoveObserver?(false, asset.localIdentifier, index)
         assetIdentifers.remove(at: index)
+        addOrRemoveObserver?(false, asset.localIdentifier, index)
     }
     
     func removeAll() {
