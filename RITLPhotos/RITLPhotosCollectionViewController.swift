@@ -253,6 +253,7 @@ public class RITLPhotosCollectionViewController: UIViewController {
         bottomBar.sendButton.isEnabled = !isEmpty
     }
     
+    
     @objc func highButtonDidTap() {
         updateStateBottomHighButton()
     }
@@ -359,6 +360,7 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
         return cell
     }
     
+    
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         //asset
         guard let asset = assets?.object(at: indexPath.item) else { return }
@@ -371,6 +373,7 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
             if isSelected {
                 cell.indexLabel.text = "\((dataManager.assetIdentifers.firstIndex(of: asset.localIdentifier) ?? 0) + 1)"
             }
+            cell.shadowView.isHidden = !isSelected
         }
         /// 视频样式
         if let cell = cell as? RITLPhotosVideoCollectionCell {
@@ -450,6 +453,8 @@ extension RITLPhotosCollectionViewController: RITLPhotosCollectionCellActionTarg
         }
         //获得各项参数
         let index = dataManager.addOrRemove(asset: asset)
+        //控制shadow
+        cell.shadowView.isHidden = !dataManager.contain(asset: asset)
         //执行回调
         complete?(.permit, index > 0, max(0, index))
         //如果是取消操作，刷新界面
