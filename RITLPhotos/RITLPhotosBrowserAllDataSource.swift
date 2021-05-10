@@ -40,6 +40,13 @@ public final class RITLPhotosBrowserAllDataSource: NSObject, RITLPhotosBrowserDa
         return IndexPath(item: assetResult.index(of: asset), section: 0)
     }
     
+    func indexPath(asset: PHAsset) -> IndexPath? {
+        guard assetResult.contains(asset) else { return nil }
+        let index = assetResult.index(of: asset)
+        return IndexPath(item: index, section: 0)
+    }
+
+    
     deinit {
         ritl_p_print("\(type(of: self)) is deinit")
     }

@@ -53,6 +53,9 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
     private var selectIdentifier = ""
     private var selectIndex = -1
     
+    //采用简单的closure
+    var selectHandler: ((_ asset: PHAsset)->())?
+    
     public override init() {
         super.init()
         dataManager.addOrRemoveObserver = { [weak self] (isAdd, id, index) in
@@ -77,7 +80,6 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
         guard reload else { return }
         let items: [Int] = (beforeIndex == nil ? [] : [beforeIndex!]) + (currentIndex == nil ? [] : [currentIndex!])
         guard !items.isEmpty else { return }
-        print("刷新啦!")
         //进行cell的刷新
         collectionView?.reloadItems(at: items.map { IndexPath(item: $0, section: 0) })
     }
@@ -93,6 +95,10 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
         collectionView.allowsMultipleSelection = false
         collectionView.alwaysBounceHorizontal = true
         collectionView.register(RITLPhotosBrowserOperatingCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+    }
+    
+    deinit {
+        ritl_p_print("\(type(of: self)) is deinit")
     }
     
     
@@ -144,11 +150,11 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
     
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let asset = dataManager.assets[indexPath.item]
+        //避免重复点击
+        guard selectIdentifier != asset.localIdentifier else { return }
+        selectHandler?(asset)
     }
     
     
-    public func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
-    }
 }

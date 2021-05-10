@@ -162,7 +162,7 @@ public class RITLPhotosBrowserNormalCollectionCell: RITLPhotosBrowserCollectionC
 //            { CGFloat(limit) / CGFloat(max(1, Int(iconImageView.bounds.size.height))) }() :
 //            { CGFloat(limit) / CGFloat(max(1, Int(iconImageView.bounds.size.width))) }())
 //        scrollView.maximumZoomScale = max(2,scale)
-        ritl_p_print("1")
+//        ritl_p_print("1")
     }
     
 }

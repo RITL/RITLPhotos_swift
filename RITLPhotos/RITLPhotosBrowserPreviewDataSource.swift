@@ -24,6 +24,12 @@ public class RITLPhotosBrowserPreviewDataSource: NSObject,RITLPhotosBrowserDataS
         return assets[indexPath.item]
     }
     
+    func indexPath(asset: PHAsset) -> IndexPath? {
+        guard assets.contains(asset) else { return nil }
+        guard let index = (assets.firstIndex { $0.localIdentifier == asset.localIdentifier }) else { return nil }
+        return IndexPath(item: index, section: 0)
+    }
+    
     //MARK: <UICollectionViewDataSource>
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return assets.count

@@ -46,4 +46,8 @@ public class RITLPhotosBrowserOperatingView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        ritl_p_print("\(type(of: self)) is deinit")
+    }
 }
