@@ -290,7 +290,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
         //如果没有选中直接隐藏即可
         guard isSelected else {
             self.topIndexLabel.isHidden = true
-            self.topSelectButton.isSelected = false
+            self.topSelectButton.isHidden = false
             return
         }
         //获得index
