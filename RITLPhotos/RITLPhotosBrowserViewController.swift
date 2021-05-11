@@ -84,7 +84,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
     }()
     /// 底部的处理view
     private lazy var operatingView: RITLPhotosBrowserOperatingView = {
-        let operatingView = RITLPhotosBrowserOperatingView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 80))
+        let operatingView = RITLPhotosBrowserOperatingView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 90))
         return operatingView
     }()
     /// 集合
@@ -151,6 +151,19 @@ final class RITLPhotosBrowserViewController: UIViewController {
             make.trailing.equalToSuperview().offset(RITLPhotosBrowserSpace)
         }
         
+        //注册交换观察
+        dataManager.exchangeObserver = { [weak self] (originalId, toProposedId) in
+            self.ritl_photo_withExtendedLifetime { `Self` in
+                //获得当前的索引
+                let index = `Self`.index(`Self`.collectionView)
+                //获得当前的id
+                let asset = `Self`.dataSource?.asset(at: IndexPath(item: index, section: 0))
+                //如果相等则更新即可
+                guard asset?.localIdentifier == originalId || asset?.localIdentifier == toProposedId else { return }
+                //更新底部即可
+                `Self`.updateTopSelectedControl(asset: asset, animated: false)
+            }
+        }
         
         //设置KVO
         countObservation = dataManager.observe(\.count, options: .new) { [weak self] (_, _) in
@@ -169,7 +182,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
             self?.toolBarShouldChanged(isHidden: notification.userInfo?[String.RITLPhotosBrowserVideoTapNotificationHiddenKey] as? Bool)
         }
         //更新底部的视图
-        updateOperatingView()
+        updateOperatingView(isInit: true)
         //存在默认方法滚动即可
         guard let dataSource = dataSource else { return }
         DispatchQueue.main.async {
@@ -275,27 +288,26 @@ final class RITLPhotosBrowserViewController: UIViewController {
     }
     
     /// 更新底部的操作视图
-    private func updateOperatingView() {
+    private func updateOperatingView(isInit: Bool = false) {
         //如果是隐藏栏，同时隐藏
         if bottomBar.isHidden { return }
         //是否需要隐藏
         let isHidden = (dataManager.count <= 0)
-        let isChanged = operatingView.isHidden == isHidden
+        let isChanged = operatingView.isHidden != isHidden
         //不存在选中图片，隐藏即可
         operatingView.isHidden = isHidden
         //重置frame
-        if isChanged {
+        if isChanged || isInit {
             let operatingViewHeight = operatingView.bounds.height
             bottomBar.frame = isHidden ? bottomBarInfiniteFrame : bottomBarInfiniteFrame.inset(by: UIEdgeInsets(top: -operatingViewHeight, left: 0, bottom: 0, right: 0))
         }
-        //
+        
         if operatingView.superview == nil {
             bottomBar.addSubview(operatingView)
             operatingView.frame.origin = CGPoint(x: 0, y: 0)
             operatingView.dataSource.selectHandler = {[weak self] asset in
                 //无动画滚动到当前的位置
                 guard let indexPath = self?.dataSource?.indexPath(asset: asset) else { return }
-                //
                 self?.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: false)
             }
         }
@@ -405,7 +417,9 @@ final class RITLPhotosBrowserViewController: UIViewController {
             return
         }
         //修改数据
-        dataManager.addOrRemove(asset: asset)
+        let index = dataManager.addOrRemove(asset: asset)
+        //更新底部选中状态
+        if index > 0 { updateOperating(asset: dataManager.assets[index - 1], reload: true) }
         //更新顶部即可
         updateTopSelectedControl(asset: asset, animated: true)
     }
@@ -419,7 +433,6 @@ extension RITLPhotosBrowserViewController: UICollectionViewDelegate {
         
         /// 计算当前的位置
         func adjustScrollIndex() {
-            
             let index = index(scrollView)
             //获得资源
             guard let asset = dataSource?.asset(at: IndexPath(item: index, section: 0)) else { return }
@@ -427,7 +440,6 @@ extension RITLPhotosBrowserViewController: UICollectionViewDelegate {
             updateTopSelectedControl(asset: asset, animated: false)
             updateOperating(asset: asset, reload: true)
         }
-        
         
         if (UIDevice.current.systemVersion as NSString).floatValue < 10.0 {
             updateCachedAsset()
@@ -438,6 +450,7 @@ extension RITLPhotosBrowserViewController: UICollectionViewDelegate {
         //计算
         adjustScrollIndex()
     }
+    
     
     /// 获得当前的index
     private func index(_ scrollView: UIScrollView) -> Int {

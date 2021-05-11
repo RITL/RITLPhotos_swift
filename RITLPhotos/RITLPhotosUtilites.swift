@@ -254,3 +254,12 @@ func ritl_p_print<T>(_ msg: T,
     #endif
 }
 
+
+extension Optional {
+    
+    func ritl_photo_withExtendedLifetime(body: (Wrapped) -> (Void)) {
+        if let strongSelf = self {
+            body(strongSelf)
+        }
+    }
+}

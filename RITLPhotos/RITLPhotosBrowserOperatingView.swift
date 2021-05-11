@@ -29,6 +29,7 @@ public class RITLPhotosBrowserOperatingView: UIView {
         }
         return collectionView
     }()
+
     
     /// 数据源即可
     let dataSource = RITLPhotosBrowserOperatingDataSource()
@@ -37,7 +38,7 @@ public class RITLPhotosBrowserOperatingView: UIView {
         super.init(frame: frame)
 
         addSubview(collectionView)
-
+        
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }

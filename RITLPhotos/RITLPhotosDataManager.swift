@@ -17,6 +17,9 @@ import Photos
     
     /// 是否为高质量，可以使用KVO监控
     @objc dynamic var isHightQuality = false
+    /// 选中资源的个数，可是使用KVO监控
+    @objc dynamic private(set) var count = 0
+    
     
     /// 选中资源的标记位
     private(set) var assetIdentifers = [String]() {
@@ -25,11 +28,11 @@ import Photos
         }
     }
     private(set) var assets = [PHAsset]()
-    
-    /// 选中资源的个数，可是使用KVO监控
-    @objc dynamic private(set) var count = 0
+
     /// 添加以及移除的observer
     var addOrRemoveObserver: ((_ isAdd: Bool, _ assetId: String, _ index: Int?)->())?
+    /// 交换的observer
+    var exchangeObserver: ((_ originalId: String, _ toProposedId: String)->())?
     
     /// 默认选中的标志位，用来二次进入默认选中的标记
     var defaultIdentifiers = [String]() {
@@ -79,9 +82,19 @@ import Photos
         assetIdentifers.removeAll()
     }
     
-    func exchange(atIndex1 index1: Int, index2: Int) {
-        assets.ritl_p_exchange(atIndex1: index1, index2: index2)
-        assetIdentifers.ritl_p_exchange(atIndex1: index1, index2: index2)
+    func exchange(atIndex1 index1: Int, to index2: Int) {
+        //资源
+        let asset = assets.remove(at: index1)
+        assets.insert(asset, at: index2)
+        //id
+        let id = assetIdentifers.remove(at: index1)
+        assetIdentifers.insert(id, at: index2)
+//        assets.ritl_p_exchange(atIndex1: index1, index2: index2)
+//        assetIdentifers.ritl_p_exchange(atIndex1: index1, index2: index2)
+//        print(assetIdentifers)
+        let originId = assetIdentifers.count > index2 ? assetIdentifers[index2] : ""
+        let toProposedId = assetIdentifers.count > index1 ? assetIdentifers[index1] : ""
+        exchangeObserver?(originId, toProposedId)
     }
     
     
@@ -109,30 +122,14 @@ import Photos
 }
 
 
-extension Array {
-    
-    /// 进行位置的交换
-    mutating func ritl_p_exchange(atIndex1 index1: Int, index2: Int) {
-        //数字校验
-        guard (0..<count).contains(index1), (0..<count).contains(index2) else { return }
-        guard index1 != index2 else { return }
-        //交换即可
-        (self[index1],self[index2]) = (self[index2],self[index1])
-//        //开始变换
-//        //前面的值
-//        let ex1 = Swift.min(index1, index2)
-//        //后面的值
-//        let ex2 = index1 + index2 - ex1
-//        //是否是最后一个
-//        let ex2IsLast = (ex1 == count - 1)
-//        //
-//        let (obj2, obj1) = (remove(at: ex2),remove(at: ex1))
-//        //进行插入
-//        insert(obj2, at: ex1)
-//        if ex2IsLast {
-//            append(obj2)
-//        } else {
-//            insert(obj1, at: ex2)
-//        }
-    }
-}
+//extension Array {
+//
+//    /// 进行位置的交换
+//    mutating func ritl_p_exchange(atIndex1 index1: Int, index2: Int) {
+//        //数字校验
+//        guard (0..<count).contains(index1), (0..<count).contains(index2) else { return }
+//        guard index1 != index2 else { return }
+//        //交换即可
+//        (self[index1],self[index2]) = (self[index2],self[index1])
+//    }
+//}
