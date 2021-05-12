@@ -208,9 +208,10 @@ public class RITLPhotosCollectionViewController: UIViewController {
                 //更新列表数据源
                 let topLevelDatas = topLevelItem?.datas as? [PHAssetCollection] ?? []
                 self.allAssetCollections = [regularItem.datas] + [topLevelDatas]
+                //重置位置
                 if resetPosition {
+                    self.groupPickerView.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                     self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-//                    self.collectionView.setContentOffset(.zero, animated: false)
                 }
                 //默认选择第一个
                 let assetCollection = regularItem.datas.first ?? (topLevelItem?.datas.first as? PHAssetCollection) ?? PHAssetCollection()
@@ -277,6 +278,10 @@ public class RITLPhotosCollectionViewController: UIViewController {
     }
     
     @objc func backItemDidTap() {
+        //如果顶部的相册没有隐藏，需要隐藏
+        if !groupPickerView.isHidden {
+            photosRowTableViewShouldDismiss(view: groupPickerView)
+        }
         //执行回调
         if let viewController = navigationController as? RITLPhotosViewController {
             RITLPhotosMaker.shareInstance().delegate?.photosViewControllerWillDismiss(viewController: viewController)
