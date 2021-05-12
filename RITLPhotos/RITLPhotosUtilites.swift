@@ -131,25 +131,36 @@ final class RITLPhotosPhoneHeaderUtility: NSObject {
     static func hasPhoneHeader() -> Bool {
         return RITLPhotosPhoneHeaderUtility.hasPhoneHeaderStatus == "1"
     }
+    
+    /// 状态栏高度缓存
+    static var statusBarHeight: CGFloat = {
+        guard ritl_photo_hasPhoneHeader() else { return 20 }
+        guard let window = UIApplication.shared.windows.first else { return 20 }
+        if #available(iOS 11.0, *) {
+            return window.safeAreaInsets.top
+        } else {
+            // Fallback on earlier versions
+            return 20
+        }
+    }()
 }
 
 
 /// 刘海屏判断
-public func hasPhoneHeader() -> Bool {
+public func ritl_photo_hasPhoneHeader() -> Bool {
     //如果缓存为空，进行判断
     guard RITLPhotosPhoneHeaderUtility.hasPhoneHeaderStatus.isEmpty else {
-//        ritl_p_print("我是取得缓存,我\(RITLPhotosPhoneHeaderUtility.hasPhoneHeader() ? "" : "不")是刘海屏")
         return RITLPhotosPhoneHeaderUtility.hasPhoneHeader()
     }
     
-//    ritl_p_print("deivice = \(UIScreen.main.bounds)")
     //安全
     guard #available(iOS 11.0, *) else { RITLPhotosPhoneHeaderUtility.setHasNotPhoneHeader(); return false }
-//    ritl_p_print(UIApplication.shared.windows.first?.safeAreaInsets)
+    
     //返回
     guard let window = UIApplication.shared.windows.first else { RITLPhotosPhoneHeaderUtility.setHasNotPhoneHeader(); return false }
     //获得底部的间距
     let bottom = window.safeAreaInsets.bottom
+    
 
     if bottom > 0 {
         RITLPhotosPhoneHeaderUtility.setHasPhoneHeader()
@@ -157,6 +168,12 @@ public func hasPhoneHeader() -> Bool {
         RITLPhotosPhoneHeaderUtility.setHasNotPhoneHeader()
     }
     return RITLPhotosPhoneHeaderUtility.hasPhoneHeader()
+}
+
+
+/// 状态栏的高度
+public func ritl_photo_statusBarHeight() -> CGFloat {
+    return RITLPhotosPhoneHeaderUtility.statusBarHeight
 }
 
 
@@ -183,9 +200,9 @@ extension RITLPhotoBarDistance {
     var height: CGFloat {
         switch self {
         case .navigationBar:
-            return hasPhoneHeader() ? 88 : 64
+            return 44 + ritl_photo_statusBarHeight()
         case .tabBar:
-            return hasPhoneHeader() ? 83 : 49
+            return ritl_photo_hasPhoneHeader() ? 83 : 49
         }
     }
     
@@ -193,9 +210,9 @@ extension RITLPhotoBarDistance {
     var safeDistance: CGFloat {
         switch self {
         case .navigationBar:
-            return hasPhoneHeader() ? 88 - 64 : 0
+            return ritl_photo_statusBarHeight() - 20
         case .tabBar:
-            return hasPhoneHeader() ? 83 - 49 : 0
+            return ritl_photo_hasPhoneHeader() ? 83 - 49 : 0
         }
     }
 }
