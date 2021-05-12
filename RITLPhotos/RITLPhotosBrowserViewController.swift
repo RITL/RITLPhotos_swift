@@ -152,14 +152,12 @@ final class RITLPhotosBrowserViewController: UIViewController {
         }
         
         //注册交换观察
-        dataManager.exchangeObserver = { [weak self] (originalId, toProposedId) in
+        dataManager.exchangeObserver = { [weak self]  in
             self.ritl_photo_withExtendedLifetime { `Self` in
                 //获得当前的索引
                 let index = `Self`.index(`Self`.collectionView)
                 //获得当前的id
                 let asset = `Self`.dataSource?.asset(at: IndexPath(item: index, section: 0))
-                //如果相等则更新即可
-                guard asset?.localIdentifier == originalId || asset?.localIdentifier == toProposedId else { return }
                 //更新底部即可
                 `Self`.updateTopSelectedControl(asset: asset, animated: false)
             }
@@ -398,9 +396,6 @@ final class RITLPhotosBrowserViewController: UIViewController {
     
     @objc func sendButtonDidTap() {
         RITLPhotosMaker.shareInstance().startMake {
-            //需要停止播放即可
-            self.dataManager.removeAll()
-            self.collectionView.reloadData()
             //返回
             self.navigationController?.dismiss(animated: true, completion: { [weak self] in
                 self?.disappearHandler?()

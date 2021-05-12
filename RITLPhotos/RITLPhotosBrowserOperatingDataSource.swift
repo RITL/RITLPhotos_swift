@@ -215,10 +215,7 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
         print(destinationIndexPath)
         let (sourceItem,destinationItem) = (sourceIndexPath.item,destinationIndexPath.item)
         guard sourceItem != destinationItem else { return } // 如果位置一样，不变化
-//        dataManager.exchange(atIndex1: sourceItem, index2: destinationItem)
         dataManager.exchange(atIndex1: sourceItem, to: destinationItem)//数据源交换
-        //刷新original位置的图片
-        
     }
     
     

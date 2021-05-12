@@ -32,7 +32,7 @@ import Photos
     /// 添加以及移除的observer
     var addOrRemoveObserver: ((_ isAdd: Bool, _ assetId: String, _ index: Int?)->())?
     /// 交换的observer
-    var exchangeObserver: ((_ originalId: String, _ toProposedId: String)->())?
+    var exchangeObserver: (()->())?
     
     /// 默认选中的标志位，用来二次进入默认选中的标记
     var defaultIdentifiers = [String]() {
@@ -84,17 +84,18 @@ import Photos
     
     func exchange(atIndex1 index1: Int, to index2: Int) {
         //资源
+        var assets = self.assets
         let asset = assets.remove(at: index1)
         assets.insert(asset, at: index2)
+        self.assets = assets
+        
         //id
-        let id = assetIdentifers.remove(at: index1)
-        assetIdentifers.insert(id, at: index2)
-//        assets.ritl_p_exchange(atIndex1: index1, index2: index2)
-//        assetIdentifers.ritl_p_exchange(atIndex1: index1, index2: index2)
-//        print(assetIdentifers)
-        let originId = assetIdentifers.count > index2 ? assetIdentifers[index2] : ""
-        let toProposedId = assetIdentifers.count > index1 ? assetIdentifers[index1] : ""
-        exchangeObserver?(originId, toProposedId)
+        var ids = assetIdentifers
+        let id = ids.remove(at: index1)
+        ids.insert(id, at: index2)
+        assetIdentifers = ids
+        
+        exchangeObserver?()
     }
     
     
