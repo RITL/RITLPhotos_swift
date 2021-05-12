@@ -59,9 +59,9 @@ public final class RITLPhotosMaker: NSObject {
         //如果代理为空，则不进行操作即可
         guard delegate != nil else { return }
         //按照代理进行返回
+        getThumbnailImages()
         getAssetIndentifiers()
         getOriginalAssets()
-        getThumbnailImages()
         getImageDatas()
         //执行
         complete?()
@@ -97,11 +97,17 @@ public final class RITLPhotosMaker: NSObject {
         var infos = [[AnyHashable : Any]?]()
         let options = PHImageRequestOptions()
         options.isSynchronous = true
-        for asset in RITLPhotosDataManager.shareInstance().assets {
+        let assets = RITLPhotosDataManager.shareInstance().assets
+        for asset in assets {
             imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: options) { (image, info) in
                 //追加
                 images.append(image)
                 infos.append(info)
+                //如果存在异常，表示删除
+                if info?["PHImageErrorKey"] != nil {
+                    //移除即可
+                    RITLPhotosDataManager.shareInstance().remove(asset: asset)
+                }
             }
         }
         //执行代理即可
