@@ -41,7 +41,9 @@ import Photos
             assetIdentifers.removeAll()
             assetIdentifers = defaultIdentifiers
             assets.removeAll()
-            assets = RITLFetchResultTransformer.toArray(result: PHAsset.fetchAssets(withLocalIdentifiers: defaultIdentifiers, options: nil))
+            assets = PHAsset.ritl_photo_fetchAssets(withLocalIdentifiers: assetIdentifers, options: nil)
+//            assets = RITLFetchResultTransformer.toArray(result: PHAsset.fetchAssets(withLocalIdentifiers: assetIdentifers, options: nil))
+            print("1")
         }
     }
     
@@ -77,10 +79,10 @@ import Photos
         addOrRemoveObserver?(false, asset.localIdentifier, index)
     }
     
-    func removeAll() {
-        assets.removeAll()
-        assetIdentifers.removeAll()
-    }
+//    func removeAll() {
+//        assets.removeAll()
+//        assetIdentifers.removeAll()
+//    }
     
     func exchange(atIndex1 index1: Int, to index2: Int) {
         //资源

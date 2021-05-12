@@ -204,5 +204,17 @@ extension PHAssetCollection {
             complete(self, self.localizedTitle, result.count, image, nil)
         }
     }
+}
+
+
+extension PHAsset {
     
+    /// 根据identifiers顺序返回并转成数组
+    /// 默认系统方法不会按照identifiers顺序返回result
+    class func ritl_photo_fetchAssets(withLocalIdentifiers identifiers: [String], options: PHFetchOptions?) -> [PHAsset] {
+        //返回即可
+        return (identifiers.reduce([PHAsset?]()) { result, identifier in
+            return result + [PHAsset.fetchAssets(withLocalIdentifiers: [identifier], options: nil).firstObject]
+        }).compactMap { $0 }
+    }
 }

@@ -121,7 +121,6 @@ public class RITLPhotosCollectionViewController: UIViewController {
         navigationItem.leftBarButtonItem = buttonItem
         //导航栏的titleView
         let titleView = UIView()
-//        titleView.backgroundColor = .orange
         //宽度
         let width: CGFloat = UIScreen.main.bounds.width - 60 * 2
         titleView.frame.size = CGSize(width: width, height: 44)
@@ -260,8 +259,6 @@ public class RITLPhotosCollectionViewController: UIViewController {
     
     @objc func sendButtonDidTap() {
         photoMaker.startMake {
-            self.dataManager.removeAll()
-            self.collectionView.reloadData()
             self.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
@@ -274,10 +271,6 @@ public class RITLPhotosCollectionViewController: UIViewController {
         //执行回调
         if let viewController = navigationController as? RITLPhotosViewController {
             RITLPhotosMaker.shareInstance().delegate?.photosViewControllerWillDismiss(viewController: viewController)
-            //清除所有的已选择数据
-            dataManager.removeAll()
-            //重新刷新当前数据
-            collectionView.reloadData()
         }
         navigationController?.dismiss(animated: true, completion: nil)
     }
@@ -372,6 +365,7 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
         guard let asset = assets?.object(at: indexPath.item) else { return }
         //是否选中
         let isSelected = dataManager.assetIdentifers.contains(asset.localIdentifier)
+        print(isSelected)
         //进行划分
         if let cell = cell as? RITLPhotosCollectionViewCell {
             cell.indexLabel.isHidden = !isSelected
