@@ -51,7 +51,7 @@ fileprivate extension RITLPhotosCollectionCellType {
 }
 
 
-typealias RITLPhotosBrowserWillPopHandler = ()->()
+typealias RITLPhotosBrowserWillPopHandler = (_ isDismiss: Bool)->()
 
 private let RITLPhotosBrowserSpace: CGFloat = 3
 
@@ -386,7 +386,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
     }
     
     @objc func backItemDidTap() {
-        disappearHandler?()
+        disappearHandler?(false)
         navigationController?.popViewController(animated: true)
     }
     
@@ -398,7 +398,7 @@ final class RITLPhotosBrowserViewController: UIViewController {
         RITLPhotosMaker.shareInstance().startMake {
             //返回
             self.navigationController?.dismiss(animated: true, completion: { [weak self] in
-                self?.disappearHandler?()
+                self?.disappearHandler?(true)
                 self?.navigationController?.popViewController(animated: false)
             })
         }

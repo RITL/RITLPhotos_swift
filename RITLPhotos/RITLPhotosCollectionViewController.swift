@@ -196,6 +196,11 @@ public class RITLPhotosCollectionViewController: UIViewController {
         }
     }
     
+    public override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        imageCache.removeAll()
+    }
+    
     
     func updateAllData(resetPosition: Bool = false) {
         guard self.isViewLoaded else { return }
@@ -286,6 +291,8 @@ public class RITLPhotosCollectionViewController: UIViewController {
         if let viewController = navigationController as? RITLPhotosViewController {
             RITLPhotosMaker.shareInstance().delegate?.photosViewControllerWillDismiss(viewController: viewController)
         }
+        imageCache.removeAll()
+        imageManager.stopCachingImagesForAllAssets()
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
@@ -314,8 +321,12 @@ public class RITLPhotosCollectionViewController: UIViewController {
             dataSource.assets = dataManager.assets
             return dataSource
         }()
-        viewController.disappearHandler = { [weak self] in
-            self?.collectionView.reloadData()
+        viewController.disappearHandler = { [weak self] isDismiss in
+            if !isDismiss {
+                self?.collectionView.reloadData(); return
+            }
+            self?.imageCache.removeAll()
+            self?.imageManager.stopCachingImagesForAllAssets()
         }
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -379,7 +390,7 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
         guard let asset = assets?.object(at: indexPath.item) else { return }
         //是否选中
         let isSelected = dataManager.assetIdentifers.contains(asset.localIdentifier)
-        print(isSelected)
+//        print(isSelected)
         //进行划分
         if let cell = cell as? RITLPhotosCollectionViewCell {
             cell.indexLabel.isHidden = !isSelected
@@ -394,6 +405,15 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSource {
             //设置时间显示
             cell.messageLabel.text = asset.duration.toString()
         }
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        //安全判定
+        guard indexPath.item < (assets?.count ?? 0) else { return }
+        //asset
+        guard let asset = assets?.object(at: indexPath.item) else { return }
+        //移除缓存
+        imageCache.removeValue(forKey: asset.localIdentifier)
     }
 }
 

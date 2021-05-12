@@ -148,11 +148,11 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
         case .changed:
             collectionView.updateInteractiveMovementTargetPosition(p)
         case .ended:
-            print("结束恢复")
+//            print("结束恢复")
             cell?.transform = .identity
             collectionView.endInteractiveMovement()
         default:
-            print("取消恢复")
+//            print("取消恢复")
             cell?.transform = .identity
             collectionView.cancelInteractiveMovement()
         }
@@ -181,8 +181,8 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
             var size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: indexPath)
             size = CGSize(width: size.width * UIScreen.main.scale, height: size.height * UIScreen.main.scale)
             cell.assetIdentifer = asset.localIdentifier
-            print(indexPath)
-            print(asset.localIdentifier)
+//            print(indexPath)
+//            print(asset.localIdentifier)
             //请求图片
             imageManager.requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: PHImageRequestOptions()) { (image, _) in
                 guard asset.localIdentifier == cell.assetIdentifer else { return }
@@ -211,8 +211,8 @@ public class RITLPhotosBrowserOperatingDataSource: NSObject, UICollectionViewDat
     
     
     public func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        print(sourceIndexPath)
-        print(destinationIndexPath)
+//        print(sourceIndexPath)
+//        print(destinationIndexPath)
         let (sourceItem,destinationItem) = (sourceIndexPath.item,destinationIndexPath.item)
         guard sourceItem != destinationItem else { return } // 如果位置一样，不变化
         dataManager.exchange(atIndex1: sourceItem, to: destinationItem)//数据源交换

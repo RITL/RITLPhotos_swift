@@ -43,7 +43,7 @@ import Photos
             assets.removeAll()
             assets = PHAsset.ritl_photo_fetchAssets(withLocalIdentifiers: assetIdentifers, options: nil)
 //            assets = RITLFetchResultTransformer.toArray(result: PHAsset.fetchAssets(withLocalIdentifiers: assetIdentifers, options: nil))
-            print("1")
+//            print("1")
         }
     }
     
