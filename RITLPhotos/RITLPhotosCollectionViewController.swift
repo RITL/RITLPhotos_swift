@@ -179,27 +179,7 @@ public class RITLPhotosCollectionViewController: UIViewController {
         
         //更新数据
         updateAssetCollection()
-        
-        //进行权限检测
-        PHPhotoLibrary.authorizationCheck { (status) in
-            //首先获得相册组
-            self.photoLibrary.fetchAlbumGroups(autoSort: true, needTopLevel: true) { (regularItem, topLevelItem) in
-                //如果都是空，则规避掉
-                guard regularItem.datas.count + (topLevelItem?.data?.count ?? 0) > 0 else { return }
-                //更新列表数据源
-                let topLevelDatas = topLevelItem?.datas as? [PHAssetCollection] ?? []
-                self.allAssetCollections = [regularItem.datas] + [topLevelDatas]
-                //默认选择第一个
-                let assetCollection = regularItem.datas.first ?? (topLevelItem?.datas.first as? PHAssetCollection) ?? PHAssetCollection()
-                self.updateCollection(collection: assetCollection)
-            }
-            
-        } deniedHander: { (status) in
-            
-            guard let viewController = self.navigationController as? RITLPhotosViewController else { return }
-            guard let delegate = RITLPhotosMaker.shareInstance().delegate else { return }
-            delegate.photosViewController(viewController: viewController, authorization: status)
-        }
+        updateAllData()
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -213,6 +193,35 @@ public class RITLPhotosCollectionViewController: UIViewController {
         //如果低于iOS10 启用自己的优化方案
         if (UIDevice.current.systemVersion as NSString).floatValue < 10.0 {
             updateCachedAsset()
+        }
+    }
+    
+    
+    func updateAllData(resetPosition: Bool = false) {
+        guard self.isViewLoaded else { return }
+        //进行权限检测
+        PHPhotoLibrary.authorizationCheck { (status) in
+            //首先获得相册组
+            self.photoLibrary.fetchAlbumGroups(autoSort: true, needTopLevel: true) { (regularItem, topLevelItem) in
+                //如果都是空，则规避掉
+                guard regularItem.datas.count + (topLevelItem?.data?.count ?? 0) > 0 else { return }
+                //更新列表数据源
+                let topLevelDatas = topLevelItem?.datas as? [PHAssetCollection] ?? []
+                self.allAssetCollections = [regularItem.datas] + [topLevelDatas]
+                if resetPosition {
+                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+//                    self.collectionView.setContentOffset(.zero, animated: false)
+                }
+                //默认选择第一个
+                let assetCollection = regularItem.datas.first ?? (topLevelItem?.datas.first as? PHAssetCollection) ?? PHAssetCollection()
+                self.updateCollection(collection: assetCollection)
+            }
+            
+        } deniedHander: { (status) in
+            
+            guard let viewController = self.navigationController as? RITLPhotosViewController else { return }
+            guard let delegate = RITLPhotosMaker.shareInstance().delegate else { return }
+            delegate.photosViewController(viewController: viewController, authorization: status)
         }
     }
     
@@ -422,12 +431,14 @@ extension RITLPhotosCollectionViewController: UICollectionViewDataSourcePrefetch
     
     @available(iOS 10.0, *)
     public func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        
         //size
         let size = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, sizeForItemAt: IndexPath(item: 0, section: 0))
         //Cache
         photo_queue.async {
-            self.imageManager.stopCachingImages(for: indexPaths.compactMap { self.assets?.object(at: $0.item) }, targetSize: size, contentMode: .aspectFill, options: nil)
+            self.imageManager.stopCachingImages(for: (indexPaths
+                                                        .filter { $0.item < (self.assets?.count ?? 0) })
+                                                        .compactMap { self.assets?.object(at: $0.item) },
+                                                targetSize: size, contentMode: .aspectFill, options: nil)
         }
     }
     
@@ -507,6 +518,8 @@ extension RITLPhotosCollectionViewController: RITLPhotosRowTableViewDelegate {
     public func photosRowTableView(view: RITLPhotosRowTableView, didTap indexPath: IndexPath) {
         //更新数据
         let collection = allAssetCollections[indexPath.section][indexPath.row]
+        //所有的缓存停止
+        imageManager.stopCachingImagesForAllAssets()
         //如果存在数据
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
         updateCollection(collection: collection)

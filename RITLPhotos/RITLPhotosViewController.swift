@@ -104,11 +104,12 @@ public class RITLPhotosViewController: UINavigationController {
             dataManager.defaultIdentifiers = defaultIdentifiers
         }
     }
-    
+
     
     ///
     private let maker = RITLPhotosMaker.shareInstance()
     private let dataManager = RITLPhotosDataManager.shareInstance()
+    private var shouldReload = false
     
     /// 配置
     let configuration = RITLPhotosConfigation.default()
@@ -131,6 +132,13 @@ public class RITLPhotosViewController: UINavigationController {
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard shouldReload else { self.shouldReload = true; return }
+        guard let viewController = viewControllers.first as? RITLPhotosCollectionViewController else { return }
+        viewController.updateAllData(resetPosition: true)
     }
     
     private func initPhotosViewController() {
