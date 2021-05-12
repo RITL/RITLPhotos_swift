@@ -66,6 +66,15 @@ protocol RITLPhotosViewControllerDelegate: AnyObject {
     ///   - viewController: RITLPhotosViewController
     ///   - assets: 选中的PHAsset对象
     func photosViewController(viewController: UIViewController, assets: [PHAsset])
+    
+    
+
+    /// 选中的图片中包含已经由于外部相册删除或者其他原因导致加载失败的资源对象
+    /// 删除后不在其他的回调中进行回调
+    /// - Parameters:
+    ///   - viewController: RITLPhotosViewController
+    ///   - datas: 数据，包含被删除资源的原有资源对象，被删除资源的原有id，被删除资源的原有排序以及可能存在的信息
+    func photosViewController(viewController: UIViewController, fail datas: [(asset: PHAsset, id: String, index: Int, info: [AnyHashable: Any]?)])
 }
 
 
@@ -77,6 +86,7 @@ extension RITLPhotosViewControllerDelegate {
     func photosViewController(viewController: UIViewController, datas: [Data], infos: [[AnyHashable : Any]]) {}
     func photosViewController(viewController: UIViewController, assets: [PHAsset]) {}
     func photosViewController(viewController: UIViewController, authorization denied: PHAuthorizationStatus) {}
+    func photosViewController(viewController: UIViewController, fail datas: [(asset: PHAsset, id: String, index: Int, info: [AnyHashable: Any]?)]) {}
 }
 
 

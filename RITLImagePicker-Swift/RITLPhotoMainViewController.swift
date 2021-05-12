@@ -104,6 +104,11 @@ extension RITLPhotoMainViewController: RITLPhotosViewControllerDelegate {
 //            print("Alert!")
 //        }
     }
+
+    
+    func photosViewController(viewController: UIViewController, fail datas: [(asset: PHAsset, id: String, index: Int, info: [AnyHashable: Any]?)]) {
+        ritl_p_print("您选择的资源中存在第\(datas.reduce(""){ $0 + " \($1.index + 1)"  })张已经删除或者其他不能加载问题的资源")
+    }
 }
 
 

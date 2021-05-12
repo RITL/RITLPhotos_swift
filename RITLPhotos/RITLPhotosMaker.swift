@@ -97,19 +97,26 @@ public final class RITLPhotosMaker: NSObject {
         var infos = [[AnyHashable : Any]?]()
         let options = PHImageRequestOptions()
         options.isSynchronous = true
+        var datas = [(asset: PHAsset, id: String, index: Int, info: [AnyHashable : Any]?)]()
         let assets = RITLPhotosDataManager.shareInstance().assets
-        for asset in assets {
+        for (index,asset) in assets.enumerated() {
             imageManager.requestImage(for: asset, targetSize: thumbnailSize, contentMode: .aspectFill, options: options) { (image, info) in
                 //追加
                 images.append(image)
                 infos.append(info)
                 //如果存在异常，表示删除
                 if info?["PHImageErrorKey"] != nil {
+                    datas.append((asset, asset.localIdentifier, index, info))
                     //移除即可
                     RITLPhotosDataManager.shareInstance().remove(asset: asset)
                 }
             }
         }
+        //资源中存在已经被删除的资源对象
+        if !datas.isEmpty {
+            delegate?.photosViewController(viewController: bindViewController ?? UIViewController(), fail: datas)
+        }
+
         //执行代理即可
         delegate?.photosViewController(viewController: bindViewController ?? UIViewController(), thumbnailImages: images.compactMap{ $0 }, infos: infos.compactMap{ $0 })
     }
