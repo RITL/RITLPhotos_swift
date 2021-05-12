@@ -1,21 +1,27 @@
-# RITLPhotos-Swift
+## RITLPhotos-Swift
 ![](https://img.shields.io/badge/platform-iOS-orange.svg)
 ![](https://img.shields.io/badge/language-Swift-orange.svg)
 ![](https://img.shields.io/badge/support-iOS9+-blue.svg)
 <div align="center"><img src="https://github.com/RITL/Swift-RITLImagePickerDemo/blob/master/RITLImagePicker-Swift/RITLPhotos.gif" height=500></img></div>
 
-## [上述动图版本](https://github.com/RITL/Swift-RITLImagePickerDemo/tree/version2.1)
+### [上述动图版本](https://github.com/RITL/Swift-RITLImagePickerDemo/tree/version2.1)
 
-# 依赖的库
+## 依赖的库
 ```
 pod 'SnapKit'
 ```
 
-# 要求
+## 要求
 - iOS 9.0+
 - Swift 5.0+
 
-# 使用方法
+## CocoaPods
+```
+use_frameworks!
+pod 'RITLPhotos_swift', '~> 2.1.0'
+```
+
+## 使用方法
 ```Swift
 let viewController = RITLPhotosViewController()
 viewController.photo_delegate = self           //代理
@@ -85,6 +91,6 @@ func photosViewController(viewController: UIViewController, assets: [PHAsset])
 func photosViewController(viewController: UIViewController, fail datas: [(asset: PHAsset, id: String, index: Int, info: [AnyHashable: Any]?)])
 ```
 
-# 之前版本
+## 之前版本
 
 - 请前往[Swift3.0版本](https://github.com/RITL/Swift-RITLImagePickerDemo/tree/swift3.0)分支获得之前版本的代码以及`README.md`
