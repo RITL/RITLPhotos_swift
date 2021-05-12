@@ -4,7 +4,6 @@
 ![](https://img.shields.io/badge/support-iOS9+-blue.svg)
 <div align="center"><img src="https://github.com/RITL/Swift-RITLImagePickerDemo/blob/master/RITLImagePicker-Swift/RITLPhotos.gif" height=500></img></div>
 
-### [上述动图版本](https://github.com/RITL/Swift-RITLImagePickerDemo/tree/version2.1)
 
 ## 依赖的库
 ```
