@@ -17,6 +17,7 @@ pod 'SnapKit'
 ## CocoaPods
 ```
 use_frameworks!
+
 pod 'RITLPhotos_swift', '~> 2.1.0'
 ```
 
