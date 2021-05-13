@@ -5,11 +5,6 @@
 <div align="center"><img src="https://github.com/RITL/Swift-RITLImagePickerDemo/blob/master/RITLImagePicker-Swift/RITLPhotos.gif" height=500></img></div>
 
 
-## 依赖的库
-```
-pod 'SnapKit'
-```
-
 ## 要求
 - iOS 9.0+
 - Swift 5.0+
@@ -18,7 +13,7 @@ pod 'SnapKit'
 ```
 use_frameworks!
 
-pod 'RITLPhotos_swift', '~> 2.1.0'
+pod 'RITLPhotos_swift', '~> 2.2.0'
 ```
 
 ## 使用方法
