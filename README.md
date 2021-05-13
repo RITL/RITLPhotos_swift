@@ -13,7 +13,7 @@
 ```
 use_frameworks!
 
-pod 'RITLPhotos_swift', '~> 2.2.0'
+pod 'RITLPhotos_swift', '~> 2.3.0'
 ```
 
 ## 使用方法
