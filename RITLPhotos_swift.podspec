@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
 
-  s.author           = { 'yuexiaowen' => 'yuexiaowen108@gmail.com' }
+  s.authors           = { 'yuexiaowen' => 'yuexiaowen108@gmail.com' }
   
   s.swift_versions = ['5.0']
 
