@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RITLPhotos_swift'
-  s.version          = '2.1.0'
+  s.version          = '2.2.0'
   s.summary          = 'PhotosPicker'
   s.description      = "The Swift5.0 verson of the RITLPhotos,模仿微信,正在改进和优化"
 
@@ -29,6 +29,5 @@ Pod::Spec.new do |s|
   s.frameworks    = "Foundation","UIKit","Photos","PhotosUI"
   s.resource     = 'RITLPhotos/Resource/RITLPhotos.bundle'
   
-  s.dependency 'SnapKit', '~> 4.0.1'
 
 end
