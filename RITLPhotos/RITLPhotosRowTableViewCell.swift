@@ -50,33 +50,60 @@ public class RITLPhotosRowTableViewCell: UITableViewCell {
         separatorView.backgroundColor = 70.ritl_p_color
         contentView.addSubview(separatorView)
         
-        iconImageView.snp.makeConstraints { (make) in
-            make.leading.top.bottom.equalToSuperview()
-            make.width.equalTo(iconImageView.snp.height)
-        }
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        iconImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor).isActive = true
         
-        titleLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(iconImageView.snp.trailing).offset(10)
-            make.centerY.equalToSuperview().offset(-0.25)
-            make.height.equalTo(21)
-        }
+//        iconImageView.snp.makeConstraints { (make) in
+//            make.leading.top.bottom.equalToSuperview()
+//            make.width.equalTo(iconImageView.snp.height)
+//        }
         
-        countLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(titleLabel.snp.trailing).offset(5)
-            make.centerY.equalTo(titleLabel)
-        }
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10).isActive = true
+        titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -0.25).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: 21).isActive = true
         
-        selectedImageView.snp.makeConstraints { (make) in
-            make.centerY.equalTo(titleLabel)
-            make.width.height.equalTo(15)
-            make.trailing.equalToSuperview().inset(15)
-        }
+//        titleLabel.snp.makeConstraints { (make) in
+//            make.leading.equalTo(iconImageView.snp.trailing).offset(10)
+//            make.centerY.equalToSuperview().offset(-0.25)
+//            make.height.equalTo(21)
+//        }
         
-        separatorView.snp.makeConstraints { (make) in
-            make.bottom.trailing.equalToSuperview()
-            make.height.equalTo(0.5)
-            make.leading.equalTo(iconImageView.snp.trailing)
-        }
+        countLabel.translatesAutoresizingMaskIntoConstraints = false
+        countLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 5).isActive = true
+        countLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
+        
+//        countLabel.snp.makeConstraints { (make) in
+//            make.leading.equalTo(titleLabel.snp.trailing).offset(5)
+//            make.centerY.equalTo(titleLabel)
+//        }
+        
+        selectedImageView.translatesAutoresizingMaskIntoConstraints = false
+        selectedImageView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
+        selectedImageView.widthAnchor.constraint(equalToConstant: 15).isActive = true
+        selectedImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        selectedImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15).isActive = true
+        
+//        selectedImageView.snp.makeConstraints { (make) in
+//            make.centerY.equalTo(titleLabel)
+//            make.width.height.equalTo(15)
+//            make.trailing.equalToSuperview().inset(15)
+//        }
+        
+        separatorView.translatesAutoresizingMaskIntoConstraints = false
+        separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        separatorView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        separatorView.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor).isActive = true
+        
+//        separatorView.snp.makeConstraints { (make) in
+//            make.bottom.trailing.equalToSuperview()
+//            make.height.equalTo(0.5)
+//            make.leading.equalTo(iconImageView.snp.trailing)
+//        }
     }
     
     required init?(coder: NSCoder) {

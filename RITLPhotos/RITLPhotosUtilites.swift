@@ -280,3 +280,17 @@ extension Optional {
         }
     }
 }
+
+
+extension UIView {
+    
+    /// 相当于 edges.equalTo(view)
+    func ritl_photos_anchorEdge(to view: UIView) {
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+}

@@ -145,11 +145,17 @@ final class RITLPhotosBrowserViewController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(bottomBar)
         
-        collectionView.snp.makeConstraints { (make) in
-            make.top.bottom.equalToSuperview()
-            make.leading.equalToSuperview().offset(-1 * RITLPhotosBrowserSpace)
-            make.trailing.equalToSuperview().offset(RITLPhotosBrowserSpace)
-        }
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: RITLPhotosBrowserSpace).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -1 * RITLPhotosBrowserSpace).isActive = true
+//
+//        collectionView.snp.makeConstraints { (make) in
+//            make.top.bottom.equalToSuperview()
+//            make.leading.equalToSuperview().offset(-1 * RITLPhotosBrowserSpace)
+//            make.trailing.equalToSuperview().offset(RITLPhotosBrowserSpace)
+//        }
         
         //注册交换观察
         dataManager.exchangeObserver = { [weak self]  in

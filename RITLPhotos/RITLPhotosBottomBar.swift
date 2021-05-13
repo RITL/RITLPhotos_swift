@@ -94,32 +94,51 @@ public class RITLPhotosBottomBar: UIView {
         itemsContentView.addSubview(highButton)
         itemsContentView.addSubview(sendButton)
 
-        toolBar.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
+        toolBar.ritl_photos_anchorEdge(to: self)
+//        toolBar.snp.makeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//        }
         
-        effectView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        effectView.ritl_photos_anchorEdge(to: toolBar)
+//        effectView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
 
-        itemsContentView.snp.makeConstraints { (make) in
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(RITLPhotoBarDistance.tabBar.normalHeight)
-            make.bottom.equalToSuperview().inset(RITLPhotoBarDistance.tabBar.safeDistance)
-        }
+        itemsContentView.translatesAutoresizingMaskIntoConstraints = false
+        itemsContentView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        itemsContentView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        itemsContentView.heightAnchor.constraint(equalToConstant: RITLPhotoBarDistance.tabBar.normalHeight).isActive = true
+        itemsContentView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1 * RITLPhotoBarDistance.tabBar.safeDistance).isActive = true
+        
+//        itemsContentView.snp.makeConstraints { (make) in
+//            make.leading.trailing.equalToSuperview()
+//            make.height.equalTo(RITLPhotoBarDistance.tabBar.normalHeight)
+//            make.bottom.equalToSuperview().inset(RITLPhotoBarDistance.tabBar.safeDistance)
+//        }
 
-        previewButton.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(12)
-            make.centerY.equalToSuperview()
-            make.width.equalTo(60)
-        }
+        previewButton.translatesAutoresizingMaskIntoConstraints = false
+        previewButton.leadingAnchor.constraint(equalTo: itemsContentView.leadingAnchor, constant: 12).isActive = true
+        previewButton.centerYAnchor.constraint(equalTo: itemsContentView.centerYAnchor).isActive = true
+        previewButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        
+//        previewButton.snp.makeConstraints { (make) in
+//            make.leading.equalToSuperview().offset(12)
+//            make.centerY.equalToSuperview()
+//            make.width.equalTo(60)
+//        }
 
-        highButton.snp.makeConstraints { (make) in
-            make.centerY.equalToSuperview()
-            make.centerX.equalToSuperview()
-            make.width.equalTo(60)
-            make.height.equalTo(33)
-        }
+        highButton.translatesAutoresizingMaskIntoConstraints = false
+        highButton.centerYAnchor.constraint(equalTo: itemsContentView.centerYAnchor).isActive = true
+        highButton.centerXAnchor.constraint(equalTo: itemsContentView.centerXAnchor).isActive = true
+        highButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        highButton.heightAnchor.constraint(equalToConstant: 33).isActive = true
+        
+//        highButton.snp.makeConstraints { (make) in
+//            make.centerY.equalToSuperview()
+//            make.centerX.equalToSuperview()
+//            make.width.equalTo(60)
+//            make.height.equalTo(33)
+//        }
         
         sendButton.frame = CGRect(x: 0, y: 0, width: 0, height: 30)
         sendButton.frame.size.width = 65

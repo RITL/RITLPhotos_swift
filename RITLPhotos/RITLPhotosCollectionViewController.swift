@@ -8,7 +8,6 @@
 
 import UIKit
 import Photos
-import SnapKit
 
 
 fileprivate extension RITLPhotosCollectionCellType {
@@ -126,18 +125,27 @@ public class RITLPhotosCollectionViewController: UIViewController {
         titleView.frame.size = CGSize(width: width, height: 44)
         navigationItem.titleView = titleView
         if (UIDevice.current.systemVersion as NSString).floatValue >= 13.0 {
-            titleView.snp.makeConstraints { (make) in
-                make.width.equalTo(width)
-                make.height.equalTo(44)
-            }
+            titleView.translatesAutoresizingMaskIntoConstraints = false
+            titleView.widthAnchor.constraint(equalToConstant: width).isActive = true
+            titleView.heightAnchor.constraint(equalToConstant: 44).isActive = true
+//            titleView.snp.makeConstraints { (make) in
+//                make.width.equalTo(width)
+//                make.height.equalTo(44)
+//            }
         }
         //追加导航标题
         titleView.addSubview(groupSwitchView)
-        groupSwitchView.snp.makeConstraints { (make) in
-            make.height.equalTo(44)
-            make.width.equalTo(width)
-            make.top.leading.equalToSuperview()
-        }
+        groupSwitchView.translatesAutoresizingMaskIntoConstraints = false
+        groupSwitchView.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        groupSwitchView.widthAnchor.constraint(equalToConstant: width).isActive = true
+        groupSwitchView.topAnchor.constraint(equalTo: titleView.topAnchor).isActive = true
+        groupSwitchView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor).isActive = true
+        
+//        groupSwitchView.snp.makeConstraints { (make) in
+//            make.height.equalTo(44)
+//            make.width.equalTo(width)
+//            make.top.leading.equalToSuperview()
+//        }
         
         //设置UI
         view.backgroundColor = 50.ritl_p_color
@@ -157,15 +165,21 @@ public class RITLPhotosCollectionViewController: UIViewController {
         bottomBar.sendButton.addTarget(self, action: #selector(sendButtonDidTap), for: .touchUpInside)
         bottomBar.previewButton.addTarget(self, action: #selector(previewButtonDidTap), for: .touchUpInside)
         
+        collectionView.ritl_photos_anchorEdge(to: view)
+//        collectionView.snp.remakeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//        }
         
-        collectionView.snp.remakeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
+        bottomBar.translatesAutoresizingMaskIntoConstraints = false
+        bottomBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        bottomBar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        bottomBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        bottomBar.heightAnchor.constraint(equalToConstant: RITLPhotoBarDistance.tabBar.height).isActive = true
         
-        bottomBar.snp.makeConstraints { (make) in
-            make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalTo(RITLPhotoBarDistance.tabBar.height)
-        }
+//        bottomBar.snp.makeConstraints { (make) in
+//            make.leading.bottom.trailing.equalToSuperview()
+//            make.height.equalTo(RITLPhotoBarDistance.tabBar.height)
+//        }
         
         //设置KVO
         countObservation = dataManager.observe(\.count, options: .new) { [weak self] (_, _) in

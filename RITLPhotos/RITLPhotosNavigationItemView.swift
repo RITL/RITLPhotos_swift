@@ -55,15 +55,23 @@ public class RITLPhotosNavigationItemView: UIView {
         stackView.isUserInteractionEnabled = false
         self.stackView = stackView
         
-        imageView.snp.makeConstraints { (make) in
-            make.height.width.equalTo(18)
-        }
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.heightAnchor.constraint(equalToConstant: 18).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 18).isActive = true
+        
+//        imageView.snp.makeConstraints { (make) in
+//            make.height.width.equalTo(18)
+//        }
+
         
         let width: CGFloat = UIScreen.main.bounds.width - 80 - 15
-        titleLabel.snp.makeConstraints { (make) in
-            make.height.equalTo(25)
-            make.width.lessThanOrEqualTo(width)
-        }
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        titleLabel.widthAnchor.constraint(lessThanOrEqualToConstant: width).isActive = true
+//        titleLabel.snp.makeConstraints { (make) in
+//            make.height.equalTo(25)
+//            make.width.lessThanOrEqualTo(width)
+//        }
         
         let contentView = UIView()
         contentView.backgroundColor = #colorLiteral(red: 0.3058823529, green: 0.2980392157, blue: 0.3019607843, alpha: 1)
@@ -78,25 +86,39 @@ public class RITLPhotosNavigationItemView: UIView {
         addSubview(control)
         addSubview(stackView)
         
-        stackView.snp.makeConstraints { (make) in
-            make.height.equalTo(25)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(9)
-            make.width.lessThanOrEqualTo(self)
-        }
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -9).isActive = true
+        stackView.widthAnchor.constraint(lessThanOrEqualTo: self.widthAnchor).isActive = true
+        
+//        stackView.snp.makeConstraints { (make) in
+//            make.height.equalTo(25)
+//            make.centerX.equalToSuperview()
+//            make.bottom.equalToSuperview().inset(9)
+//            make.width.lessThanOrEqualTo(self)
+//        }
         
 //        stackView.backgroundColor = .systemYellow
         
-        contentView.snp.makeConstraints { (make) in
-            make.height.equalTo(30)
-            make.leading.equalTo(stackView).offset(-10)
-            make.trailing.equalTo(stackView).offset(10)
-            make.bottom.equalToSuperview().inset(6.5)
-        }
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        contentView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: -10).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: 10).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6.5).isActive = true
         
-        control.snp.makeConstraints { (make) in
-            make.edges.equalTo(contentView)
-        }
+//        contentView.snp.makeConstraints { (make) in
+//            make.height.equalTo(30)
+//            make.leading.equalTo(stackView).offset(-10)
+//            make.trailing.equalTo(stackView).offset(10)
+//            make.bottom.equalToSuperview().inset(6.5)
+//        }
+        
+        control.ritl_photos_anchorEdge(to: contentView)
+//        
+//        control.snp.makeConstraints { (make) in
+//            make.edges.equalTo(contentView)
+//        }
     }
     
     /// 修改显示的标题

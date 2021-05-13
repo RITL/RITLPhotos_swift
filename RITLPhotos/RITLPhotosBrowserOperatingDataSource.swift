@@ -23,9 +23,12 @@ public class RITLPhotosBrowserOperatingCollectionViewCell: UICollectionViewCell 
         imageView.clipsToBounds = true
         
         contentView.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        
+        imageView.ritl_photos_anchorEdge(to: contentView)
+//
+//        imageView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
     }
     
     fileprivate func update(isSelected: Bool) {

@@ -58,9 +58,10 @@ public class RITLPhotosRowTableView: UIView {
             return view
         }()
         
-        control.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
+//        control.snp.makeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//        }
+        control.ritl_photos_anchorEdge(to: self)
     }
     
     

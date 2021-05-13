@@ -39,9 +39,16 @@ public class RITLPhotosBrowserOperatingView: UIView {
 
         addSubview(collectionView)
         
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        collectionView.ritl_photos_anchorEdge(to: self)
+//        collectionView.translatesAutoresizingMaskIntoConstraints  = false
+//        collectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+//        collectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+//        collectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+//        collectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+//
+//        collectionView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
     }
     
     required init?(coder: NSCoder) {

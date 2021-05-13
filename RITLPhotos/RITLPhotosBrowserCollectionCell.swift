@@ -88,13 +88,17 @@ public class RITLPhotosBrowserNormalCollectionCell: RITLPhotosBrowserCollectionC
         contentView.addSubview(scrollView)
         scrollView.addSubview(iconImageView)
         
-        scrollView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
+        scrollView.ritl_photos_anchorEdge(to: contentView)
+        iconImageView.ritl_photos_anchorEdge(to: scrollView)
+        iconImageView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+        iconImageView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+//        scrollView.snp.makeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//        }
         
-        iconImageView.snp.makeConstraints { (make) in
-            make.edges.height.width.equalToSuperview()
-        }
+//        iconImageView.snp.makeConstraints { (make) in
+//            make.edges.height.width.equalToSuperview()
+//        }
     }
     
     @objc func tapGestureDidAction(tapGesture: UITapGestureRecognizer) {
@@ -187,6 +191,8 @@ public class RITLPhotosBrowserLiveCollectionCell: RITLPhotosBrowserCollectionCel
     /// 单击手势
     private let tapGestureRecognizer = UITapGestureRecognizer()
     
+    private var liveConstraints = [NSLayoutConstraint]()
+    
     
     public override func buildView() {
         super.buildView()
@@ -202,20 +208,30 @@ public class RITLPhotosBrowserLiveCollectionCell: RITLPhotosBrowserCollectionCel
         contentView.addSubview(liveBadgeImageView)
         contentView.addSubview(liveLabel)
         
-        iconImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        iconImageView.ritl_photos_anchorEdge(to: contentView)
         
-        liveBadgeImageView.snp.makeConstraints { make in
-            make.height.width.equalTo(25)
-            make.leading.equalToSuperview().offset(10)
-            make.top.equalToSuperview().offset(RITLPhotoBarDistance.navigationBar.height + 18)
-        }
+//        iconImageView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
+        liveBadgeImageView.translatesAutoresizingMaskIntoConstraints = false
+        liveBadgeImageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        liveBadgeImageView.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        liveBadgeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        liveBadgeImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: RITLPhotoBarDistance.navigationBar.height + 18).isActive = true
         
-        liveLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(self.liveBadgeImageView)
-            make.leading.equalTo(self.liveBadgeImageView.snp.trailing).offset(3)
-        }
+//        liveBadgeImageView.snp.makeConstraints { make in
+//            make.height.width.equalTo(25)
+//            make.leading.equalToSuperview().offset(10)
+//            make.top.equalToSuperview().offset(RITLPhotoBarDistance.navigationBar.height + 18)
+//        }
+        
+        liveLabel.translatesAutoresizingMaskIntoConstraints = false
+        liveLabel.centerYAnchor.constraint(equalTo: liveBadgeImageView.centerYAnchor).isActive = true
+        liveLabel.leadingAnchor.constraint(equalTo: liveBadgeImageView.trailingAnchor, constant: 3).isActive = true
+//        liveLabel.snp.makeConstraints { make in
+//            make.centerY.equalTo(self.liveBadgeImageView)
+//            make.leading.equalTo(self.liveBadgeImageView.snp.trailing).offset(3)
+//        }
         
         //单击事件
         if #available(iOS 9.1, *) {
@@ -225,9 +241,14 @@ public class RITLPhotosBrowserLiveCollectionCell: RITLPhotosBrowserCollectionCel
             livePhotoView.isUserInteractionEnabled = false
             
             contentView.addSubview(livePhotoView)
-            livePhotoView.snp.makeConstraints { make in
-                make.center.equalTo(iconImageView)
-            }
+            livePhotoView.translatesAutoresizingMaskIntoConstraints = false
+            liveConstraints.append(livePhotoView.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor))
+            liveConstraints.append(livePhotoView.centerXAnchor.constraint(equalTo: iconImageView.centerXAnchor))
+            NSLayoutConstraint.activate(liveConstraints)
+//            livePhotoView.snp.makeConstraints { make in
+//                make.center.equalTo(iconImageView)
+//            }
+            
             contentView.addGestureRecognizer(tapGestureRecognizer)
             tapGestureRecognizer.numberOfTapsRequired = 1
             tapGestureRecognizer.addTarget(self, action: #selector(tapGestureDidAction(tapGesture:)))
@@ -237,10 +258,18 @@ public class RITLPhotosBrowserLiveCollectionCell: RITLPhotosBrowserCollectionCel
     public override func iconImageSetComplete() {
         guard let asset = asset else { return }
         if #available(iOS 9.1, *) {
-            livePhotoView.snp.remakeConstraints { make in
-                make.center.width.equalTo(iconImageView)
-                make.height.equalTo(UIScreen.main.bounds.width * CGFloat(asset.pixelHeight) / CGFloat(asset.pixelWidth))
-            }
+            //移除所有的约束
+            NSLayoutConstraint.deactivate(liveConstraints)
+            liveConstraints.append(livePhotoView.centerXAnchor.constraint(equalTo: iconImageView.centerXAnchor))
+            liveConstraints.append(livePhotoView.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor))
+            liveConstraints.append(livePhotoView.widthAnchor.constraint(equalTo: iconImageView.widthAnchor))
+            liveConstraints.append(livePhotoView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * CGFloat(asset.pixelHeight) / CGFloat(asset.pixelWidth)))
+            NSLayoutConstraint.activate(liveConstraints)
+//
+//            livePhotoView.snp.remakeConstraints { make in
+//                make.center.width.equalTo(iconImageView)
+//                make.height.equalTo(UIScreen.main.bounds.width * CGFloat(asset.pixelHeight) / CGFloat(asset.pixelWidth))
+//            }
         }
     }
     
@@ -297,14 +326,20 @@ public class RITLPhotosBrowserVideoCollectionCell: RITLPhotosBrowserCollectionCe
         contentView.addSubview(iconImageView)
         contentView.addSubview(playerImageView)
         
-        iconImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        iconImageView.ritl_photos_anchorEdge(to: contentView)
+//        iconImageView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
         
-        playerImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(80)
-            make.center.equalToSuperview()
-        }
+        playerImageView.translatesAutoresizingMaskIntoConstraints = false
+        playerImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        playerImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        playerImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        playerImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+//        playerImageView.snp.makeConstraints { make in
+//            make.width.height.equalTo(80)
+//            make.center.equalToSuperview()
+//        }
 
         //追加点击响应
         let tapGestureRecognizer = UITapGestureRecognizer()

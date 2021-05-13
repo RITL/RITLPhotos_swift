@@ -4,7 +4,7 @@ inhibit_all_warnings!
 
 target 'RITLImagePicker-Swift' do
 
-  pod 'SnapKit', '~> 4.0.1'
+#  pod 'SnapKit', '~> 4.0.1'
 
 end
 

@@ -90,24 +90,38 @@ public class RITLPhotosCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(chooseButton)
         contentView.addSubview(indexLabel)
         
-        iconImageView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
+        iconImageView.ritl_photos_anchorEdge(to: contentView)
+//        iconImageView.snp.makeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//        }
         
-        shadowView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
+        shadowView.ritl_photos_anchorEdge(to: contentView)
+//        shadowView.snp.makeConstraints { (make) in
+//            make.edges.equalToSuperview()
+//        }
         
-        chooseButton.snp.makeConstraints { (make) in
-            make.width.height.equalTo(40)
-            make.top.trailing.equalToSuperview()
-        }
+        chooseButton.translatesAutoresizingMaskIntoConstraints = false
+        chooseButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        chooseButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        chooseButton.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        chooseButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         
-        indexLabel.snp.makeConstraints { (make) in
-            make.width.height.equalTo(21)
-            make.trailing.equalToSuperview().inset(10)
-            make.top.equalToSuperview().offset(5)
-        }
+//        chooseButton.snp.makeConstraints { (make) in
+//            make.width.height.equalTo(40)
+//            make.top.trailing.equalToSuperview()
+//        }
+        
+        indexLabel.translatesAutoresizingMaskIntoConstraints = false
+        indexLabel.widthAnchor.constraint(equalToConstant: 21).isActive = true
+        indexLabel.heightAnchor.constraint(equalToConstant: 21).isActive = true
+        indexLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        indexLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
+        
+//        indexLabel.snp.makeConstraints { (make) in
+//            make.width.height.equalTo(21)
+//            make.trailing.equalToSuperview().inset(10)
+//            make.top.equalToSuperview().offset(5)
+//        }
     }
     
     /// 选择按钮被点击
@@ -166,11 +180,18 @@ public class RITLPhotosLiveCollectionCell: RITLPhotosCollectionViewCell {
         }
         
         contentView.addSubview(liveBadgeImageView)
-        liveBadgeImageView.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview().inset(3)
-            make.left.equalToSuperview().offset(3)
-            make.width.height.equalTo(28)
-        }
+        
+        liveBadgeImageView.translatesAutoresizingMaskIntoConstraints = false
+        liveBadgeImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3).isActive = true
+        liveBadgeImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 3).isActive = true
+        liveBadgeImageView.widthAnchor.constraint(equalToConstant: 28).isActive = true
+        liveBadgeImageView.heightAnchor.constraint(equalToConstant: 28).isActive = true
+        
+//        liveBadgeImageView.snp.makeConstraints { (make) in
+//            make.bottom.equalToSuperview().inset(3)
+//            make.left.equalToSuperview().offset(3)
+//            make.width.height.equalTo(28)
+//        }
     }
 }
 
@@ -188,7 +209,7 @@ public class RITLPhotosVideoCollectionCell: RITLPhotosCollectionViewCell {
     public override func addSubViews() {
         super.addSubViews()
         
-        messageView.backgroundColor = UIColor.black.withAlphaComponent(0.03)
+        messageView.backgroundColor = UIColor.black.withAlphaComponent(0.1)
         messageLabel.font = RITLPhotoFont.regular.font(size: 11)
         messageLabel.textAlignment = .right
         messageLabel.textColor = .white
@@ -200,24 +221,42 @@ public class RITLPhotosVideoCollectionCell: RITLPhotosCollectionViewCell {
         messageView.addSubview(messageImageView)
         messageView.addSubview(messageLabel)
         
-        messageView.snp.makeConstraints { (make) in
-            make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalTo(20)
-        }
+        messageView.translatesAutoresizingMaskIntoConstraints = false
+        messageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        messageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        messageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+        messageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-        messageImageView.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview().offset(5)
+//        messageView.snp.makeConstraints { (make) in
+//            make.leading.bottom.trailing.equalToSuperview()
+//            make.height.equalTo(20)
+//        }
+        
+        messageImageView.translatesAutoresizingMaskIntoConstraints = false
+        messageImageView.leadingAnchor.constraint(equalTo: messageView.leadingAnchor, constant: 5).isActive = true
+        messageImageView.centerYAnchor.constraint(equalTo: messageView.centerYAnchor).isActive = true
+        messageImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        messageImageView.widthAnchor.constraint(equalToConstant: 33).isActive = true
+        
+//        messageImageView.snp.makeConstraints { (make) in
+//            make.leading.equalToSuperview().offset(5)
+////            make.bottom.equalToSuperview()
+//            make.centerY.equalToSuperview()
+//            make.height.equalTo(20)
+//            make.width.equalTo(33)
+//        }
+        
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        messageLabel.leadingAnchor.constraint(equalTo: messageImageView.leadingAnchor).isActive = true
+        messageLabel.trailingAnchor.constraint(equalTo: messageView.trailingAnchor, constant: -3).isActive = true
+        messageLabel.bottomAnchor.constraint(equalTo: messageView.bottomAnchor).isActive = true
+        messageLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+//        messageLabel.snp.makeConstraints { (make) in
+//            make.leading.equalTo(messageImageView.snp.trailing)
+//            make.trailing.equalToSuperview().inset(3)
 //            make.bottom.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.height.equalTo(20)
-            make.width.equalTo(33)
-        }
-        
-        messageLabel.snp.makeConstraints { (make) in
-            make.leading.equalTo(messageImageView.snp.trailing)
-            make.trailing.equalToSuperview().inset(3)
-            make.bottom.equalToSuperview()
-            make.height.equalTo(20)
-        }
+//            make.height.equalTo(20)
+//        }
     }
 }
