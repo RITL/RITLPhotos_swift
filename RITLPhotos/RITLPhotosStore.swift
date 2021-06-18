@@ -9,10 +9,10 @@
 import UIKit
 import Photos
 
-typealias RITLPhotosAuthorizationHandler = (_ authorization: PHAuthorizationStatus)->()
+public typealias RITLPhotosAuthorizationHandler = (_ authorization: PHAuthorizationStatus)->()
 
 /// 类型
-struct RITLPhotosAlbumItem<Type,Element> {
+public struct RITLPhotosAlbumItem<Type,Element> {
     /// 存储的数据
     var data: Type? = nil
     /// 存储的数组数据
@@ -21,7 +21,7 @@ struct RITLPhotosAlbumItem<Type,Element> {
 
 
 
-extension PHPhotoLibrary {
+public extension PHPhotoLibrary {
     
     
     /// 获取所有的照片分组
@@ -119,7 +119,7 @@ extension PHPhotoLibrary {
 
 
 
-class RITLFetchResultTransformer {
+public class RITLFetchResultTransformer {
     
     /// 转成数组
     static func toArray<T>(result: PHFetchResult<T>) -> [T] {
@@ -165,8 +165,8 @@ fileprivate extension Array where Element: PHAssetCollection {
 }
 
 
-typealias RITLPHAssetCollectionToImageHandler = (_ collection: PHAssetCollection, _ title: String?, _ count: Int, _ image: UIImage?, _ requestID: PHImageRequestID?)->()
-extension PHAssetCollection {
+public typealias RITLPHAssetCollectionToImageHandler = (_ collection: PHAssetCollection, _ title: String?, _ count: Int, _ image: UIImage?, _ requestID: PHImageRequestID?)->()
+public extension PHAssetCollection {
     
     /// 获得PHAssetCollection对象的标题、张数、缩略图
     /// - Parameters:
@@ -207,7 +207,7 @@ extension PHAssetCollection {
 }
 
 
-extension PHAsset {
+public extension PHAsset {
     
     /// 根据identifiers顺序返回并转成数组
     /// 默认系统方法不会按照identifiers顺序返回result

@@ -9,10 +9,10 @@
 import UIKit
 
 
-extension UIColor {
+public extension UIColor {
     
     /// 生成图片
-    public var ritl_p_image : UIImage {
+    var ritl_p_image : UIImage {
         
         let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0)
         UIGraphicsBeginImageContext(rect.size)
@@ -35,7 +35,7 @@ extension UIColor {
     /// - Parameters:
     ///   - color: 第二种颜色
     ///   - percent: 默认0.5为中间色, color参数的比例
-    public func ritl_p_blend(color: UIColor = .white, percent: Double = 0.5) -> UIColor {
+    func ritl_p_blend(color: UIColor = .white, percent: Double = 0.5) -> UIColor {
         
         //自己的色值
         let fromRed = UnsafeMutablePointer<CGFloat>.allocate(capacity: 1)
@@ -83,10 +83,10 @@ extension UIColor {
 }
 
 
-extension Int{
+public extension Int{
     
     /// 生成颜色
-    public var ritl_p_color: UIColor {
+    var ritl_p_color: UIColor {
         
         if self < 0 { return .black }
         let color = self.ritl_p_colorBrightness
@@ -94,13 +94,13 @@ extension Int{
     }
     
     /// 生成图片
-    public var ritl_p_image : UIImage {
+    var ritl_p_image : UIImage {
         return self.ritl_p_color.ritl_p_image
     }
     
     
     /// 颜色的色值，self/255.0
-    public var ritl_p_colorBrightness: CGFloat {
+    var ritl_p_colorBrightness: CGFloat {
         
         if self < 0 || self > 255 { return 0 }
         return CGFloat(self) / 255
@@ -108,7 +108,7 @@ extension Int{
 
     
     /// 生成size
-    public var ritl_p_size: CGSize {
+    var ritl_p_size: CGSize {
         guard self > 0 else { return .zero }
         return CGSize(width: self, height: self)
     }
@@ -183,7 +183,8 @@ public enum RITLPhotoBarDistance {
     case tabBar
 }
 
-extension RITLPhotoBarDistance {
+
+public extension RITLPhotoBarDistance {
     
     /// 正常情况下的高度
     var normalHeight: CGFloat {
@@ -220,7 +221,7 @@ extension RITLPhotoBarDistance {
 
 
 /// 字体
-enum RITLPhotoFont: String {
+public enum RITLPhotoFont: String {
     
     case regular = "PingFangSC-Regular"
     case medium = "PingFangSC-Medium"
@@ -230,21 +231,21 @@ enum RITLPhotoFont: String {
 }
 
 
-extension RITLPhotoFont {
+public extension RITLPhotoFont {
     func font(size: CGFloat) -> UIFont {
         return UIFont.ritl_p_font(name: self.rawValue, size: size)
     }
 }
 
 
-extension UIFont {
+public extension UIFont {
     
     /// 根据字体名字获取font对象，如果不存在，返回系统默认字体
     ///
     /// - Parameters:
     ///   - name: 字体类型
     ///   - size: 字体大小
-    public class func ritl_p_font(name: String, size: CGFloat) -> UIFont{
+    class func ritl_p_font(name: String, size: CGFloat) -> UIFont{
         if let font = UIFont(name: name, size: size) {
             return font
         }
@@ -253,7 +254,7 @@ extension UIFont {
 }
 
 
-extension UICollectionView {
+public extension UICollectionView {
     
     func ritl_p_indexPathsForElements(in rect: CGRect) -> [IndexPath] {
         return collectionViewLayout.layoutAttributesForElements(in: rect)?.map{ $0.indexPath } ?? []

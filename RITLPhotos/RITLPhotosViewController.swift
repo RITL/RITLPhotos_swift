@@ -78,7 +78,7 @@ public protocol RITLPhotosViewControllerDelegate: AnyObject {
 }
 
 
-extension RITLPhotosViewControllerDelegate {
+public extension RITLPhotosViewControllerDelegate {
     
     func photosViewControllerWillDismiss(viewController: UIViewController) {}
     func photosViewController(viewController: UIViewController, assetIdentifiers identifiers: [String]) {}

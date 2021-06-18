@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RITLPhotos_swift'
-  s.version          = '2.3.0'
+  s.version          = '2.3.2'
   s.summary          = 'PhotosPicker'
   s.description      = "The Swift5.0 verson of the RITLPhotos,模仿微信,正在改进和优化"
 

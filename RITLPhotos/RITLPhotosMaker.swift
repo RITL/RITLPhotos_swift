@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 /// 生成图片
-public final class RITLPhotosMaker: NSObject {
+final class RITLPhotosMaker: NSObject {
     
     /// 局部单例
     private static weak var instance: RITLPhotosMaker?
@@ -41,7 +41,7 @@ public final class RITLPhotosMaker: NSObject {
     }
     
     
-    public override init() {
+    override init() {
         super.init()
         willDismissObserver = NotificationCenter.default.addObserver(forName: .RITLPhotosWillDismissNotificationName, object: nil, queue: nil) {[weak self] (_) in
             self?.dismissCallBack()
