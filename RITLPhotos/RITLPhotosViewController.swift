@@ -17,7 +17,7 @@ extension Notification.Name {
 }
 
 
-protocol RITLPhotosViewControllerDelegate: AnyObject {
+public protocol RITLPhotosViewControllerDelegate: AnyObject {
     
     
     /// 即将消失的回调
@@ -94,7 +94,7 @@ extension RITLPhotosViewControllerDelegate {
 public class RITLPhotosViewController: UINavigationController {
     
     /// 代理对象
-    weak var photo_delegate: RITLPhotosViewControllerDelegate? {
+    public weak var photo_delegate: RITLPhotosViewControllerDelegate? {
         didSet {
             maker.delegate = photo_delegate
             maker.bindViewController = self
@@ -102,14 +102,14 @@ public class RITLPhotosViewController: UINavigationController {
     }
     
     /// 缩略图的大小，默认为.zero
-    var thumbnailSize: CGSize = .zero {
+    public var thumbnailSize: CGSize = .zero {
         didSet {
             maker.thumbnailSize = thumbnailSize
         }
     }
     
     /// 默认选中的资源的id
-    var defaultIdentifiers = [String]() {
+    public var defaultIdentifiers = [String]() {
         didSet {
             dataManager.defaultIdentifiers = defaultIdentifiers
         }
@@ -122,7 +122,7 @@ public class RITLPhotosViewController: UINavigationController {
     private var shouldReload = false
     
     /// 配置
-    let configuration = RITLPhotosConfigation.default()
+    public let configuration = RITLPhotosConfigation.default()
     
     
     private override init(rootViewController: UIViewController) {
