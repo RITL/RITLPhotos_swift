@@ -2,6 +2,8 @@
 ![](https://img.shields.io/badge/platform-iOS-orange.svg)
 ![](https://img.shields.io/badge/language-Swift-orange.svg)
 ![](https://img.shields.io/badge/support-iOS9+-blue.svg)
+
+## 预览
 <div align="center"><img src="https://github.com/RITL/Swift-RITLImagePickerDemo/blob/master/RITLImagePicker-Swift/RITLPhotos.gif" height=500></img></div>
 
 
